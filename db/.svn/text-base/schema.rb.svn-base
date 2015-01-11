@@ -1,0 +1,646 @@
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 0) do
+	  create_table "contents", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "is_active",                     default: 1
+    t.string   "title"
+    t.string   "title_tag"
+    t.binary   "body"
+    t.string   "action_path"
+    t.string   "root_path"
+    t.string   "meta_keywords"
+    t.string   "meta_descriptions"
+    t.integer  "deleted",                       default: 0
+    t.string   "layout",            limit: 100
+    t.string   "breadcrumb"
+    t.string   "share_image",       limit: 512
+  end
+
+  add_index "contents", ["action_path", "root_path"], name: "action_path", using: :btree
+
+  create_table "countries", force: true do |t|
+    t.string "name", limit: 256
+    t.string "code", limit: 2
+  end
+
+  add_index "countries", ["code"], name: "code", using: :btree
+  add_index "countries", ["name"], name: "name", using: :btree
+
+  create_table "form_field_entries", force: true do |t|
+    t.integer  "form_field_id", limit: 8,                    null: false
+    t.string   "model_name",    limit: 20
+    t.integer  "model_id",                                   null: false
+    t.integer  "campaign_id",                                null: false
+    t.string   "email",         limit: 50,                   null: false
+    t.string   "entry_data",    limit: 1024
+    t.integer  "from_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "votes",                          default: 0, null: false
+    t.integer  "is_active",                      default: 1, null: false
+    t.integer  "leads",                          default: 0, null: false
+    t.binary   "img_data",      limit: 16777215
+  end
+
+  add_index "form_field_entries", ["form_field_id", "model_name", "model_id", "campaign_id"], name: "form_field_id", using: :btree
+
+  create_table "form_fields", force: true do |t|
+    t.string  "model_name",           limit: 20
+    t.integer "model_id"
+    t.integer "campaign_id"
+    t.string  "field_type",           limit: 25
+    t.string  "field_name",           limit: 250
+    t.integer "display_order",                    null: false
+    t.integer "required_field",                   null: false
+    t.integer "show_on_details_page",             null: false
+  end
+
+  create_table "mobile_analytics", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "mobile_campaign_id",              null: false
+    t.integer  "model_id",                        null: false
+    t.string   "model_name",         limit: 50,   null: false
+    t.string   "day_wise_metric",    limit: 2048
+    t.string   "web_impressions",    limit: 1024
+    t.integer  "month"
+    t.integer  "year"
+  end
+
+  add_index "mobile_analytics", ["model_id", "model_name"], name: "my_index", using: :btree
+
+  create_table "mobile_app_uuid_maps", force: true do |t|
+    t.integer  "mobile_app_id"
+    t.integer  "mobile_uuid_id"
+    t.datetime "last_seen_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mobile_apps", force: true do |t|
+    t.string   "name",       limit: 100, default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",                             null: false
+    t.integer  "is_active",              default: 1
+    t.string   "key"
+    t.string   "platform",   limit: 64,  default: ""
+  end
+
+  add_index "mobile_apps", ["key"], name: "key", unique: true, using: :btree
+
+  create_table "mobile_campaign_filters", force: true do |t|
+    t.string   "category"
+    t.string   "filter"
+    t.integer  "is_active"
+    t.string   "qual_input"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mobile_campaigns", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "model_name",               limit: 50
+    t.integer  "model_id"
+    t.string   "title",                    limit: 100
+    t.integer  "is_active",                            default: 1
+    t.integer  "impressions",                          default: 0
+    t.integer  "leads",                                default: 0
+    t.integer  "clicks",                               default: 0
+    t.datetime "campaign_data_updated_at"
+    t.integer  "mobile_app_id",                                    null: false
+  end
+
+  create_table "mobile_coupons", force: true do |t|
+    t.string   "email"
+    t.string   "name",                      limit: 100,  default: ""
+    t.string   "description",               limit: 512
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",                                                     null: false
+    t.integer  "is_active",                              default: 1
+    t.integer  "user_percentage",                        default: 100
+    t.string   "activity",                  limit: 512
+    t.string   "first_button_text",         limit: 128
+    t.string   "second_button_text",        limit: 128
+    t.string   "header_message",            limit: 128
+    t.string   "app_version_code",          limit: 128
+    t.string   "internet_connection_type",  limit: 64,   default: "all"
+    t.integer  "mobile_campaign_id",                                          null: false
+    t.string   "main_message"
+    t.string   "good_until_hour",           limit: 10,   default: "11:00 PM"
+    t.string   "good_until_timezone",       limit: 50
+    t.date     "good_until_date"
+    t.string   "coupon_code",               limit: 128
+    t.string   "version_support_condition", limit: 2,    default: ">"
+    t.string   "app_launch_condition",      limit: 10,   default: ">=",       null: false
+    t.integer  "app_launches_counter",                   default: 0,          null: false
+    t.string   "filters",                   limit: 2048
+  end
+
+  create_table "mobile_feedbacks", force: true do |t|
+    t.string   "email"
+    t.string   "name",                      limit: 100,  default: ""
+    t.string   "description",               limit: 512
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",                                                null: false
+    t.integer  "is_active",                              default: 1
+    t.integer  "user_percentage",                        default: 100
+    t.string   "activity",                  limit: 512,  default: ""
+    t.string   "first_button_text",         limit: 128
+    t.string   "second_button_text",        limit: 128
+    t.string   "header_message",            limit: 128
+    t.string   "app_version_code",          limit: 128,  default: ""
+    t.string   "internet_connection_type",  limit: 64,   default: "all"
+    t.integer  "mobile_campaign_id",                                     null: false
+    t.string   "main_message"
+    t.string   "version_support_condition", limit: 2,    default: "=",   null: false
+    t.string   "app_launch_condition",      limit: 10,   default: ">=",  null: false
+    t.integer  "app_launches_counter",                   default: 0,     null: false
+    t.string   "filters",                   limit: 2048
+  end
+
+  create_table "mobile_notifications", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "is_active"
+    t.integer  "mobile_campaign_id"
+    t.string   "header_message",            limit: 100,  default: "Popup",   null: false
+    t.string   "main_message",              limit: 500
+    t.string   "first_button_text",         limit: 30,   default: "OK",      null: false
+    t.string   "first_button_link",         limit: 1024
+    t.string   "second_button_text",        limit: 30,   default: "Not Now"
+    t.string   "app_version_code",          limit: 128
+    t.string   "internet_connection_type",  limit: 64,   default: "all"
+    t.integer  "user_percentage",                        default: 100
+    t.string   "activity",                  limit: 512
+    t.string   "version_support_condition", limit: 2,    default: "=",       null: false
+    t.integer  "app_launches_counter",                   default: 0,         null: false
+    t.string   "app_launch_condition",      limit: 10,   default: ">=",      null: false
+    t.string   "filters",                   limit: 2048
+  end
+
+  add_index "mobile_notifications", ["mobile_campaign_id"], name: "campaign_id", using: :btree
+
+  create_table "mobile_push_notifications", force: true do |t|
+    t.string   "email"
+    t.string   "name",                      limit: 100,  default: ""
+    t.string   "description",               limit: 512
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",                                                null: false
+    t.integer  "is_active",                              default: 1
+    t.integer  "user_percentage",                        default: 100
+    t.string   "activity",                  limit: 512,  default: ""
+    t.string   "first_button_text",         limit: 128
+    t.string   "second_button_text",        limit: 128
+    t.string   "header_message",            limit: 128
+    t.string   "app_version_code",          limit: 128,  default: ""
+    t.string   "internet_connection_type",  limit: 64,   default: "all"
+    t.integer  "mobile_campaign_id",                                     null: false
+    t.string   "main_message"
+    t.string   "version_support_condition", limit: 2,    default: "=",   null: false
+    t.string   "app_launch_condition",      limit: 10,   default: ">=",  null: false
+    t.integer  "app_launches_counter",                   default: 0,     null: false
+    t.string   "scheduling",                limit: 1024
+    t.time     "time"
+    t.string   "filters",                   limit: 2048
+  end
+
+  create_table "mobile_uuids", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "uuid",                          null: false
+    t.string   "operating_system"
+    t.float    "height"
+    t.float    "width"
+    t.string   "version"
+    t.string   "manufacturer"
+    t.string   "model"
+    t.string   "gcm_reg_id",       default: "", null: false
+  end
+
+  create_table "payment_plans", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "max_pages"
+    t.float    "prices"
+    t.integer  "white_label",                   default: 0, null: false
+    t.string   "name",               limit: 50
+    t.integer  "is_public",                     default: 0, null: false
+    t.integer  "vertical",                      default: 0
+    t.string   "duration",           limit: 20
+    t.integer  "display_order",                 default: 0, null: false
+    t.integer  "profile_limit",                             null: false
+    t.integer  "user_limit",                                null: false
+    t.integer  "mention_limit",                             null: false
+    t.integer  "monitoring_allowed",            default: 1, null: false
+    t.integer  "apps_allowed",                  default: 1, null: false
+    t.integer  "fan_limit"
+  end
+
+  create_table "twitter_analytics", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "twitter_campaign_id",              null: false
+    t.integer  "model_id",                         null: false
+    t.string   "model_name",          limit: 50,   null: false
+    t.string   "impression",          limit: 2048
+    t.string   "day_wise_metric",     limit: 2048
+  end
+
+  add_index "twitter_analytics", ["model_id", "model_name"], name: "my_index", using: :btree
+
+  create_table "twitter_campaign_entries", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "model_name",              limit: 20
+    t.integer  "model_id",                                       null: false
+    t.integer  "campaign_id",                                    null: false
+    t.integer  "user_twitter_account_id"
+    t.integer  "is_active",                          default: 1
+  end
+
+  add_index "twitter_campaign_entries", ["campaign_id", "user_twitter_account_id"], name: "campaign_id", unique: true, using: :btree
+  add_index "twitter_campaign_entries", ["model_name", "model_id", "campaign_id"], name: "form_field_id", using: :btree
+
+  create_table "twitter_campaigns", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "model_id"
+    t.string   "model_name",                    limit: 50
+    t.string   "website_id",                    limit: 100
+    t.string   "campaign_title",                limit: 100
+    t.integer  "is_active",                                 default: 1
+    t.integer  "visitors",                                  default: 0
+    t.integer  "leads",                                     default: 0
+    t.integer  "current_twitter_follower",                  default: 0
+    t.integer  "follower_gain_during_campaign",             default: 0
+    t.string   "handle",                        limit: 50
+    t.datetime "campaign_data_updated_at"
+    t.integer  "tweet_count"
+    t.integer  "retweet_count"
+    t.integer  "impressions",                               default: 0, null: false
+    t.datetime "last_updated_at"
+  end
+
+  create_table "twitter_offers", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "is_active"
+    t.string   "css",                        limit: 512
+    t.string   "image_link",                 limit: 512
+    t.text     "content",                    limit: 2147483647
+    t.integer  "asset_id"
+    t.integer  "twitter_campaign_id",                                                                                                                                                                     null: false
+    t.string   "tweet_text",                 limit: 256,        default: "Coupon for 25% off our 9/1 show at Lincoln Center http://bit.ly/1nMi4GS If 20 people retweet by 8pmET Friday, the deal is on!"
+    t.string   "good_until_hour",            limit: 10,         default: "11:00 PM",                                                                                                                      null: false
+    t.string   "good_until_timezone",        limit: 50,                                                                                                                                                   null: false
+    t.date     "good_until_date",                                                                                                                                                                         null: false
+    t.string   "coupon_code",                limit: 128
+    t.string   "handle",                     limit: 100,        default: "@superbowl"
+    t.string   "handle_image",               limit: 1024
+    t.integer  "total_count",                                   default: 0
+    t.string   "handle_name",                limit: 256
+    t.integer  "require_sign_in",                               default: 1
+    t.integer  "track_hashtag_and_retweets",                    default: 0
+    t.string   "hashtag_to_track",           limit: 256
+    t.string   "handle_to_track",            limit: 256
+    t.binary   "international_params"
+    t.string   "short_url",                  limit: 128
+  end
+
+  add_index "twitter_offers", ["twitter_campaign_id"], name: "campaign_id", using: :btree
+
+  create_table "twitter_virals", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "is_active"
+    t.string   "css",                    limit: 512
+    t.string   "image_link",             limit: 512
+    t.text     "content",                limit: 2147483647
+    t.integer  "fb_user_id"
+    t.integer  "asset_id"
+    t.integer  "twitter_campaign_id",                                                                                                                                                                 null: false
+    t.string   "tweet_text",             limit: 256,        default: "Coupon for 25% off our 9/1 show at Lincoln Center http://bit.ly/1nMi4GS If 20 people retweet by 8pmET Friday, the deal is on!"
+    t.integer  "tipping_point",                             default: 20,                                                                                                                              null: false
+    t.string   "tipping_point_hour",     limit: 10,         default: "11:00 PM",                                                                                                                      null: false
+    t.string   "tipping_point_timezone", limit: 50,                                                                                                                                                   null: false
+    t.date     "tipping_point_date",                                                                                                                                                                  null: false
+    t.integer  "how_to_redeem"
+    t.string   "coupon_code",            limit: 128
+    t.string   "affiliate_link",         limit: 1024
+    t.string   "handle",                 limit: 100,        default: "@superbowl"
+    t.string   "handle_image",           limit: 1024
+    t.integer  "count_till_tipping",                        default: 0
+    t.integer  "total_count",                               default: 0
+    t.string   "handle_name",            limit: 256
+    t.binary   "international_params"
+    t.string   "short_url",              limit: 128
+  end
+
+  add_index "twitter_virals", ["twitter_campaign_id"], name: "campaign_id", using: :btree
+
+  create_table "user_accounts", force: true do |t|
+    t.string  "user_email",  limit: 100
+    t.string  "password",    limit: 40
+    t.string  "imap_server", limit: 100
+    t.integer "imap_port"
+  end
+
+  create_table "user_audit_trails", force: true do |t|
+    t.datetime "created_at",             null: false
+    t.string   "name",        limit: 64
+    t.string   "email",       limit: 64, null: false
+    t.integer  "user_id",                null: false
+    t.datetime "last_login",             null: false
+    t.datetime "last_logout"
+    t.string   "ipaddress",   limit: 64
+  end
+
+  add_index "user_audit_trails", ["user_id"], name: "user_id", using: :btree
+
+  create_table "user_billings", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "payment_plan_id"
+    t.integer  "is_active"
+    t.string   "first_name",         limit: 100, default: ""
+    t.string   "last_name",          limit: 100, default: ""
+    t.string   "email",              limit: 100
+    t.string   "credit_card_number", limit: 17
+    t.string   "verification_code",  limit: 5
+    t.string   "credit_card_month",  limit: 11
+    t.string   "credit_card_year",   limit: 11
+    t.string   "address1",           limit: 100
+    t.string   "address2",           limit: 100
+    t.string   "city",               limit: 100
+    t.string   "state",              limit: 100
+    t.string   "zip",                limit: 30
+    t.string   "country",            limit: 10
+    t.string   "promo_code",         limit: 30
+    t.integer  "quantity"
+    t.integer  "plan_duration"
+  end
+
+  add_index "user_billings", ["payment_plan_id"], name: "index_user_billings_on_payment_plan_id", using: :btree
+  add_index "user_billings", ["user_id"], name: "index_user_billings_on_user_id", unique: true, using: :btree
+
+  create_table "user_monthly_views", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "website_id"
+    t.string   "month"
+    t.string   "year"
+    t.integer  "views"
+  end
+
+  create_table "user_payments", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "is_active"
+    t.integer  "payment_plan_id"
+    t.integer  "quantity"
+    t.string   "source",           limit: 50
+    t.integer  "ppl_payment_flag",            default: 0
+  end
+
+  add_index "user_payments", ["user_id"], name: "user_id", using: :btree
+  add_index "user_payments", ["user_id"], name: "user_id_2", unique: true, using: :btree
+
+  create_table "user_preferences", force: true do |t|
+    t.string   "email"
+    t.integer  "user_id"
+    t.string   "error_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email",                              default: "", null: false
+    t.string   "encrypted_password",                 default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "username"
+    t.string   "source",                 limit: 128
+    t.string   "code_sharing_mails",     limit: 512
+    t.integer  "is_active",                          default: 1,  null: false
+    t.integer  "bounce_email",                       default: 0
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "web_analytics", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "web_campaign_id",              null: false
+    t.integer  "model_id",                     null: false
+    t.string   "model_name",      limit: 50,   null: false
+    t.string   "day_wise_metric", limit: 2048
+    t.integer  "month"
+    t.integer  "year"
+  end
+
+  add_index "web_analytics", ["model_id", "model_name"], name: "my_index", using: :btree
+
+  create_table "web_campaign_filters", force: true do |t|
+    t.string  "category",   limit: 24,   null: false
+    t.string  "filter",     limit: 124,  null: false
+    t.integer "is_active",               null: false
+    t.string  "qual_input", limit: 2048
+  end
+
+  create_table "web_campaigns", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "model_id"
+    t.string   "model_name",               limit: 50
+    t.string   "website_id",               limit: 100
+    t.integer  "is_active",                            default: 1
+    t.integer  "views",                                default: 0
+    t.integer  "leads",                                default: 0
+    t.integer  "clicks",                               default: 0, null: false
+    t.datetime "campaign_data_updated_at"
+    t.integer  "impressions",                          default: 0, null: false
+    t.datetime "last_updated_at"
+    t.string   "title"
+  end
+
+  create_table "web_coupons", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "is_active"
+    t.string   "css",                           limit: 512
+    t.string   "image_link",                    limit: 512
+    t.text     "content",                       limit: 2147483647
+    t.integer  "asset_id"
+    t.integer  "web_campaign_id",                                                                                                                                                               null: false
+    t.string   "good_until_hour",               limit: 10,         default: "11:00 PM",                                                                                                         null: false
+    t.string   "good_until_timezone",           limit: 50
+    t.date     "good_until_date"
+    t.string   "coupon_code",                   limit: 128
+    t.integer  "total_count",                                      default: 0
+    t.integer  "require_share",                                    default: 1
+    t.binary   "international_params"
+    t.integer  "share_fb",                                         default: 1
+    t.integer  "share_twitter",                                    default: 1
+    t.integer  "share_linkedin",                                   default: 1
+    t.integer  "share_gplus",                                      default: 1
+    t.string   "tab_text",                      limit: 128,        default: "Coupon"
+    t.string   "text_color",                    limit: 10,         default: "ffffff"
+    t.string   "background_color",              limit: 10,         default: "3f6eba"
+    t.string   "border_color",                  limit: 10,         default: "3f6eba"
+    t.integer  "show_credits",                                     default: 1
+    t.integer  "tab_text_drop_shadow",                             default: 0
+    t.integer  "tab_alignment",                                    default: 1
+    t.integer  "open_on_click_of_element",                         default: 1
+    t.string   "open_on_click_of_element_name", limit: 256
+    t.string   "coupon_title",                                     default: "Flat 10% Off"
+    t.string   "coupon_description",            limit: 2048,       default: "Share by clicking  on any of the \"Share\" button below and an exclusive coupon code will appear on your screen.", null: false
+    t.string   "redirect_url",                  limit: 512
+    t.string   "email_name",                    limit: 50
+    t.string   "email_address",                 limit: 100
+    t.string   "title_background_color",        limit: 10,         default: "3f6eba",                                                                                                           null: false
+    t.string   "title_text_color",              limit: 10,         default: "fff",                                                                                                              null: false
+    t.string   "coupon_border_color",           limit: 10,         default: "3f6eba",                                                                                                           null: false
+    t.string   "coupon_background_color",       limit: 10,         default: "e5e6fc",                                                                                                           null: false
+    t.string   "coupon_text_color",             limit: 10,         default: "000",                                                                                                              null: false
+    t.string   "filters",                       limit: 2048
+  end
+
+  add_index "web_coupons", ["web_campaign_id"], name: "campaign_id", using: :btree
+
+  create_table "web_feedbacks", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "is_active"
+    t.string   "css",                           limit: 512
+    t.string   "image_link",                    limit: 512
+    t.text     "content",                       limit: 2147483647
+    t.integer  "asset_id"
+    t.integer  "web_campaign_id",                                                                                       null: false
+    t.string   "tab_text",                      limit: 128,        default: "Feedback"
+    t.string   "text_color",                    limit: 10,         default: "ebebeb"
+    t.string   "background_color",              limit: 10,         default: "3f6eba"
+    t.string   "border_color",                  limit: 10,         default: "000"
+    t.integer  "show_credits",                                     default: 1
+    t.integer  "tab_text_drop_shadow",                             default: 0
+    t.integer  "tab_alignment",                                    default: 0
+    t.integer  "open_on_click_of_element",                         default: 0
+    t.string   "open_on_click_of_element_name", limit: 256
+    t.string   "thank_you_message",             limit: 512,        default: "Your feedback has been successfully sent"
+    t.string   "routing",                       limit: 512
+    t.integer  "get_name",                                         default: 1,                                          null: false
+    t.integer  "get_mobile",                                       default: 1,                                          null: false
+    t.integer  "get_category",                                     default: 1,                                          null: false
+    t.integer  "get_message",                                      default: 1,                                          null: false
+    t.integer  "get_rating",                                       default: 1,                                          null: false
+    t.integer  "get_screenshot",                                   default: 1,                                          null: false
+    t.string   "form_title",                    limit: 256,        default: "Please give your valuable feedback ",      null: false
+    t.string   "title_background_color",        limit: 10,         default: "3f6eba",                                   null: false
+    t.string   "title_text_color",              limit: 10,         default: "ebebeb",                                   null: false
+    t.string   "form_border_color",             limit: 10,         default: "000",                                      null: false
+    t.string   "form_background_color",         limit: 10,         default: "dadafa",                                   null: false
+    t.string   "form_text_color",               limit: 10,         default: "000",                                      null: false
+    t.string   "action_background_color",       limit: 16,         default: "3f6eba",                                   null: false
+    t.string   "action_text_color",             limit: 16,         default: "ebebeb",                                   null: false
+    t.string   "send_to_email",                 limit: 64,         default: "",                                         null: false
+    t.string   "screenshot",                    limit: 1024
+    t.string   "filters",                       limit: 2048
+  end
+
+  add_index "web_feedbacks", ["web_campaign_id"], name: "campaign_id", using: :btree
+
+  create_table "web_notifications", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "is_active"
+    t.string   "css",                         limit: 512
+    t.string   "image_link",                  limit: 512
+    t.text     "content",                     limit: 2147483647
+    t.integer  "asset_id"
+    t.integer  "web_campaign_id",                                                                               null: false
+    t.string   "message",                     limit: 1024,       default: "Enter your notification text here."
+    t.string   "call_to_action_text",         limit: 256,        default: "Click!"
+    t.string   "call_to_action_url",          limit: 1024
+    t.integer  "call_to_action_new_window"
+    t.integer  "allow_close_notification",                       default: 1
+    t.integer  "allow_minimize_notification",                    default: 1
+    t.integer  "fixed_position",                                 default: 0
+    t.integer  "push_down_html",                                 default: 1
+    t.integer  "content_alignment",                              default: 0
+    t.string   "background_color",            limit: 10,         default: "eb593c",                             null: false
+    t.string   "text_color",                  limit: 10,         default: "fff",                                null: false
+    t.string   "border_color",                limit: 10,         default: "fff",                                null: false
+    t.string   "action_background_color",     limit: 10,         default: "000",                                null: false
+    t.string   "action_text_color",           limit: 10,         default: "fff",                                null: false
+    t.string   "action_border_color",         limit: 10,         default: "000",                                null: false
+    t.float    "opacity",                                        default: 1.0,                                  null: false
+    t.string   "filters",                     limit: 2048
+  end
+
+  add_index "web_notifications", ["web_campaign_id"], name: "campaign_id", using: :btree
+
+  create_table "websites", force: true do |t|
+    t.string   "name",       limit: 100, default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",                             null: false
+    t.integer  "is_active",              default: 1
+    t.string   "key"
+    t.string   "domain",     limit: 256
+  end
+
+  add_index "websites", ["key"], name: "key", unique: true, using: :btree
+
+  create_table "white_label_accounts", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "fb_api_key",                  limit: 128
+    t.string   "fb_secret",                   limit: 512
+    t.string   "twitter_access_token",        limit: 256
+    t.string   "twitter_access_token_secret", limit: 256
+    t.string   "linkedin_api_key",            limit: 256
+    t.string   "linkedin_secret_key",         limit: 256
+    t.string   "instagram_key"
+    t.string   "instagram_secret"
+  end
+
+end

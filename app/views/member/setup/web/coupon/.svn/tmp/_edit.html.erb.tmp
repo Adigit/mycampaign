@@ -1,0 +1,1003 @@
+<script type="text/javascript" src="/javascripts/colorpicker.js?v=5.3.6"></script>
+<style>
+  select, textarea {margin:0 5px;width:90% !important;font-weight:normal;}
+  input[type="text"] {margin: 5px 0 0 0}
+  .create-ex{margin-left:0 !important}
+  label{width:99% !important}
+  #preview{width:99%;height:900px}
+  .preview_link{float:left;width:auto;margin-right:40px;font-weight:bold;font-size:14px;}
+  .create-campaign-left-row label, .create-campaign-left-row input {width:auto !important;font-weight:bold !important;}
+  .create-campaign-left-row input {margin:0 5px !important;font-weight: normal !important;}
+  #campaign_good_until_timezone {width:63% !important;font-weight:normal !important;}
+  .btn_label {font-weight:normal !important;margin-left:-5px;font-size:13px !important;}
+  .app-preview {display: inline-block;margin-top:25px;width: 70.45%;border: 1px solid #ccc;vertical-align: top;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;}
+  .preview-container-main {height: 1000px;margin: 0 auto;background-color: #FFF;max-width: 990px;padding: 5px;width: 98%;display: block;clear: both;}
+  .toggleq {padding:0px !important;}
+  #background_color, #border_color, #text_color,#coupon_background_color, #coupon_border_color, #coupon_text_color,#title_background_color, #title_text_color {text-align: right;}
+  #colorSelector1, #colorSelector2, #colorSelector3,#colorSelector4, #colorSelector5, #colorSelector6 ,#colorSelector7, #colorSelector8 {margin-top: -4px;}
+  .custom-filters-li {margin-top:5px;}
+  .input_method_schemes {margin: 1px 0 0 9px !important;}
+  .custom-filters-li {margin-left:-6px;}
+  .remove_btn {float:left;margin-top:-37px;}
+</style>
+<h1 style="width:100% !important; text-align:left">Setup <%=@web_campaign.title%></h1>
+<div style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+<div class="create-campaign-left" style="width:28% !important;border-radius: 5px;border: 1px solid #808080;overflow: hidden;height: 1170px;margin-top: 25px;">
+  <form action="#" method="post" id="twitter_campaign_new">
+    <input id="campaign_id" name="campaign[id]" type="hidden" value="<%=params[:id]%>"/>
+    <input name="campaign[show_credits]" type="hidden" value="0"/>
+    <input name="campaign[tab_text_drop_shadow]" type="hidden" value="0"/>
+    <input name="campaign[tab_alignment]" type="hidden" value="0"/>
+    <input name="campaign[share_fb]" type="hidden" value="0"/>
+    <input name="campaign[share_twitter]" type="hidden" value="0"/>
+    <input name="campaign[share_linkedin]" type="hidden" value="0"/>
+    <input name="campaign[require_share]" type="hidden" value="0"/>
+    <input name="campaign[share_gplus]" type="hidden" value="0"/>
+    <ul class="expand">
+      <li>
+        <div onclick="custom_accordion('tab_cont','coupon','share','custom_filter','gen');" class="tools" >
+          <span class="col-circle">1</span>
+          <span class="tools_tab_name">Configure Tab</span>
+          <span style="float:right" class="arr_up" id="gen">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="tab_cont">
+            <div class="create-campaign-left-row">
+              <label style="width:100% !important;">Name of Tab :</label>
+              <input id="tab_text" maxlength="24" name="campaign[tab_text]" type="text" placeholder="Name of Tab" value="<%=@campaign.tab_text%>" />
+              <small class="create-ex create_campaign_note handle_note">e.g. Feedback</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Color of Tab Text :</label>
+              <div id="customWidget">
+                <div  id="colorSelector1">
+                  <div style="background-color: <%= @campaign.text_color%>;"></div>
+                </div>
+                <input id="text_color" name="campaign[text_color]" type="text" placeholder="Text Color" value="<%=@campaign.text_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. FFFFFF</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Background Color of Tab :</label>
+              <div id="customWidget">
+                <div  id="colorSelector2">
+                  <div style="background-color: <%= @campaign.background_color%>;"></div>
+                </div>
+                <input id="background_color" name="campaign[background_color]" type="text" placeholder="Background Color" value="<%=@campaign.background_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Border Color of Tab :</label>
+              <div id="customWidget">
+                <div  id="colorSelector3">
+                  <div style="background-color: <%= @campaign.border_color%>;"></div>
+                </div>
+                <input id="border_color" name="campaign[border_color]" type="text" placeholder="Border Color" value="<%=@campaign.border_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Background Color of Title Box :</label>
+              <div id="customWidget">
+                <div  id="colorSelector4">
+                  <div style="background-color: <%= @campaign.title_background_color%>;"></div>
+                </div>
+                <input id="title_background_color" name="campaign[title_background_color]" type="text" placeholder="Title Background Color" value="<%=@campaign.title_background_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Color of Title Text :</label>
+              <div id="customWidget">
+                <div  id="colorSelector5">
+                  <div style="background-color: <%= @campaign.title_text_color%>;"></div>
+                </div>
+                <input id="title_text_color" name="campaign[title_text_color]" type="text" placeholder="Title Text Color" value="<%=@campaign.title_text_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Border Color of Coupon :</label>
+              <div id="customWidget">
+                <div  id="colorSelector6">
+                  <div style="background-color: <%= @campaign.coupon_border_color%>;"></div>
+                </div>
+                <input id="coupon_border_color" name="campaign[coupon_border_color]" type="text" placeholder="Coupon Border Color" value="<%=@campaign.coupon_border_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Background Color of Coupon :</label>
+              <div id="customWidget">
+                <div  id="colorSelector7">
+                  <div style="background-color: <%= @campaign.coupon_background_color%>;"></div>
+                </div>
+                <input id="coupon_background_color" name="campaign[coupon_background_color]" type="text" placeholder="Coupon Background Color" value="<%=@campaign.coupon_background_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Text Color of Coupon :</label>
+              <div id="customWidget">
+                <div  id="colorSelector8">
+                  <div style="background-color: <%= @campaign.coupon_text_color%>;"></div>
+                </div>
+                <input id="coupon_text_color" name="campaign[coupon_text_color]" type="text" placeholder="Coupon Text Color" value="<%=@campaign.coupon_text_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Show Drop Shadow on Tab Text :</label>
+              <input id="drop_shadow" type="checkbox" name="campaign[tab_text_drop_shadow]" value="1" <%if @campaign.tab_text_drop_shadow==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Tab Alignment :</label>
+              <input type="radio" name="campaign[tab_alignment]" value="0" <%if @campaign.tab_alignment==0%>checked<%end%> /><label class="btn_label"> Left</label>
+              <input type="radio" name="campaign[tab_alignment]" value="1" <%if @campaign.tab_alignment==1%>checked<%end%> /><label class="btn_label"> Right</label>
+            </div>
+
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('coupon', 'tab_cont','custom_filter','share','head');" class="tools" >
+          <span class="col-circle">2</span>
+          <span class="tools_tab_name">Configure Coupon Details</span><span id="head" style="float:right" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="coupon">
+            <div class="create-campaign-left-row">
+              <label style="width:50% !important;">Coupon Title :</label>
+              <input id="coupon_title" maxlength="22" name="campaign[coupon_title]" type="text" placeholder="Coupon Title" value="<%=@campaign.coupon_title%>" />
+              <small class="create-ex create_campaign_note handle_note">e.g. Flat 10% Off</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Coupon Description :</label>
+              <textarea id="coupon_description" maxlength="225" rows="4" cols="4" name="campaign[coupon_description]" type="text" ><%=@campaign.coupon_description%></textarea>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label style="width:50% !important;">Coupon Code :</label>
+              <input id="coupon_code" maxlength="24" name="campaign[coupon_code]" type="text" placeholder="Coupon Code" value="<%=@campaign.coupon_code%>" />
+              <small class="create-ex create_campaign_note">e.g. F20OFF</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Offer Good Till Date :</label>
+              <input type="text" maxlength="10" name="campaign[good_until_date]" value="<%=@campaign.good_until_date%>" class="inputDate" id="inputDate"></input>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label style=" width: 98% !important; ">End Time for Offer :</label>
+              <select id="select_type" style="width:64% !important;" name="campaign[good_until_hour]">
+                <option value="1:00 AM" <%if(@campaign.good_until_hour == "1:00 AM")%>selected="true"<%end%>>1:00 AM</option>
+                <option value="2:00 AM" <%if(@campaign.good_until_hour == "2:00 AM")%>selected="true"<%end%>>2:00 AM</option>
+                <option value="3:00 AM" <%if(@campaign.good_until_hour == "3:00 AM")%>selected="true"<%end%>>3:00 AM</option>
+                <option value="4:00 AM" <%if(@campaign.good_until_hour == "4:00 AM")%>selected="true"<%end%>>4:00 AM</option>
+                <option value="5:00 AM" <%if(@campaign.good_until_hour == "5:00 AM")%>selected="true"<%end%>>5:00 AM</option>
+                <option value="6:00 AM" <%if(@campaign.good_until_hour == "6:00 AM")%>selected="true"<%end%>>6:00 AM</option>
+                <option value="7:00 AM" <%if(@campaign.good_until_hour == "7:00 AM")%>selected="true"<%end%>>7:00 AM</option>
+                <option value="8:00 AM" <%if(@campaign.good_until_hour == "8:00 AM")%>selected="true"<%end%>>8:00 AM</option>
+                <option value="9:00 AM" <%if(@campaign.good_until_hour == "9:00 AM")%>selected="true"<%end%>>9:00 AM</option>
+                <option value="10:00 AM" <%if(@campaign.good_until_hour == "10:00 AM")%>selected="true"<%end%>>10:00 AM</option>
+                <option value="11:00 AM" <%if(@campaign.good_until_hour == "11:00 AM")%>selected="true"<%end%>>11:00 AM</option>
+                <option value="12:00 AM" <%if(@campaign.good_until_hour == "12:00 AM")%>selected="true"<%end%>>Midnight</option>
+                <option value="1:00 PM" <%if(@campaign.good_until_hour == "1:00 PM")%>selected="true"<%end%>>1:00 PM</option>
+                <option value="2:00 PM" <%if(@campaign.good_until_hour == "2:00 PM")%>selected="true"<%end%>>2:00 PM</option>
+                <option value="3:00 PM" <%if(@campaign.good_until_hour == "3:00 PM")%>selected="true"<%end%>>3:00 PM</option>
+                <option value="4:00 PM" <%if(@campaign.good_until_hour == "4:00 PM")%>selected="true"<%end%>>4:00 PM</option>
+                <option value="5:00 PM" <%if(@campaign.good_until_hour == "5:00 PM")%>selected="true"<%end%>>5:00 PM</option>
+                <option value="6:00 PM" <%if(@campaign.good_until_hour == "6:00 PM")%>selected="true"<%end%>>6:00 PM</option>
+                <option value="7:00 PM" <%if(@campaign.good_until_hour == "7:00 PM")%>selected="true"<%end%>>7:00 PM</option>
+                <option value="8:00 PM" <%if(@campaign.good_until_hour == "8:00 PM")%>selected="true"<%end%>>8:00 PM</option>
+                <option value="9:00 PM" <%if(@campaign.good_until_hour == "9:00 PM")%>selected="true"<%end%>>9:00 PM</option>
+                <option value="10:00 PM" <%if(@campaign.good_until_hour == "10:00 PM")%>selected="true"<%end%>>10:00 PM</option>
+                <option value="11:00 PM" <%if(@campaign.good_until_hour == "11:00 PM")%>selected="true"<%end%>>11:00 PM</option>
+                <option value="12:00 PM" <%if(@campaign.good_until_hour == "12:00 PM")%>selected="true"<%end%>>Noon</option>
+              </select>
+            </div>
+
+
+            <%
+            utc_offset = nil
+            if !@campaign.blank? && !@campaign.good_until_timezone.blank?
+              utc_offset = @campaign.good_until_timezone.to_f
+            end%>
+
+            <div class="create-campaign-left-row">
+              <label style=" width: 98% !important; ">Time zone :</label>
+              <select name="campaign[good_until_timezone]" style=" width: 64% !important; " id="campaign_good_until_timezone">
+                <option value="0.1" <%if(utc_offset == 0.1)%>selected="true"<%end%>>Select Your Timezone</option>
+                <option value="-12.0" <%if(utc_offset == -12.0)%>selected="true"<%end%>>(GMT -12:00) Eniwetok, Kwajalein</option>
+                <option value="-11.0" <%if(utc_offset == -11.0)%>selected="true"<%end%>>(GMT -11:00) Midway Island, Samoa</option>
+                <option value="-10.0" <%if(utc_offset == -10.0)%>selected="true"<%end%>>(GMT -10:00) Hawaii</option>
+                <option value="-9.0" <%if(utc_offset == -9.0)%>selected="true"<%end%>>(GMT -9:00) Alaska</option>
+                <option value="-8.0" <%if(utc_offset == -8.0)%>selected="true"<%end%>>(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+                <option value="-7.0" <%if(utc_offset == -7.0)%>selected="true"<%end%>>(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+                <option value="-6.0" <%if(utc_offset == -6.0)%>selected="true"<%end%>>(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+                <option value="-5.0" <%if(utc_offset == -5.0)%>selected="true"<%end%>>(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                <option value="-4.0" <%if(utc_offset == -4.0)%>selected="true"<%end%>>(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+                <option value="-3.5" <%if(utc_offset == -3.5)%>selected="true"<%end%>>(GMT -3:30) Newfoundland</option>
+                <option value="-3.0" <%if(utc_offset == -3.0)%>selected="true"<%end%>>(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+                <option value="-2.0" <%if(utc_offset == -2.0)%>selected="true"<%end%>>(GMT -2:00) Mid-Atlantic</option>
+                <option value="-1.0" <%if(utc_offset == -1.0)%>selected="true"<%end%>>(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+                <option value="0.0" <%if(utc_offset == 0.0)%>selected="true"<%end%>>(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                <option value="1.0" <%if(utc_offset == 1.0)%>selected="true"<%end%>>(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+                <option value="2.0" <%if(utc_offset == 2.0)%>selected="true"<%end%>>(GMT +2:00) Kaliningrad, South Africa</option>
+                <option value="3.0" <%if(utc_offset == 3.0)%>selected="true"<%end%>>(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+                <option value="3.5" <%if(utc_offset == 3.5)%>selected="true"<%end%>>(GMT +3:30) Tehran</option>
+                <option value="4.0" <%if(utc_offset == 4.0)%>selected="true"<%end%>>(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+                <option value="4.5" <%if(utc_offset == 4.5)%>selected="true"<%end%>>(GMT +4:30) Kabul</option>
+                <option value="5.0" <%if(utc_offset == 5.0)%>selected="true"<%end%>>(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                <option value="5.5" <%if(utc_offset == 5.5)%>selected="true"<%end%>>(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+                <option value="5.75" <%if(utc_offset == 5.75)%>selected="true"<%end%>>(GMT +5:45) Kathmandu</option>
+                <option value="6.0" <%if(utc_offset == 6.0)%>selected="true"<%end%>>(GMT +6:00) Almaty, Dhaka, Colombo</option>
+                <option value="7.0" <%if(utc_offset == 7.0)%>selected="true"<%end%>>(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+                <option value="8.0" <%if(utc_offset == 8.0)%>selected="true"<%end%>>(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+                <option value="9.0" <%if(utc_offset == 9.0)%>selected="true"<%end%>>(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+                <option value="9.5" <%if(utc_offset == 9.5)%>selected="true"<%end%>>(GMT +9:30) Adelaide, Darwin</option>
+                <option value="10.0" <%if(utc_offset == 10.0)%>selected="true"<%end%>>(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+                <option value="11.0" <%if(utc_offset == 11.0)%>selected="true"<%end%>>(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+                <option value="12.0" <%if(utc_offset == 12.0)%>selected="true"<%end%>>(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('share','tab_cont','custom_filter','coupon','ban');" class="tools" >
+          <span class="col-circle">3</span>
+          <span class="tools_tab_name">Configure Sharing options</span> <span id="ban" style="float:right" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq"style="display:none">
+          <div class="row" id="share">
+            <div class="create-campaign-left-row">
+              <label>Require Users to Share? :</label>
+              <input id="share_require" type="checkbox" name="campaign[require_share]" value="1" onclick="show_row('share_elements');" <%if @campaign.require_share==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+              <div id="share_elements">
+                <input id="fb_share" type="checkbox" name="campaign[share_fb]" value="1"  <%if @campaign.share_fb==1%>checked<%end%>/><label style="font-weight:normal;" class="btn_label">Facebook</label><br/>
+                <input id="tw_share" type="checkbox" name="campaign[share_twitter]" value="1"  <%if @campaign.share_twitter==1%>checked<%end%>/><label style="font-weight:normal;" class="btn_label">Twitter</label><br/>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Enter URL to redirect user:</label>
+              <div id="share_elements">
+                <input type="text" id="redirect_url" name="campaign[redirect_url]" value="<%=  @campaign.redirect_url%>" />
+                <small class="create-ex create_campaign_note">URL where user to be redirect to avail this offer. If not , leave blank.</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>From Name:</label>
+              <div id="share_elements">
+                <input type="text" id="email_name" name="campaign[email_name]" value="<%=  @campaign.email_name%>" />
+                <small class="create-ex create_campaign_note">User will be sent a coupon from this name.</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Reply to Email address:</label>
+              <div id="share_elements">
+                <input type="text" id="email_address" name="campaign[email_address]" value="<%=  @campaign.email_address%>" />
+                <small class="create-ex create_campaign_note">User will be sent  a coupon from this email address.</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Allow "UsersDelight" logo? :</label>
+              <input id="logo_allow" type="checkbox" onclick="return false;" name="campaign[show_credits]" value="1" <%if @campaign.show_credits==1%>checked<%end%>/><label class="btn_label">Yes</label>
+              <small class="create-ex create_campaign_note">
+                Only paid users can hide UsersDelight logo.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('custom_filter','share','tab_cont','coupon','res');" class="tools" >
+          <span class="col-circle">4</span>
+          <span class="tools_tab_name">Audience Targeting </span>
+          <span style="float:right" class="arr_up" id="res">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="custom_filter">
+            <div class="create-campaign-left-row">
+              <%= render :partial => 'member/setup/web/user_filter'%>
+            </div>
+          </div>
+        </div>
+
+
+        <a href="#" class="campaign-configure-button"
+           style="float:left;margin-left:1% !important; color: white !important; text-decoration: none !important;width:98% !important"
+           onclick="configure_twitter_app_offer('launch'); return false;">Launch Campaign</a>
+        <div id="response_messg" style=" margin: 17px 0px 0px 10px; float: left; color: green; "></div>
+      </li>
+    </ul>
+  </form>
+</div>
+
+<!--App Preview Block-->
+<style>
+  .shqpopup {display: block;float: right;height: 270px;padding: 0 5px 0 46px;width: 400px;background: white;margin-top:5px;}
+  .shqpopup div {position:relative;display:block;}
+  .twitter-share-button{padding-left:100px;}
+  .fb-share-button{padding-top:20px;}
+  #silder-body{ max-width:450px; width:100%;color:#000;  border-left:0px !important; border-style:solid; border-width:2px; border-color:rgba(0,0,0,0.5);min-width:450px; font-family:Tahoma, Geneva, sans-serif;}
+  .slider-header{background:#ecf0f1; border-bottom:1px solid #ccc; padding:5px; display:block;}
+  .slider-header-message{ font-size:14px; text-transform:uppercase;}
+  .slider-header-offer{ font-size:36px; color:#000;}
+  .slider-middle{ display:block; clear:both;padding:5px;}
+  .slider-middle p{ font-size:14px; color:#222;}
+  .slider-middle-heading{ font-size:14px; font-weight:bold;}
+  .facebook-share,.twitter-share,.gshare{background-image: url(https://s3.amazonaws.com/fbappshq-assets/datas/71061/large.png);width: 185px;height: 46px;display: inline-block;background-position: 0px -4px;}
+  .twitter-share{ background-position:-177px -4px;}
+  .gshare{background-position:-358px -4px}
+  .close_btn{background:#616264; font-size:14px; padding:5px; float:right; padding: 0px 5px;float: right;position: relative; text-decoration:none;left: -424px; color:#fff;z-index:1;}
+  .slider-footer{ padding:10px 0;}
+  .slider-footer-text{ font-size:10px; font-style:italic;text-align:right; width:100%;}
+  .pwd-logo{margin-top:-18px !important;margin-right: -20px; background:url(https://s3.amazonaws.com/fbappshq-assets/datas/71068/large.png); background-position:0 0; background-repeat:no-repeat; display:inline-block; float:right; width:100px; height:20px; }
+  .code-area{ width:100%; display:block;}
+  .code-area-text{ text-align:center; font-size:12px; color:#333;}
+  .code-area input{-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px; font-size:24px; border:1px solid #ccc; margin:5px auto; display:block; min-width:200px; text-align:center; padding:10px 0;}
+  .blue-button{cursor:pointer;;background:#164daa; text-align:center; min-width:150px; width:100%; color:#fff;-moz-border-radius:3px;border-radius:3px;-webkit-border-radius:3px;font-size:13px; padding:7px; margin:10px 5px 10px 75px;}
+  .grey-button{background:#c4cdd4; border:1px solid #ccc; font-size:13px; width:auto; padding:7px; text-align:center; color:#000; display:inline-block; min-width:180px;-moz-border-radius:3px;border-radius:3px;-webkit-border-radius:3px; margin:10px auto; cursor:pointer;}
+  #fb_conn {float: left; margin-top: -22px;margin-left: 18px;}
+  .fb_icon {background-image: url("https://s3.amazonaws.com/fbappshq-assets/datas/71061/large.png") !important;margin-left:20px;background-position: -25px 2px;padding: 6px 3px 0 0;background-repeat: no-repeat;float: left;width: 18px;height: 18px;}
+  .share_buttons {margin-top: 16px;margin-left: -19px;}
+  ._tab {top:14% !important;height: 79%;left: -41.6px;width: 35px;border: 3px solid;cursor:pointer;border-color: #000;}
+  ._tab_text {-webkit-transform : rotate(-90deg);width:200px;-moz-transform:rotate(-90deg);-ms-transform:rotate(-90deg);margin-left:-84px;font-size:20px;top:92px;text-align:center;padding:2px;}
+  .slider-footer {font-size:13px;padding:5px;}
+  #powered_by {font-size: 10px !important; float: right !important; margin-right: 43px !important;margin-top:-12px !important;width:16% !important;}
+  .inside_content{top: -267px;}
+  #_coupon_description {font-weight:normal;}
+  .share_buttons,#fb_conn,#tw_conn,#gp_conn,#in_conn  {display:none;}
+  .slider-header {width: 392px;margin-top:0px !important;}
+  .in_share {border:1px solid #ccc;width:200px;border-radius:4px;}
+  .in_img {background: url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -276px no-repeat !important;cursor: pointer !important;border: 0 !important;text-indent: -9999em !important;overflow: hidden !important;padding: 0 !important;margin: 0 !important;position: absolute !important;display: block !important;width: 20px !important;height: 20px !important;}
+  .in_share_text {margin-left:20px;}
+  #bfr_text {width: 20%;margin-top: 145px;float: left;margin-left: 231px;color: #3F6EBA;font-weight: bold;}
+  #afr_text {margin-top: 235px;float: left;margin-left: 246px;color: #3F6EBA;font-weight: bold;clear: both;}
+  #gp_conn a img {max-width: 25px;}
+  #before_login, #after_login {border: 3px solid;height: 268px;width: 403px;top:-216px !important;}
+</style>
+<div class="app-preview" style="height:1170px;">
+  <h3 style="font-family: Arial;margin:5px;font-size:18px;color:#244386 !important;border-bottom: 2px solid;width: 98.3%;">Preview</h3>
+  <div class="preview-container-main" style="height:1077px;">
+    <div id="bfr_text">Before Sharing View :</div>
+    <div class="shqpopup">
+      <div id="fb-root">
+        <script async src="https://connect.facebook.net/en_US/all.js"></script>
+      </div>
+
+
+      <div class="_tab"><div class="_tab_text"><%= @campaign.tab_text %></div></div>
+
+      <!----Before login------------>
+      <div class="inside_content" id="before_login" style="top:-273px;">
+        <div class="slider-header">
+          <div class="slider-header-offer"><%= @campaign.coupon_title if !@campaign.coupon_title.blank? %></div>
+        </div>
+        <div class="slider-middle" style=" height: 140px; ">
+          <div id="_coupon_description" class="slider-middle-heading"><%= @campaign.coupon_description if !@campaign.coupon_description.blank? %>
+          </div><br/>
+          <div class="slider-middle-heading">Share and Save Now !</div>
+          <div class="proceed_btn" style="display:none;margin: 20px 0px -25px 130px;">
+            <input type="submit" style="padding:9px 19px;border-radius:3px;" value="Get Code Here" />
+          </div>
+          <div class="share_buttons" style="display: block;margin-bottom: 8px;">
+            <div style="cursor:pointer;float: left;margin-left: 12px;" class="fb_conn">
+              <a class="facebook-share"></a>
+            </div>
+            <div id="tw_conn" style="display: block;float: left;margin-left: 8px;margin-top: -2px;">
+              <a class="twitter-share" href="#"></a>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="slider-footer">
+          <label style="font-size:12px !important;font-weight:bold !important;" id="offer_validity_label">Offer Valid Till : </label>
+          <label style="font-size:12px !important;font-weight:bold !important;" id="offer_validity"><%= @campaign.good_until_date %> <%= @campaign.good_until_hour%> </label><br/>
+          <div style="clear:both;"></div>
+          <span class="pwd-logo"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="afr_text">After Sharing View :</div>
+
+    <div class="shqpopup" style="margin-top:105px;">
+      <div class="_tab"><div class="_tab_text"><%= @campaign.tab_text %></div></div>
+      <!--After Login ---------------------->
+      <div class="inside_content" id="after_login">
+        <div class="slider-header">
+          <div class="slider-header-offer"><%= @campaign.coupon_title if !@campaign.coupon_title.blank? %></div>
+        </div>
+        <div class="slider-middle">
+          <p id="tandc">Terms and Conditions Apply.</p>
+          <div class="code-area">
+            <div class="code-area-text">Coupon Code</div>
+            <input id="ccode" readonly type="text"/>
+            <div class="code-area-text">
+              Ctrl+C to Copy clipboard
+            </div>
+
+            <a class="blue-button">Continue</a>
+            <a class="grey-button">Email Coupon</a>
+          </div>
+        </div>
+        <div class="slider-footer"  style="margin-bottom:-10px;">
+          <div style="clear:both;"></div>
+          <span class="pwd-logo" style="margin-top:6px !important;z-index:1;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style:"clear:both; padding:10px;"></div>
+
+
+<script>
+  /*
+ $('#inputDate').click(function(){
+  $('#inputDate').datepicker();
+});
+   */
+
+  $('#redirect_url').keyup(function(){
+    val = $('#redirect_url').val();
+    $('.blue-button').attr("href",val);
+  });
+
+  $('#tab_text').keyup(function(){
+    $('._tab_text').html($('#tab_text').val());
+  });
+
+  $('#coupon_description').keyup(function(){
+    $('#_coupon_description').html($('#coupon_description').val());
+  });
+
+
+  $('#coupon_title').keyup(function(){
+    $('.slider-header-offer').html($('#coupon_title').val());
+  });
+
+  $('#coupon_code').keyup(function(){
+    $('#ccode').val($('#coupon_code').val());
+  });
+
+  //Tab Text Color
+  $('#text_color').blur(function(){
+    var val = $('#text_color').val();
+    $('._tab_text').css({'color':'#'+val});
+    $('#colorSelector1 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector1').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#text_color').val(hex);
+      $('._tab_text').css({'color':'#'+hex});
+      $('#colorSelector1 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Tab Background Color
+  $('#background_color').blur(function(){
+    var val = $('#background_color').val();
+    $('._tab').css({'background':'#'+val});
+    $('#colorSelector2 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector2').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#background_color').val(hex);
+      $('._tab').css({'background':'#'+hex});
+      $('#colorSelector2 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Tab Border Color
+  $('#border_color').blur(function(){
+    var val = $('#border_color').val();
+    $('._tab').css({'border-color':'#'+val});
+    $('#colorSelector3 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector3').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#border_color').val(hex);
+      $('._tab').css({'border-color':'#'+hex});
+      $('#colorSelector3 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Title Backgorund Color
+  $('#title_background_color').blur(function(){
+    var val = $('#title_background_color').val();
+    $('.slider-header').css({'background':'#'+val});
+    $('#colorSelector4 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector4').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#title_background_color').val(hex);
+      $('.slider-header').css({'background':'#'+hex});
+      $('#colorSelector4 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Title Text Color
+  $('#title_text_color').blur(function(){
+    var val = $('#title_text_color').val();
+    $('.slider-header-offer').css({'color':'#'+val});
+    $('#colorSelector5 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector5').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#title_text_color').val(hex);
+      $('.slider-header-offer').css({'color':'#'+hex});
+      $('#colorSelector5 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Coupon Border Color
+  $('#coupon_border_color').blur(function(){
+    var val = $('#coupon_border_color').val();
+    $('.inside_content').css({'border-color':'#'+val});
+    $('#colorSelector6 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector6').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#coupon_border_color').val(hex);
+      $('.inside_content').css({'border-color':'#'+hex});
+      $('#colorSelector6 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Coupon Background Color
+  $('#coupon_background_color').blur(function(){
+    var val = $('#coupon_background_color').val();
+    $('.inside_content').css({'background':'#'+val});
+    $('#colorSelector7 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector7').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#coupon_background_color').val(hex);
+      $('.inside_content').css({'background':'#'+hex});
+      $('#colorSelector7 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Coupon Text Color
+  $('#coupon_text_color').blur(function(){
+    var val = $('#coupon_text_color').val();
+    $('#_coupon_description,.slider-middle-heading,#offer_validity,#offer_validity_label,#tandc,.code-area-text,.code-area-text').css({'color':'#'+val});
+    $('#colorSelector8 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector8').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#coupon_text_color').val(hex);
+      $('#_coupon_description,.slider-middle-heading,#offer_validity,#offer_validity_label,#tandc,.code-area-text,.code-area-text').css({'color':'#'+hex});
+      $('#colorSelector8 div').css({'background-color':'#'+hex});
+    }
+  });
+
+
+  $('#select_type').change(function () {
+    console.log("While changing select type");
+    var _date = $('#inputDate').val();
+    var _time = $('#select_type').val();
+    console.log("offer valid = "+ _date + ' '+ _time);
+    $('#offer_validity').html(_date+ ' '+ _time);
+  });
+
+  $('#inputDate').blur(function () {
+    console.log("while changing inputdate ID");
+    var _date = $('#inputDate').val();
+    var _time = $('#select_type').val();
+    console.log('offer valid = '+ _date + ' '+ _time);
+    $('#offer_validity').html(_date+ ' '+ _time);
+  });
+
+  $('#drop_shadow').change(function () {
+    if ($(this).is(":checked")) {
+      $('._tab_text').css({'text-shadow':'2px 2px'});// checked
+      return;
+    }
+    $('._tab_text').css({'text-shadow':'none'}); // not checked
+  });
+
+  $('#share_require').change(function () {
+    if ($(this).is(":checked")) {
+      var _fb = $("#fb_share").is(":checked");
+      var _tw = $("#tw_share").is(":checked");
+      if (_fb == 0 && _tw== 0){
+        $('.share_buttons').css({
+          'display':'none'
+        });// not checked
+        $('.proceed_btn').css({
+          'display':'block'
+        });
+      }
+      else {
+        $('.proceed_btn').css({
+          'display':'none'
+        });// checked
+        $('.share_buttons').css({
+          'display':'block'
+        });
+        if(_fb == 1 && _tw == 0 )
+        {
+          $('.facebook-share').css({
+            'display':'block'
+          });
+          $('#tw_conn').css({
+            'display':'none'
+          });
+        }
+        else if (_tw == 1 && _fb == 0)
+        {
+          $('.facebook-share').css({
+            'display':'none'
+          });
+          $('#tw_conn').css({
+            'display':'block'
+          });
+        }
+        else
+        {
+          $('.facebook-share').css({
+            'display':'block'
+          });
+          $('#tw_conn').css({
+            'display':'block'
+          });
+        }
+      }
+    }
+    else{
+      $('.share_buttons').css({
+        'display':'none'
+      });// not checked
+      $('.proceed_btn').css({
+        'display':'block'
+      });
+    }
+
+  });
+
+
+  $('#fb_share').change(function () {
+    var _fb = $("#fb_share").is(":checked");
+    var _tw = $("#tw_share").is(":checked");
+    console.log("fb and tw is : "+ _fb +" and "+ _tw);
+    if (_fb ==0 && _tw==0)
+    {
+      $('.proceed_btn').css({'display':'block'});
+      $('.share_buttons').css({'display':'none'});
+      $('.facebook-share').css({'display':'none'});
+    }
+    else {
+      $('.proceed_btn').css({'display':'none'});
+      $('.share_buttons').css({'display':'block'});
+      if(_fb == 1)
+      {$('.facebook-share').css({'display':'block'});
+      }
+      else
+      {
+        $('.facebook-share').css({'display':'none'});
+      }
+    }
+  });
+
+  $('#tw_share').change(function () {
+    var _fb = $("#fb_share").is(":checked");
+    var _tw = $("#tw_share").is(":checked");
+    console.log("fb and tw is : "+ _fb +" and "+ _tw);
+    if (_fb ==0 && _tw==0)
+    {
+      $('.proceed_btn').css({'display':'block'});
+      $('.share_buttons').css({'display':'none'});
+      $('#tw_conn').css({'display':'none'});
+    }
+    else {
+      $('.proceed_btn').css({'display':'none'});
+      $('.share_buttons').css({'display':'block'});
+      if(_tw == 1)
+      {$('#tw_conn').css({'display':'block'});}
+      else
+      {$('#tw_conn').css({'display':'none'});}
+    }
+  });
+
+
+  function show_row(div_id) {
+    jQuery('#'+div_id).toggle();
+  }
+
+  function configure_twitter_app_offer(mode) {
+    jQuery('#coupon_code').css({
+        'border-color': 'none'
+    });
+    jQuery('#response_messg').html("");
+    console.log("Inside configure_twitter_app_offer ---------------->");
+    if (jQuery("#campaign_title").val() === "") {
+        alert('Please Specify Campaign Title.');
+        return;
+    }
+    dataString = jQuery('#twitter_campaign_new').serialize();
+    var _custom_filters = save_filters_data();
+    dataString += "&filters=" + JSON.stringify(_custom_filters);
+    var _ccode = jQuery('#coupon_code').val();
+    if (_ccode === '') {
+        jQuery('#coupon_code').css({
+            'border-color': 'red'
+        });
+        jQuery('#response_messg').html("Coupon Code is must.");
+        jQuery('#response_messg').css({
+            'color': 'red'
+        });
+        return false;
+    }
+    jQuery.ajax({
+        url: "/member/setup/web/coupon/create_or_update",
+        data: dataString,
+        type: "POST",
+        dataType: 'jsonp',
+        cache: false,
+        beforeSend: function () {
+            console.log("Before SEND Block");
+            jQuery('#response_messg').show();
+            jQuery('#response_messg').html('<img src=\"/images/socialapps/loading.gif\"/>');
+        },
+        success: function (response_data) {
+            if (response_data.status == 'Error') {
+                console.log("In Success Error Block");
+                alert(response_data.message);
+            } else {
+                console.log("In Success Block");
+                jQuery('#response_messg').css({
+                    'color': 'green'
+                });
+                jQuery('#response_messg').html("Changes in Campaign saved successfully. Please check campaign on your website '" + '<%= domain %>' + "'");
+            }
+        },
+        error: function (response_data) {
+            jQuery('#response_messg').html(response_data.message);
+        } /* error */
+    }); /* ajax*/
+}
+
+  //this function is used to get the value of all filters applicable and make it in array of hashes form(for saving purpose) ...
+  function save_filters_data()
+  {
+    if ( $('.custom-filters li').length != 0 )
+    {
+      //Getting the last <li> element of ul
+      var _last_li_id = $('.add-more').prev().attr('id');
+      var _length_of_li_elements = _last_li_id.split("-")[2];
+      var array_of_filters = new Array; //String which is to be save in db and contains list of all filters.
+      for(var i=0;i<=_length_of_li_elements;i++)
+      {
+        if (($('#filter-row-'+i).is(":empty")) == false)
+        {
+          var array_of_values = new Array;
+          array_of_values[0] = $('#select-filter-'+i).val();
+          array_of_values[1] = $('#select-qual-'+i).children(":selected").val();
+          if (array_of_values[0] == "Day of the month" || array_of_values[0] == "Month of the year" || array_of_values[0] == "Hour of the day"||array_of_values[0] == "Minute of the hour" )
+          {
+            var start_and_end_camp_values = [];
+            start_and_end_camp_values[0] = $('#inp_'+i+'_0').val();
+            start_and_end_camp_values[1] = $('#inp_'+i+'_1').val();
+            array_of_values[2] = start_and_end_camp_values;
+          }
+          else{
+            if ($('#input_method_'+i).length > 0)
+            {
+              array_of_values[2] = $('#input_method_'+i).children(":selected").val();
+            }
+            else if ($('#inp_'+i).length > 0)
+            {
+              array_of_values[2] = $('#inp_'+i).val();
+            }
+          }
+          //console.log("arr_of_values = "+array_of_values);
+          array_of_filters.push(array_of_values);
+        }
+      }
+      console.log("array_of_filters  = " + array_of_filters);
+      //Finally the data formed would be as :
+      return array_of_filters;
+      // [[filter_option_val,qual_option_val,input_val],[filter_option_val,qual_option_val,input_val],...]
+    }
+  };
+
+
+  $(document).ready(function () {
+<%if !@campaign.coupon_code.blank?%>
+      $('#ccode').val('<%=@campaign.coupon_code%>');
+<%end%>
+<%if @campaign.show_credits === 0%>
+      $('#powered_by,.pwd-logo').css({'display':'hidden'});
+<%end%>
+<%if !@campaign.border_color.blank?%>
+      $('._tab').css({'border-color':'#'+'<%= @campaign.border_color%>'});
+      $('#colorSelector3 div').css({'background-color':'#'+'<%= @campaign.border_color%>'});
+<%end%>
+<%if !@campaign.background_color.blank?%>
+      $('._tab').css({'background':'#'+'<%= @campaign.background_color%>'});
+      $('#colorSelector2 div').css({'background-color':'#'+'<%= @campaign.background_color%>'});
+<%end%>
+<%if !@campaign.text_color.blank?%>
+      $('._tab_text').css({'color':'#'+'<%= @campaign.text_color%>'});
+      $('#colorSelector1 div').css({'background-color':'#'+'<%= @campaign.text_color%>'});
+<%end%>
+<%if !@campaign.title_background_color.blank?%>
+      jQuery('#title_background_color').val('<%= @campaign.title_background_color%>');
+      $('.slider-header').css({'background':'#'+ '<%= @campaign.title_background_color%>'});
+      $('#colorSelector4 div').css({'background-color':'#'+ '<%= @campaign.title_background_color%>'});
+<%end%>
+<%if !@campaign.title_text_color.blank?%>
+      jQuery('#title_text_color').val('<%= @campaign.title_text_color%>');
+      $('.slider-header-offer').css({'color':'#'+'<%= @campaign.title_text_color%>'});
+      $('#colorSelector5 div').css({'background-color':'#'+'<%= @campaign.title_text_color%>'});
+<%end%>
+<%if !@campaign.coupon_border_color.blank?%>
+      jQuery('#coupon_border_color').val('<%= @campaign.coupon_border_color%>');
+      $('.inside_content').css({'border-color':'#'+'<%= @campaign.coupon_border_color%>'});
+      $('#colorSelector6 div').css({'background-color':'#'+'<%= @campaign.coupon_border_color%>'});
+<%end%>
+<%if !@campaign.coupon_background_color.blank?%>
+      jQuery('#title_text_color').val('<%= @campaign.coupon_background_color%>');
+      $('.inside_content').css({'background':'#'+'<%= @campaign.coupon_background_color%>'});
+      $('#colorSelector7 div').css({'background-color':'#'+'<%= @campaign.coupon_background_color%>'});
+<%end%>
+<%if !@campaign.coupon_text_color.blank?%>
+      jQuery('#coupon_text_color').val('<%= @campaign.coupon_text_color%>');
+      $('#_coupon_description,.slider-middle-heading,#offer_validity,#offer_validity_label,#tandc,.code-area-text,.code-area-text').css({'color':'#'+'<%= @campaign.coupon_text_color%>'});
+      $('#colorSelector8 div').css({'background-color':'#'+'<%= @campaign.coupon_text_color%>'});
+<%end%>
+<%if @campaign.tab_text_drop_shadow === 1%>
+      $('._tab_text').css({'text-shadow':'2px 2px'});
+<%end%>
+<%if @campaign.require_share == 0%>
+      $('.share_buttons').css({'display':'none'});
+      $('.proceed_btn').css({'display':'block'});
+<%else%>
+      $('.share_buttons').css({'display':'none'});
+      $('.proceed_btn').css({'display':'block'});
+<%end%>
+<%if @campaign.share_fb == 0%>
+  <%if @campaign.share_twitter == 0%>
+        $('.share_buttons').css({'display':'none'});
+        $('.proceed_btn').css({'display':'block'});
+  <%else%>
+        $('#fb_conn').css({'display':'none'});
+  <%end%>
+<%end%>
+<%if @campaign.share_twitter == 0%>
+  <%if  @campaign.share_fb == 0%>
+        $('.share_buttons').css({'display':'none'});
+        $('.proceed_btn').css({'display':'block'});
+  <%else%>
+        $('#tw_conn').css({'display':'none'});
+  <%end%>
+<%end%>
+<%if @campaign.tab_alignment === 0%>
+      console.log("Radio Button Value is 0");
+      $('.inside_content').css({'margin-left':'-46px !important'});
+      $('._tab').css({'margin-left':'421px !important'});
+      $('.shqpopup').css({'float':'left'});
+<%end%>
+
+    custom_accordion('tab_cont','coupon','share','custom_filter','gen');
+  });
+
+  function custom_accordion(id_1, id_2, id_3,id_4,id_5){
+    jQuery('#ban').html('&#8594;');
+    jQuery('.toggleq').css({'display':'block'});
+    jQuery('#head').html('&#8594;');
+    jQuery('#gen').html('&#8594;');
+    jQuery('#res').html('&#8594;');
+    jQuery('#'+id_5).html('&#8595;');
+    jQuery('#' + id_1).slideDown();
+    jQuery('#' + id_2).slideUp();
+    jQuery('#' + id_3).slideUp();
+    jQuery('#' + id_4).slideUp();
+  }
+
+  //Allow only AplhaNumeric Values
+  $('#text_color,#background_color,#border_color').keydown(function (e) {
+    if (e.shiftKey || e.ctrlKey || e.altKey) {
+      e.preventDefault();
+    } else {
+      var key = e.keyCode;
+      if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90) || (key >= 48 && key <= 57) || (key >= 96 && key <= 105))) {
+        e.preventDefault();
+      }
+    }
+  });
+
+  $("#tab_text, #coupon_title, #coupon_description,#coupon_code,#inputDate").maxlength();
+</script>
+

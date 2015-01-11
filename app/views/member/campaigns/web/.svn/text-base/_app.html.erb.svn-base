@@ -1,0 +1,208 @@
+<style>
+  .app_list{width:75%;float:left;margin-top:-22%; clear:both;}
+  .app_list .row{width:100%;float:left;border-bottom:1px solid #ccc;margin-bottom:10px}
+  .app_list li.name{width:20%;float:left;margin-left: 6px;font-size: 14px;}
+  .app_list li.domain{width:20%;float:left;font-size: 14px;font-weight:bold;margin-left:20%}
+  .app_list li.key{width:45%;float:left;font-size: 14px;}
+  #list_head {background:#3f6eba;color:white;padding:2px 1px; }
+  #view_js_btn {font-size: 11px; color: white; background: #3f6eba; padding: 2px 4px; border: 1px solid #3f6eba; border-radius: 2px; margin: -4px 30px 0px 0px; float: right; font-weight: bold; text-decoration: none; }
+  .close_js_btn {display: block;font-size: 12px;border: 1px solid #ccc;width: 34px;padding: 2px 4px;margin: -87px 0px 87px 5px;float: left;text-decoration: none;background: #8F8F8F;color: white;font-weight: bold;}
+  .create_campaign_btn {border: 1px solid #3f6eba;background: #3f6eba;color: white;padding: 3px 5px;border-radius: 4px;text-decoration: none;}
+  .view_js_code_btn {font-size: 12px;border: 1px solid #3F6EBA;background: #3F6EBA;color: white;text-decoration: none;padding: 1px 2px;border-radius: 4px;margin: -3px 6px 0 0;float: right;}
+</style>
+<div class="list-view-campaign" id="edit-app-campaign">
+  <h1 style="width:266px !important; text-align:left">Add your Website</h1>
+
+  <div  style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+  <div class="create-campaign-left">
+    <form action="#" method="post" id="website_add">
+
+      <div class="create-campaign-left-row">
+        <label style="width:15% !important;">Name of Website</label>
+        <input id="campaign_web_name" name="campaign[name]" type="text" style="width:48.8% !important;" placeholder="Name of Website"/>
+        <small style="margin-left: 166px !important;" class="create-ex create_campaign_note">e.g. Amazon.</small>
+      </div>
+
+      <div class="create-campaign-left-row">
+        <label style="width:14% !important;">Enter Domain Name</label>
+        <input id="campaign_web_domain" name="campaign[domain]" type="text" style="width:48.8% !important;margin-left:16px !important;" placeholder="Enter Domain Name"/>
+        <small class="create-ex create_campaign_note" style="margin-left: 166px !important;">e.g. www.amazon.com</small>
+      </div>
+
+      <a href="#" class="campaign-configure-button"  style="clear:both;float:left;margin-left:17.5% !important; color: white !important; text-decoration: none !important;"onclick="configure_website(); return false;">Add Website</a>
+      <div class="pro_app_box" style="margin:18px 0 0 20px;float:left;display:none;border:none"></div>
+    </form>
+  </div>
+  <div class="app_list">
+    <% if !@websites.blank? %>
+      <h1 style="width:20% !important; text-align:left;font-size:26px;">Your Websites</h1>
+      <div  style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+      <ul>
+        <div id="list_head" class="row">
+          <li class="name"><strong>Name</strong></li>
+          <li class="domain"><strong>Domain</strong></li>
+        </div>
+        <%i=0
+        @websites.each {|web|
+        %>
+          <div class="row">
+            <li id="web_name_<%=i%>" class="name"><%=web.name%></li>
+            <li class="domain"><%=web.domain%></li>
+            <li><a id="view_js_btn" onclick="view_js_code('<%=web.name%>','<%=web.key%>',<%=web.id%>);return false;">view source code</a></li>
+          </div>
+          <%  i+=1
+        }
+
+      %>
+      </ul>
+    <% end %>
+  </div>
+  <div id="code_box" style="display:none;border: 1px solid #cccccc;width:74%;font-weight:bold;float: left;margin-left: 0% !important;padding: 10px;font-size:15px;" >
+    1. Copy and embed the following code in your website source code:<br/>
+    <div class="new_generated_js"></div>
+    <small style="
+           font-style: italic;
+           font-size: 11px;
+           ">(You DO NOT need to change this code for individual campaign on a particular site. Just Plug once in your website and run any campaign without a single modification.)</small>
+    <br/>
+    <br/>
+    2. Now, go to Create Campaign section.&nbsp;&nbsp;&nbsp;&nbsp;<a class="create_campaign_btn" onclick="show_tab('tab_2');">Create Campaign</a><br/>
+  </div>
+  <div class="create-campaign-right">
+    <h5>Help</h5>
+    <i>Adding Your Website</i>
+    <p>Simply enter the details and you will get a Javascript code. Embed that code in your website right before &lt;/body&gt; tag.
+      You will never have to change this again.
+      <br/><br/>
+      This will allow you to run multiple campaigns at anytime through UsersDelight. You can turn them on/off and have detailed analytics on campaigns.
+    </p>
+    <i>What to do next?</i>
+    <p>Click on 'Create Campaign' above and you will be able to start campaigns to engage and grow your user base.</p>
+    <i>Currently in Beta</i>
+    <p>Web Campaigns are currently in beta and are available completely free to everyone</p>
+  </div>
+  <div style="clear:both; padding:10px;"></div>
+</div>
+
+<h1 style="text-align: left;display:none;font-size: 19px;margin: 0px 0 -18px 360px;" id="custom_js_head"></h1>
+<div class="custom_source_code" style="display:none;clear:both;float:left;width:97%;">
+</div>
+<a class="close_js_btn" onclick="hide_js();return false;" style="display:none">Close</a>
+
+
+
+<script>
+  function view_js_code(_web_name,_key_value,id){
+    jQuery('.custom_source_code').html('<textarea readonly="readonly" rows="4" cols="10" style="font-size:12px;width: 79% !important;">&lt;script type="text/javascript"&gt;var custom_tag = {};var _key=_key||{};_key["_key"]="'+_key_value+'";_key["_id"]='+id+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "http://www.usersdelight.com/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://www.usresdelight.com/"&gt;UsersDelight.com&lt;/a&gt; apps&lt;/noscript&gt;</textarea>');
+    jQuery('.custom_source_code').css({'display':'block'});
+    jQuery('#custom_js_head').html('Source Code for '+_web_name);
+    jQuery('#custom_js_head').css({'display':'block'});
+    jQuery('.close_js_btn').css({'display':'block'});
+    jQuery('#code_box').hide();
+  }
+
+  function hide_js(){
+    jQuery('.custom_source_code').css({'display':'none'});
+    jQuery('#custom_js_head').css({'display':'none'});
+    jQuery('.close_js_btn').css({'display':'none'});
+  }
+
+  function setup_website_list(apps) {
+    if (apps==null) {
+      return "";
+    }
+    var app_list = "<ul> <div class='row' id='list_head'><li class='name'><strong>Name</strong></li><li class='domain'><strong>Domain</strong></li></div>";
+    var html_str = "";
+    var js_code_for_recently_installed_app = ""
+    var count = apps.length;
+    for(var i = 0; i< count; i++) {
+      if (apps[i] != null) {
+        var _key = "'"+apps[i]['key'] +"'"
+        var _name = "'"+apps[i]['name'] +"'"
+        app_list = app_list+'<div class="row"><li id="web_name_'+i+'" class="name">' +_name+ '</li><li class="domain">' +apps[i]['domain']+ '</li><li><a id="view_js_btn" onclick="view_js_code(' +_name +','+_key+','+ apps[i]["id"]+ ');return false;">view source code</a></li></div>';
+        html_str = html_str+"<option value=\""+apps[i]["id"]+"\">"+apps[i]["name"]+"</option>";
+
+        if (i==count-1) {
+          js_code_for_recently_installed_app = '<textarea readonly="readonly" rows="7" cols="10" style="font-size:12px;background:#eee;width: 79% !important;">&lt;script type="text/javascript"&gt;var _key=_key||{};_key["_key"]="'+apps[i]["key"]+'";_key["_id"]='+apps[i]["id"]+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "http://www.usersdelight.com/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://www.usersdelight.com/"&gt;UsersDelight.com&lt;/a&gt; apps&lt;/noscript&gt;</textarea>'
+        }
+      }
+    }
+    app_list = app_list+"</ul>";
+    console.log("string formed ->"+app_list);
+    jQuery('.app_list').html(app_list);
+    jQuery('#select_website_id').html(html_str);
+    reset_tab_link('tab_2', 'tab2'); // resets link of create campaigns
+
+    jQuery('#code_box').show();
+    jQuery('.new_generated_js').html(js_code_for_recently_installed_app);
+  }
+
+
+  var result = "";
+  function configure_website()
+  {
+    if ((jQuery("#campaign_web_name").val( ) == "") || (jQuery("#campaign_web_domain").val( ) == ""))
+    {
+      alert ('Please input all required fields.');
+      return ;
+    }
+    jQuery('.pro_app_box').hide();
+    var domain_name = jQuery('#campaign_web_domain').val();
+    if (domain_name.indexOf('/') != -1 || domain_name.indexOf('http:') != -1 || domain_name.indexOf('https:') != -1){
+      jQuery('.pro_app_box').show();
+      jQuery('.pro_app_box').css({'color':'#FF0606'});
+      jQuery('.pro_app_box').text("'https://' or 'http://' or trailing '/' are not required in domain");
+      return false;
+    }
+    var regex = /[-\w]+\.(?:[-\w]+\.xn--[-\w]+|[-\w]{3,}|[-\w]+\.[-\w]{2})$/i;
+    var domain_without_subdomain = String(domain_name.match(regex));
+    if ((domain_without_subdomain !== "null" && domain_name.length <= domain_without_subdomain.length) || domain_without_subdomain === "null") {
+      var domain_split = String(domain_name.split('.'));
+      var arr = domain_split.split(",");
+      if (domain_name.length == domain_without_subdomain.length && (arr[arr.length - 2].length != arr[arr.length - 1].length)) {
+        domain_name = domain_name + 'x';
+        domain_without_subdomain = String(domain_name.match(regex));
+        if (domain_without_subdomain !== "null" && domain_name.length <= domain_without_subdomain.length) {
+          jQuery('.pro_app_box').show();
+          jQuery('.pro_app_box').css({'color':'#FF0606'});
+          jQuery('.pro_app_box').text("Please type a valid website.");
+          return false;
+        }
+      } else {
+        jQuery('.pro_app_box').show();
+        jQuery('.pro_app_box').css({'color':'#FF0606'});
+        jQuery('.pro_app_box').text("Please type a valid website.");
+        return false;
+      }
+    }
+    dataString = jQuery('#website_add').serialize();
+    jQuery.ajax({
+      url: "/member/campaigns/web/app_create",
+      data: dataString,
+      type: "POST",
+      dataType: 'jsonp',
+      cache: false,
+      beforeSend: function(){
+        jQuery('.pro_app_box').show();
+        jQuery('.pro_app_box').html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        if (response_data.status == 'Error') {
+          alert(response_data.message);
+        } else {
+          result = response_data.app_list;
+          setup_website_list(response_data.app_list);
+          jQuery('.pro_app_box').css({'color':'green'});
+          jQuery('.pro_app_box').html(response_data.message);
+
+
+        };
+      },
+      error: function(response_data) {
+        jQuery('.pro_app_box').html(response_data.message);
+      }
+    });
+  }
+ 
+</script>
+

@@ -1,0 +1,375 @@
+<ul class="custom-filters">
+</ul>
+<style>
+  .remove_btn:hover {color:white;text-decoration: none;}
+  .add_btn:hover {color:white;text-decoration: none;}
+  .filters {width: 25%;float: left;}
+  .input_method {width:94% !important;}
+  .select-filter, .select-qual,.input-method-scheme {width:100% !important;}
+  .qualifiers {width: 24%;float: left;margin-left: 8px;}
+  .input_method_schemes {float: left;width: 40%;margin: 6px 0 0  3px;}
+  .buttons {margin: 14px 5px 0 0;float:right;}
+  .add_btn {border: 0px solid;background: #3f6eba;color: white;padding: 4px 9px;border-radius: 18px;text-decoration: none;}
+  .remove_btn {border: 0px solid;background: #3f6eba;color: white;padding: 0px 7px;border-radius: 18px;text-decoration: none;}
+  .custom-filters-li {float:left;}
+  .add-more {float: left;margin: 9px 0 10px 7px;}
+</style>
+<script>
+  jQuery(document).ready(function(){
+    //[{"category_id"=>[filter_option_val,qual_option_val,input_val]},{"category_id"=>[filter_option_val,qual_option_val,input_val]},...]
+    var i = 0;
+    //self.i = i;
+<%  if @campaign.filters.blank? || (!@campaign.filters.blank? && JSON.parse(@campaign.filters).blank?)
+%>
+
+      var str = create_new_filter(i);
+      var str_li = "<li class='custom-filters-li' id='filter-row-"+i+"'>" +str+ "</li>";
+      jQuery(".custom-filters").append(str_li);
+      var j= i+1; // adding 1 in ith value to pass it in add_filter to add new element ...
+      var str_add_btn = "<li class='add-more'><a href='#' onclick='add_filter("+ j +");return false;' class='add_btn' id='add_btn_"+i+"'>+</a></li>"
+      jQuery(".custom-filters").append(str_add_btn);
+      //TODO: append this in ul element ...
+      //TODO: append this in ul element ...
+<%else%>
+  <% _filter_arr = JSON.parse(@campaign.filters)
+  _filter_arr.each do |filter|
+  %>
+        var str ="";
+        // Making Select tag of filters
+    <%@web_campaign_categories.each do |ctgry|%>
+          str += "<optgroup label='<%=ctgry.category%>'>";
+      <% @web_campaign_filters.each do |filters| %>
+        <%if filters.category == ctgry.category%> //Put options of same category
+          <%if filters.filter == filter[0]%>
+                str += "<option value='<%= filters.filter %>'selected='selected'><%= filters.filter %></option>";
+          <%else%>
+                str += "<option value='<%= filters.filter %>'><%= filters.filter %></option>";
+          <%end%>
+        <%end%>
+      <%end%>
+          str += "</optgroup>";
+    <%end%>
+        str = "<select title='Please select the filter type' id='select-filter-"+i+"' style='width:100% !important;' class='select-filter' onchange='put_relative_values_in_other_fields("+i+")'><option value=''>(Select)</option>" + str + "</select>";
+    <%if filter[2].kind_of?(Array)
+      _value = "#{filter[2][0]},#{filter[2][1]}"
+    else
+      _value = filter[2]
+    end
+  %>
+        var str_q = get_qualifier_string('<%=filter[0]%>','<%=filter[1]%>',i); //calling to get relative qualifier string.
+        var str_inp = get_input_method('<%=filter[0]%>','<%= _value %>',i); //calling to get relative input method.
+        var str_btns = "<a href='#' onclick='remove_filter("+ i +");return false;' class='remove_btn' id='remove_btn_"+i+"'>-</a>";
+        str = "<ul class='filter-list' id='filter-list-"+i+"'><li id='filter-"+i+"' class='filters'>"+str+"</li><li class='qualifiers' id='qual-"+i+"'>"+str_q+"</li><li class='input_method_schemes' id='inp-"+i+"'>"+ str_inp+"</li><li id=buttons-"+i+" class='buttons'>"+ str_btns+"</li></ul>";
+        var str_li = "<li class='custom-filters-li' id='filter-row-"+i+"'>" +str+ "</li>";
+        //jQuery(str_li).insertAfter("filter-row-"+ --i);
+        jQuery(".custom-filters").append(str_li);
+        // append this in <ul> element ...
+        i++;
+  <%end%>
+      var str_add_btn = "<li class='add-more'><a href='#' onclick='add_filter("+ i +");return false;' class='add_btn'>+</a></li>"
+      jQuery(".custom-filters").append(str_add_btn);
+<%end%>
+  });
+
+  // This funciton creates a new filter calls when user clicks on add more button or their is no such filter selected till far by the user so creats an empty filter for user.
+  function create_new_filter(i)
+  {
+<%logger.error "Creating new blank filter"%>
+    var str ="";
+    // Making Select tag of filters
+<%@web_campaign_categories.each do |ctgry|%>
+      str += "<optgroup label='<%=ctgry.category%>'>";
+  <% @web_campaign_filters.each do |filters| %>
+    <%if filters.category == ctgry.category%>
+          str += "<option id='opt-<%=filters.id%>' value='<%= filters.filter %>'><%= filters.filter %></option>";
+    <%end%>
+  <%end%>
+      str += '</optgroup>';
+<%end%>
+    str = "<select id='select-filter-"+i+"' style='width:100% !important;' class='select-filter' onchange='put_relative_values_in_other_fields("+i+")'><option value=''>(Select)</option>" + str + "</select>";
+    //select tag of Qualifiers
+    var  str_q = "<select title='Please first select the filter then the comparison medium' class='select-qual' style='width:100% !important;' id='select-qual-"+i+"' class='select_op validate[required]'><option value=''>(Select)</option></select>";
+    // select tag of inputs
+    var  str_inp = "<input title='Please first select the filter then set the value accordingly' type='text' style='width:85% !important;' class='input-method-scheme' id='inp-"+i+"'></input>";
+    //form li element
+    var str_btns = "<a href='#' onclick='remove_filter("+ i +");return false;' class='remove_btn' id='remove_btn_"+i+"'>-</a>";
+    var final_str = "<ul class='filter-list' id='filter-list-"+i+"'><li id='filter-"+i+"' class='filters'>"+str+"</li><li class='qualifiers' id='qual-"+i+"'>"+str_q+"</li><li class='input_method_schemes' id='inp-"+i+"'>"+ str_inp+"</li><li id=buttons-"+i+" class='buttons'>"+ str_btns+"</li></ul>";
+    //var  str_li = "<li id='filter-"+i+"'>" +str +str_q +str_inp +"</li>";
+    return final_str;
+  }
+
+  function add_filter(i){
+    var str = create_new_filter(i);
+    var str_li = "<li class='custom-filters-li' id='filter-row-"+i+"'>" +str+ "</li>";
+    jQuery(str_li).insertBefore(".add-more");
+    var j= i+1;
+    var str_add_btn = "<a href='#' onclick='add_filter("+ j +");return false;' class='add_btn'>+</a>";
+    jQuery(".add-more").html(str_add_btn);
+  }
+
+  //This function removes a filter
+  function remove_filter(row_id)
+  {
+    jQuery('#filter-row-'+row_id).remove();
+    jQuery('#filter-row-'+row_id).empty();
+  }
+
+  function put_relative_values_in_other_fields(filter_num)
+  {
+    var filter_value_selected = jQuery('#select-filter-'+filter_num).val();
+<% @web_campaign_filters.each do |filters| %>
+      if ( "<%=filters.filter%>" == filter_value_selected){
+  <% _qual_input_allow = filters.qual_input%>
+        var str = "<select style='width:100% !important;' class='select-qual-"+filter_num+"' id='select-qual-"+filter_num+"' class='select_op validate[required]'>";
+  <%_qual_input_allow[0].each do |qual|%>
+          str += "<option value='<%= qual%>'><%=qual%></option>";
+  <%end%>
+        str += "</select>";
+        jQuery('#qual-'+filter_num).html(str);
+  <%if _qual_input_allow[1].kind_of?(String) && _qual_input_allow[1] == 'input_field'%>
+          var str_inp = "<input title='Please type the value for which condition must be check' style='width:85% !important;' type='text' id='inp_"+filter_num+"' val=''/>" ;
+  <%elsif _qual_input_allow[1].kind_of?(String) && _qual_input_allow[1] == 'two_input_field'%>
+          var str_between ="<span style='float:left;margin:10px 0 0 3px;font-size:10px'>To</span>";
+          var str_first = "<select style='width:40% !important;float:left;margin:0 0 0 5px !important;' title='Campaign starts(must)' class='input-method-scheme' id='inp_"+filter_num+"_0'>";
+          var str_second = "<select style='width:40% !important;float:left;margin:0 0 0 5px !important;' title='Campaign starts(must)' class='input-method-scheme' id='inp_"+filter_num+"_1'>";
+          var l = 0;
+          if (filter_value_selected  == 'Day of the month')
+          {
+            for(l=1;l<=31;l++)
+            {
+              str_first += "<option val='"+l+"'>"+l+"</option>";
+              str_second += "<option val='"+l+"'>"+l+"</option>";
+            }
+          }
+          if (filter_value_selected  == 'Month of the year')
+          {
+            var month_arr = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            for(l=0;l<month_arr.length;l++)
+            {
+
+              str_first += "<option val='"+month_arr[l]+"'>"+month_arr[l]+"</option>";
+              str_second += "<option val='"+month_arr[l]+"'>"+month_arr[l]+"</option>";
+            }
+          }
+          if (filter_value_selected  == 'Hour of the day')
+          {
+            for(l=0;l<25;l++)
+            {
+              str_first += "<option val='"+l+"'>"+l+"</option>";
+              str_second += "<option val='"+l+"'>"+l+"</option>";
+            }
+          }
+          if (filter_value_selected  == 'Minute of the hour')
+          {
+            var _val = 0;
+            for(l=0;l<=12;l++)
+            {
+              var _val = 5*l;
+              str_first += "<option val='"+_val+"'>"+_val+"</option>";
+              str_second += "<option val='"+_val+"'>"+_val+"</option>";
+            }
+          }
+          str_first += "</select>";
+          str_second += "</select>";
+          str_inp = str_first + str_between + str_second;
+  <%else%>
+          var str_inp = "<select title='Please select the value for which condition must be true' style='width:90% !important;margin:-1px 0 0 5px;' class='input_method' id='input_method_"+filter_num+"' >";
+    <%options = []
+    if _qual_input_allow[1].kind_of?(String) && _qual_input_allow[1] == 'get_country_list'
+      @countries.each do |country|
+        options << country.name.gsub("\r","")
+      end
+    else
+      if !_qual_input_allow.blank? && !_qual_input_allow[1].blank?
+        options = _qual_input_allow[1]
+      end
+    end %>
+    <%if !options.blank? && options != ''
+      options.each do |option|%>
+              str_inp += "<option value='<%=option%>'><%=option%></option>";
+      <%end%>
+            str_inp += "</select>";
+    <%end%>
+  <%end%>
+        jQuery('#inp-'+filter_num).html(str_inp);
+      }
+<%end%>
+  }
+
+  //This function returns a string of relative qualifier <options> of <select> tag ...
+  function get_qualifier_string(filter_name,qual_val,i)
+  {
+    var  str_q = "<select title='Please select the comparison medium' class='select-qual' id='select-qual-"+i+"' style='width:100% !important;' class='select_op validate[required]'><option value=''>(Select)</option>";
+<% @web_campaign_filters.each do |filters|%>
+      if ("<%=filters.filter%>" == filter_name){
+  <%if !filters.qual_input.blank?
+    arr = (filters.qual_input)[0]
+    arr.each do |qualifier|%>
+            if ("<%=qualifier%>" == qual_val){
+              str_q += "<option selected value='<%= qualifier%>'><%= qualifier%></option>";
+            }else{
+              str_q += "<option value='<%= qualifier%>'><%= qualifier%></option>";
+            }
+    <%end
+  end%>
+      }
+<%end%>
+    str_q += "</select>";
+    return str_q;
+  }
+
+  //This function returns a string of relative input methods ...
+  function get_input_method(filter_name,method_val,i)
+  {
+    var str_inp="";
+<% @web_campaign_filters.each do |filters|
+  _input_allow = filters.qual_input
+%>
+      if ("<%= filters.filter%>" == filter_name){
+  <%if _input_allow[1].kind_of?(String) && _input_allow[1] == 'input_field'%>
+          str_inp = "<input title='Please type the value for which condition must be check' type='text' style='width:85% !important;' class='input-method-scheme' id='inp_"+i+"' value='"+method_val+"'/>" ;
+  <%elsif _input_allow[1].kind_of?(String) && _input_allow[1] == 'two_input_field'%>
+          var str_between ="<span style='float:left;margin:10px 0 0 3px;font-size:10px'>To</span>";
+          var str_first = "<select style='width:40% !important;float:left;margin:0 0 0 5px !important;' title='Campaign starts(must)' class='input-method-scheme' id='inp_"+i+"_0'>";
+          var str_second = "<select style='width:40% !important;float:left;margin:0 0 0 5px !important;' title='Campaign starts(must)' class='input-method-scheme' id='inp_"+i+"_1'>";
+          var l = 0;
+          if (filter_name  == 'Day of the month')
+          {
+            for(l=1;l<=31;l++)
+            {
+              if (l == method_val.split(",")[0])
+              {
+                str_first += "<option selected val='"+l+"'>"+l+"</option>";
+              }
+              else{
+                str_first += "<option val='"+l+"'>"+l+"</option>";
+              }
+
+              if (l == method_val.split(",")[1])
+              {
+                str_second += "<option selected val='"+l+"'>"+l+"</option>";
+              }
+              else{
+                str_second += "<option val='"+l+"'>"+l+"</option>";
+              }
+            }
+          }
+          if (filter_name  == 'Month of the year')
+          {
+            var month_arr = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            for(l=0;l<month_arr.length;l++)
+            {
+              if (month_arr[l] == method_val.split(",")[0])
+              {
+                str_first += "<option selected val='"+month_arr[l]+"'>"+month_arr[l]+"</option>";
+              }
+              else{
+                str_first += "<option val='"+month_arr[l]+"'>"+month_arr[l]+"</option>";
+              }
+
+              if (month_arr[l] == method_val.split(",")[1])
+              {
+                str_second += "<option selected val='"+month_arr[l]+"'>"+month_arr[l]+"</option>";
+              }
+              else{
+                str_second += "<option val='"+month_arr[l]+"'>"+month_arr[l]+"</option>";
+              }
+            }
+          }
+          if (filter_name  == 'Hour of the day')
+          {
+            for(l=0;l<25;l++)
+            {
+              if (l == method_val.split(",")[0])
+              {
+                str_first += "<option selected val='"+l+"'>"+l+"</option>";
+              }
+              else{
+                str_first += "<option val='"+l+"'>"+l+"</option>";
+              }
+
+              if (l == method_val.split(",")[1])
+              {
+                str_second += "<option selected val='"+l+"'>"+l+"</option>";
+              }
+              else{
+                str_second += "<option val='"+l+"'>"+l+"</option>";
+              }
+            }
+          }
+          if (filter_name  == 'Minute of the hour')
+          {
+            var _val = 0;
+            for(l=0;l<=12;l++)
+            {
+              var _val = 5*l;
+              if (_val == method_val.split(",")[0])
+              {
+                str_first += "<option selected val='"+_val+"'>"+_val+"</option>";
+              }
+              else{
+                str_first += "<option val='"+_val+"'>"+_val+"</option>";
+              }
+
+              if (_val == method_val.split(",")[1])
+              {
+                str_second += "<option selected val='"+_val+"'>"+_val+"</option>";
+              }
+              else{
+                str_second += "<option val='"+_val+"'>"+_val+"</option>";
+              }
+            }
+          }
+          str_first += "</select>";
+          str_second += "</select>";
+          str_inp = str_first + str_between + str_second;
+  <%else%>
+          str_inp = "<select title='Please select the value for which condition must be true' class='input_method' style='width:90% !important;margin:-1px 0 0 5px;' class='input_method' id='input_method_"+i+"' >";
+          var options = [];
+    <%if _input_allow[1].kind_of?(String) && _input_allow[1] == 'get_country_list'
+      country_names = Array.new
+      @countries.each do |country|
+        country_names << country.name.gsub("\r","")
+      end
+      options = country_names;
+    else
+      if (!_input_allow.blank? && !_input_allow[1].blank?)
+        options = _input_allow[1]
+      end
+    end
+  %>
+    <% if !options.blank? && options != ''
+      options.each do |option|%>
+              if ("<%=option%>" == method_val){
+                str_inp += "<option selected><%=option%></option>";
+              }else{
+                str_inp += "<option><%=option%></option>";
+              }
+      <%end
+    end%>
+          str_inp += "</select>";
+  <%end%>
+      }
+<%end%>
+    return str_inp;
+  }
+
+  //This function returns the string of all in form of groups ...
+  function get_filters_list(i)
+  {
+    var str_filter ="";
+    // Making Select tag of filters
+<%@web_campaign_categories.each do |ctgry|%>
+      str_filter += "<optgroup label='<%=ctgry.category%>'>";
+  <% @web_campaign_filters.each do |filters| %>
+    <%if filters.category == ctgry.category%> //Put options of same category
+          str_filter += "<option value='<%= filters.filter %>'><%= filters.filter %></option>";
+    <%end%>
+        str_filter += "</optgroup>";
+  <%end%>
+      str_filter = "<select title='Please select the filter type' id='select-filter-"+i+"' onchange='put_relative_values_in_other_fields("+i+")><option value=''>(Select)</option>" + str_filter + "</select>";
+      return str_filter;
+<%end%>
+  }
+
+</script>

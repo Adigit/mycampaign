@@ -1,0 +1,74 @@
+<style>
+.margin {margin :1%; float:left;}
+</style>
+<div class= "margin" id="tab_graph"></div>
+<div class= "margin" id="share_graph"></div>
+<div class= "margin" id="continue_graph"></div>
+<script type="text/javascript">
+$.getJSON("/member/campaigns/web/plot_graph?type=tab_clicks&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#tab_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: "Tab Clicks"
+      },
+      subtitle: {
+        text: 'Source: UsersDelight.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : ' Tab Clicks',
+                                data : data,
+                                tooltip: {
+                                        valueDecimals: 0
+                                },
+                        }]
+                });
+        });
+
+$.getJSON("/member/campaigns/web/plot_graph?type=clicks&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#share_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: " Share Clicks"
+      },
+      subtitle: {
+        text: 'Source: UsersDelight.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : ' Clicks',
+                                data : data,
+                                tooltip: {
+valueDecimals: 0
+                                }
+                        }]
+                });
+        });
+
+$.getJSON("/member/campaigns/web/plot_graph?type=continue&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#continue_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: " Click on Continue"
+      },
+      subtitle: {
+        text: 'Source: UsersDelight.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : 'Clicks',
+                                data : data,
+                                tooltip: {
+                                        valueDecimals: 0
+                                }
+                        }]
+                });
+        });
+
+</script>

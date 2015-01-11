@@ -1,0 +1,74 @@
+<!--start middle part -->
+
+<style>
+.login {width:100% !important}
+</style>
+<div id="middle">
+  <div class="imp">
+    <h1>Admin<br/>
+    <!-- subtitle  <span></span> -->
+    </h1>
+  </div>
+<div class="inmid">
+<div class="bradculam"><p><a href="/">Home </a> <img src="/images/facebook/1x1.png" class='j14' alt="" />  Admin</p></div>
+</div>
+<div class="materdiv">
+<h2>Admin</h2>
+<div class="dataentry">
+
+  <h2>Other Links</h2>
+  <p>Navigale Content -> <a href="/admin/navigale_content">Content</a></p>
+  <p>Agency Listings -> <a href="/admin/agency_listing">Listing</a></p>
+  <p>Free Account Manager -><a href="/admin/free_account_manager">Manager</a></p>
+  <p>FB Page Details -> <a href="/admin/pagedetail">Check by Page ID</a></p>
+  <p>Paypal account check -><a href="/admin/paypal?email=">Enter email in URL to verify details</a></p>
+  <p>Monitoring scripts -> <a href="/admin/monitor">Monitoring Health</a></p>
+  <p>Reports -> <a href="/admin/reports">Reports</a></p>
+  <p>Sales data -> <a href="/admin/sales">Sales Data</a></p>
+
+  <p><a href="/admin/home/new">Add a new page</a></p>
+<% if !@nodes.blank?%> 
+<table border="1">
+ <tr>
+   <td><p align="center"><i><b>ID </b></i></td>
+   <td><p align="center"><i><b>Title</b></i></td>
+   <td><p align="center"><i><b>Root Path</b></i></td>
+   <td><p align="center"><i><b>Action Path</b></i></td>
+   <td><p align="center"><i><b>Is Active</b></i></td>
+ </tr>
+ <% @nodes.each do |node| %>
+
+     <tr>
+       <td><%= node.id %></td>
+      <td>
+        <%= link_to node.title,
+                   :action => "edit",
+                   :id => node.id %>
+        <font size=-1>
+	<%#= #link_to "(Delete)", admin_home_path(node), method: :delete%>
+        <a href="/admin/home/destroy?id=<%=node.id%>">(Delete)</a>
+        </font>
+      </td>
+      <td><%= node.root_path %></td>
+      <td><%= node.action_path %></td>
+      <td><%= node.is_active %></td>
+     </tr>
+
+ <% end %>
+</table>
+<% end %>
+
+
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+<!--end middle part -->
+
+
+

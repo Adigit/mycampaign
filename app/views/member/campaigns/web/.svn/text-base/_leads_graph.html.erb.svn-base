@@ -1,0 +1,29 @@
+<style>
+#data_table tr:nth-child(odd) {
+background: #F1F1F1;
+padding: 5px;
+}
+#data_table {
+border: 1px solid #CCC;
+width: 100%;
+}
+</style>
+<p style="margin:0;padding:0"><a class="mls uiButton"  style="float:left" href="/member/export/mailing_list_csv?camp_id=<%=@camp_id%>&camp_type=mobile" role="button"><span class="uiButtonText" > Export To File</span></a></p>
+<table cellspacing="5" cellpadding="5" id="data_table">
+  <tr>
+	<th>Date</th>
+      <th >Entry Id</th>
+	<th>Email Id</th>
+  </tr>
+<%
+  if !@export_data.blank? %>
+	<% @export_data.each do |exp| %>
+      <tr>
+	<th style="font-weight: normal !important;">   <%= exp.created_at.to_date.to_s %> </th>
+        <th style="font-weight: normal !important;">   <%= exp.id %> </th>
+	<th style="font-weight: normal !important;">   <%= exp.email %></th>
+    </tr>
+  <% end
+end
+%>
+</table>

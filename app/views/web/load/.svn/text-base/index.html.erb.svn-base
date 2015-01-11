@@ -1,0 +1,453 @@
+<script src="//code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<style>
+  #tandc {margin-left: 91px;font-weight: bold}
+  .email_send_load {float:right;margin-top:-36px;}
+  .cancel-button {text-decoration: none;cursor: pointer;background: #164daa;text-align: center;min-width: 150px;width: 25%;color: #fff;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;font-size: 13px;padding: 7px;margin: -40px 5px 10px 184px;} .send-button {text-decoration: none;cursor: pointer;background: #164daa;text-align: center;min-width: 122px;width: 18%;color: #fff;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;font-size: 13px;padding: 7px;margin: 25px 5px 10px 25px;}
+  #email_inp {-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;font-size: 16px;border: 1px solid #ccc;margin-left: 35px;display: block;min-width: 200px;text-align: center;padding: 13px 0;width: 305px;} #email_btn {font-size: 24px;padding: 6px;border-radius: 6px;} .send-button,.cancel-button {display:none;}
+  #offer_validity, #offer_validity_label {font-weight:bold;}
+  .tw_conn {width:53% !important;clear:none;margin:-47px 0 0 196px !important;}
+  #fb_conn {clear:none;margin-top: -1px !important;margin-left:12px !important;}
+  #fbshare {background: url(https://s3.amazonaws.com/fbappshq-assets/datas/71061/large.png);width: 185px;height: 46px;display: inline-block;background-position: 0px -4px;} .proceed_btn {display:none;margin:20px 0px -25px 130px;} .proceed_btn_a {cursor:pointer;font-size: 14px; border: 1px solid #ccc; border-radius: 3px; padding: 9px 19px; background: #ccc; color: black; text-decoration: none;}#after_login {display:none;} .shqpopup {background:white;display: block;float: right;height: 270px;padding: 0 5px 0 46px;width: 400px;z-index: 99999;position:fixed;right:-410px;top:20%;} .shqpopup div {border:none;position:relative;display:block;}.slider-middle-heading_two{font-size:14px; font-weight:bold;} .twitter-share-button-tweet{background:url(https://s3.amazonaws.com/fbappshq-assets/datas/71061/large.png);background-position: -177px -4px;width: 81px;height: 45px;display: inline-block;padding-left:87px;} .fb-share-button{padding-top:20px;}#email_field{width:155px;height:27px;} #silder-body{ max-width:450px; width:100%;color:#000;  border-left:0px !important; border-style:solid; border-width:2px; border-color:rgba(0,0,0,0.5);min-width:450px; font-family:Tahoma, Geneva, sans-serif;} .slider-header{background:#ecf0f1; padding:5px; display:block;} .slider-header-message{ font-size:14px; text-transform:uppercase;} .slider-header-offer{ font-size:36px; color:#000;} .slider-middle{height:142px; display:block; clear:both;padding:5px;} .slider-middle p{ font-size:14px; color:#222;}.slider-middle-heading{ font-size:16px;} .facebook-share,.twitter-share,.gshare{background-image: url(https://s3.amazonaws.com/fbappshq-assets/datas/71061/large.png);width: 185px;height: 46px;display: inline-block;background-position: 0px -4px;}.twitter-share{ background-position:-177px -4px;}.gshare{background-position:-358px -4px} .close_btn{background:#616264; font-size:14px; padding:5px; float:right; padding: 0px 5px;float: right;position: relative; text-decoration:none;left: 59px;top:-16px !important;border-radius:25px;cursor:pointer; color:#fff;z-index:1;}.slider-footer{ padding:10px 0;}.slider-footer-text{ font-size:10px; font-style:italic;text-align:right; width:100%;}.pwd-logo{ float: right !important;width: 74px !important;height: 16px !important;margin-top: -17px; }.code-area{ width:100%; display:block;} .email_label ,.code-area-text{ text-align:center; font-size:12px; color:#333;} #ccode{-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px; font-size:24px; border:1px solid #ccc;-webkit-margin-start:50px;-moz-margin-start:12px; display:block; min-width:200px; text-align:center; padding:8px 0;}.blue-button{text-decoration:none;cursor:pointer;;background:#164daa; text-align:center; min-width:150px; color:#fff;-moz-border-radius:3px;border-radius:3px;-webkit-border-radius:3px;font-size:13px; padding:7px; margin:10px 5px 10px 75px;}.grey-button{text-decoration:none;background:#c4cdd4; border:1px solid #ccc; font-size:13px; width:auto; padding:7px; text-align:center; color:#000; display:inline-block; min-width:180px;-moz-border-radius:3px;border-radius:3px;-webkit-border-radius:3px; margin:10px auto; cursor:pointer;} #fb_conn {cursor:pointer;float: left; margin-top: -22px;margin-left: 18px;} .fb_icon {background-image: url("https://www.socialappshq.com/images/icons_1.png");background-position: -25px 2px;padding: 6px 3px 0 0;background-repeat: no-repeat;float: left;width: 18px;height: 18px;}.share_buttons {margin-bottom:-36px;margin-top: 16px;margin-left: -19px;}#_tab_coupon {height: 98%;left:-48px;width: 41px;cursor:pointer;float:left !important;}#_tab_coupon_text {-webkit-transform : rotate(-90deg);width:160px;-moz-transform:rotate(-90deg);-ms-transform:rotate(-90deg);margin-left:-72px;font-size:20px;top:136px;text-align:center;width:175px !important;padding:2px;}.slider-footer {font-size:13px;padding:5px;} #powered_by {font-size: 10px; float: right; margin-right: 46px;margin-top:-12px;}.inside_content{top: -270px;height: 264px;}.google-plus{top:-19px;left:162px;}  .linked-in{left:148px;top:-21px;width:20px;} .footer{clear:both;} #before_login{top:-270px} #sh{margin-left:3px;}  #fbshare{cursor:pointer;font-size: 13px;margin-top: 3px;float: left;} #sf{margin-bottom:-10px;} .web_dialog_overlay{position: fixed;top: 0;right: 0;bottom: 0;left: 0;height: 100%;width: 100%;margin: 0;padding: 0;background: #000000;opacity: 0.15;filter: alpha(opacity=15);-moz-opacity: .15;z-index: 101;display: none;} .web_dialog{display: none;position: fixed;width: 380px;height: 200px;top: 50%;left: 50%;margin-left: -190px;margin-top: -100px;background-color: #ffffff;border: 2px solid #336699;padding: 0px;z-index: 102;font-family: Verdana;font-size: 10pt;} .web_dialog_title{border-bottom: solid 2px #336699;background-color: #336699;padding: 4px;color: White;font-weight:bold;}.web_dialog_title a{color: White;text-decoration: none;}.align_right{text-align: right;} #brand1{width:200px;height:27px;}
+  #inner_content {background-color:transparent; visibility: visible; display: block;height: 286px;width: 416px;float: left;margin-top: -296px;margin-left: -9px;}
+  .shqpopup {display:block;}
+  .inside_content {border:3px solid;}
+  .proceed_btn {display: none;}
+  .slider-header {background: <%= @response_hash.title_background_color%>}
+  .slider-header-offer {color: <%= @response_hash.title_text_color%>}
+  .inside_content {background-color: <%= @response_hash.coupon_background_color%>}
+  .inside_content {border-color: <%= @response_hash.coupon_border_color%>}
+  .slider-middle-heading,.slider-middle-heading_two,#offer_validity,#offer_validity_label,#tandc,.code-area-text,.email_label {color: <%= @response_hash.coupon_text_color%>}
+  <%if @response_hash.show_credits != 1%>
+    #powered_by,.pwd-logo {display:none;}
+  <%end%>
+  <%if @response_hash.require_share == 0 || (@response_hash.share_fb == 0 && @response_hash.share_twitter == 0)%>
+    .share_buttons {display:none;}
+    .proceed_btn {display:block;}
+  <%end%>
+</style>
+<script>
+jQuery(document).ready(function(){
+  load_timezone();
+  <%if @response_hash.redirect_url == '' || @response_hash.redirect_url.blank?%>
+  jQuery(".blue-button").hide();
+  jQuery(".grey-button").css("margin-left","92px");
+ <%end%>
+
+  if((typeof console != "undefined") && (typeof console != undefined)) {
+  console.log(encodeURIComponent('<%= @website.domain%>'));
+  console.log(encodeURIComponent('<%= @response_hash.coupon_description%>'));}
+
+  var _url = "https://twitter.com/intent/tweet?url="+encodeURIComponent('<%= @website.domain%>')+"&text="+encodeURIComponent('<%= @response_hash.coupon_description%>');
+  jQuery('.twitter-share-button-tweet').attr('href',_url);
+
+});
+
+function share_with_friends() {
+  FB.init({
+    appId:'334921159988383',
+    status: true,
+    cookie: true,
+    xfbml: true,
+    oauth: true
+  });
+  FB.ui({
+    app_Id:'334921159988383',
+    method: "stream.publish",
+    name:' <%= @response_hash.coupon_title%>',
+    link: '<%= @website.domain%>',
+    caption: 'by' + " " + '<%= @website.name%>',
+    display: 'popup',
+    user_message_prompt: 'Share with friends',
+   redirect_uri: 'http://www.usersdelight.com'
+
+  },
+ function(response) {
+    if (response && response.post_id) {
+      record_analytics(0,0,0,1,0,"WebCoupon","coupon_shares");
+      jQuery('#after_login').show();
+      jQuery('#before_login').hide();
+    } else {
+      // do nothing if failed
+    }
+  });
+
+}
+
+
+function submit_email()
+{
+  if((typeof console != "undefined") && (typeof console != undefined)) {
+    console.log("email enter");
+  }
+  jQuery('.cancel-button').css({
+    'display':'block'
+  });
+  jQuery('.send-button').css({
+    'display':'block'
+  });
+  jQuery('.blue-button').css({
+    'display':'none'
+  });
+  jQuery('.grey-button').css({
+    'display':'none'
+  });
+  jQuery('#ccode').attr("type","hidden");
+  jQuery('#email_inp').attr("type","text");
+  jQuery('.code-area-text').css({
+    'display':'none'
+  });
+  jQuery('.email_label').css({
+    'display':'block'
+  });
+
+};
+
+function cancel_email(){
+
+   jQuery('.cancel-button').css({
+    'display':'none'
+  });
+  jQuery('.send-button').css({
+    'display':'none'
+  });
+  jQuery('.blue-button').css({
+    'display':'block'
+  });
+  jQuery('.grey-button').css({
+    'display':'block'
+  });
+  jQuery('#ccode').attr("type","text");
+  jQuery('#email_inp').attr("type","hidden");
+  jQuery('.code-area-text').css({
+    'display':'block'
+  });
+  jQuery('.email_label').css({
+    'display':'none'
+  });
+  jQuery('.grey-button').css({
+    'margin':'-41px 0 10px 189px'
+  });
+  jQuery('.grey-button').css({
+    'width':'41%'
+  });
+  jQuery('.blue-button').css({
+    'margin':'10px 5px 10px 10px'
+  });
+  jQuery('.blue-button').css({
+    'width':'27%'
+  });
+
+ <%if @response_hash.redirect_url == '' || @response_hash.redirect_url.blank?%>
+  jQuery(".blue-button").hide();
+  jQuery(".grey-button").css("margin-left","92px");
+  jQuery(".grey-button").css("margin-top","9px");
+<%end%>
+};
+
+function save_email(){
+  _data_email = '';
+  var _data_email = $('#email_inp').val();
+   if (_data_email == '')
+   {
+      jQuery('.email_label').html("Email should not be blank");
+      jQuery('.email_label').css({'color':'red'});
+      jQuery('#email_inp').css({'border-color':'red'})
+      return false;
+  }
+  dataString = 'model_id='+ <%=@coupon_model_id%> +'&model_name=WebCoupon&campaign_id='+ <%=@response_hash.web_campaign_id%> + '&email='+ _data_email;
+  <% if !@top_host.blank?%>
+  dataString = 'model_id='+ <%=@coupon_model_id%> +'&model_name=WebCoupon&campaign_id='+ <%=@response_hash.web_campaign_id%> + '&email='+ _data_email + '&site_loc=' + '<%= @top_host%>';
+  <%end%>
+  jQuery.ajax({
+    url: "http://www.usersdelight.com/web/load/save_email_in_db",
+    type: 'POST',
+    dataType: 'jsonp',
+    data: dataString,
+    cache: false,
+    beforeSend: function () {
+
+      jQuery(".email_send_load").html('<img src=\"https://www.socialappshq.com/images/edelman/ajax-loader.gif\"/>');
+    },
+    success:function (data) {
+      if (data["status"] === "saved"){
+        jQuery("#email_inp").attr("type","hidden");
+        jQuery(".send-button").css({
+          "display":"none"
+        });
+        jQuery(".cancel-button").css({
+          "display":"none"
+        });
+        jQuery("#tandc").css({
+          "display":"none"
+        });
+        jQuery(".email_send_load").hide();
+
+        jQuery(".email_label").html("Please check your Email with coupon details.");
+        jQuery(".email_label").css({
+          'display':'block'
+        });
+        jQuery('.email_label').css({
+          'font-size':'15px'
+        });
+        jQuery(".email_label").css({
+          'margin-bottom':'83px',
+          'margin-top':'70px'
+        });
+      }
+      else if (data["status"] == "error")
+      {
+        jQuery('.email_send_load').html('Try Again');
+      }
+      record_analytics(0,0,1,0,0,"WebCoupon","email_coupons");
+    },
+    error: function(data){
+      if((typeof console != "undefined") && (typeof console != undefined)) {
+        console.log("Error occured");
+      }
+    }
+  });
+};
+
+function load_timezone()
+{
+  var offset = (new Date()).getTimezoneOffset();
+  var timezones = {
+    '-12': 'Pacific/Kwajalein',
+    '-11': 'Pacific/Samoa',
+    '-10': 'Pacific/Honolulu',
+    '-9': 'America/Juneau',
+    '-8': 'America/Los_Angeles',
+    '-7': 'America/Denver',
+    '-6': 'America/Mexico_City',
+    '-5': 'America/New_York',
+    '-4': 'America/Caracas',
+    '-3.5': 'America/St_Johns',
+    '-3': 'America/Argentina/Buenos_Aires',
+    '-2': 'Atlantic/Azores',
+    '-1': 'Atlantic/Azores',
+    '0': 'Europe/London',
+    '1': 'Europe/Paris',
+    '2': 'Europe/Helsinki',
+    '3': 'Europe/Moscow',
+    '3.5': 'Asia/Tehran',
+    '4': 'Asia/Baku',
+    '4.5': 'Asia/Kabul',
+    '5': 'Asia/Karachi',
+    '5.5': 'Asia/Calcutta',
+    '6': 'Asia/Colombo',
+    '7': 'Asia/Bangkok',
+    '8': 'Asia/Singapore',
+    '9': 'Asia/Tokyo',
+    '9.5': 'Australia/Darwin',
+    '10': 'Pacific/Guam',
+    '11': 'Asia/Magadan',
+    '12': 'Asia/Kamchatka'
+  };
+
+  var offset_of_user = -offset / 60;
+  var offset_from_admin = <%=@timeline["offset_from_table"]%>;
+  if((typeof console != "undefined") && (typeof console != undefined)) {
+    console.log(offset_from_admin);
+  }
+  if (offset_of_user == offset_from_admin)
+  { // In case end user and admin time are of same timezone
+    jQuery("#offer_validity").html('<%= @response_hash.good_until_date%>  <%= @response_hash.good_until_hour%>');
+  }
+  else {
+    // if timezones are different
+    // difference between two timezones
+    var diff_between_timezones = (offset_of_user - offset_from_admin)*3600;
+    if((typeof console != "undefined") && (typeof console != undefined)) {
+      console.log(diff_between_timezones);
+    }
+    var user_adjusted_time = (<%= @timeline["campaign_time"]%> + diff_between_timezones)*1000;
+    calculated_Date_f = new Date(user_adjusted_time);
+    var hours = calculated_Date_f.getUTCHours();
+    var hour_left = '';
+    if (hours>12) {
+      hours = hours -12;
+      hour_left = hours+':00 PM';
+    } else {
+      hour_left = hours+':00 AM';
+    }
+    calculated_Date = calculated_Date_f.getUTCFullYear()+'/'+(calculated_Date_f.getUTCMonth()+1)+'/'+calculated_Date_f.getUTCDate()+' '+hour_left;
+    if((typeof console != "undefined") && (typeof console != undefined)) {
+      console.log(calculated_Date);
+    }
+  }
+  var time_left = <%= @timeline["is_valid"]%>;
+ if((typeof console != "undefined") && (typeof console != undefined)) {
+  console.log(time_left);}
+  if(time_left == 1)
+  {
+    jQuery("#offer_validity").html(calculated_Date);
+  }
+
+};
+
+function disallow_share()
+{
+  if((typeof console != "undefined") && (typeof console != undefined)) {
+ console.log("In disallow share function ----");}
+  record_analytics(0,0,0,1,0,"WebCoupon","coupon_shares");
+  jQuery("#before_login").hide();
+  jQuery("#after_login").show();
+};
+
+function IsEmail() {
+  if((typeof console != "undefined") && (typeof console != undefined)) {
+    console.log("In IsEmail function.");
+  }
+  jQuery("#email_inp").css({
+    'border-color':'none'
+  });
+  jQuery('.email_label').html('Enter your email');
+  jQuery('.email_label').css({
+    'color':'<%= @response_hash.coupon_text_color%>'
+  });
+  var email = jQuery("#email_inp").val();
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var check =  regex.test(email);
+  if (check == false)
+  {
+    jQuery("#email_inp").val('');
+    jQuery("#email_inp").css({
+      'border-color':'red'
+    });
+    jQuery('.email_label').html('Please provide a valid eamil address');
+    jQuery('.email_label').css({
+      'color':'red'
+    });
+return false;
+  }
+}
+
+function record_analytics(views,tab_clicks,leads,clicks,cont,model_name,record_type){
+  if (model_name == "WebCoupon")
+  {
+    if (record_type == "continue")
+    //record_analytics(0,0,0,0,1,"WebCoupon","continue");
+    {
+      dataString = "continue="+cont+"&model_name=WebCoupon&model_id="+<%=@coupon_model_id%>+"&campaign_id="+<%=@response_hash.web_campaign_id%>;
+    }
+    if (record_type == "coupon_shares")
+    //record_analytics(0,0,0,1,0,"WebCoupon","coupon_shares");
+    {
+      dataString = "clicks="+clicks+"&model_name=WebCoupon&model_id="+<%=@coupon_model_id%>+"&campaign_id="+<%=@response_hash.web_campaign_id%>;
+    }
+    if (record_type == "email_coupons")
+    //record_analytics(0,0,1,0,0,"WebCoupon","email_coupons");
+    {
+      dataString = "leads="+leads+"&model_name=WebCoupon&model_id="+<%=@coupon_model_id%>+"&campaign_id="+<%=@response_hash.web_campaign_id%>;
+    }
+  }
+  if((typeof console != "undefined") && (typeof console != undefined)) {
+    console.log("dataString formed is :" + dataString);
+  }
+  jQuery.ajax({
+    url:"http://www.usersdelight.com/web/load/record_analytics",
+    type:'POST',
+    dataType:'jsonp',
+    data:dataString,
+    cache:false
+  });
+
+};
+</script>
+
+
+<div id="fb-root"></div>
+<div class="inside_content" id="before_login">
+  <div id="shh" class="slider-header">
+    <div class="slider-header-offer">
+      <%= @response_hash.coupon_title %>
+    </div>
+  </div>
+  <div class="slider-middle" id="smm">
+    <div class="slider-middle-heading" id="smh">
+      <%= @response_hash.coupon_description %>
+    </div>
+    <br/>
+    <div class="slider-middle-heading_two">
+      Share and Save now
+    </div>
+    <div class="proceed_btn">
+      <a class="proceed_btn_a" onclick="disallow_share();return false;" href="#">Get Code Here</a>
+    </div>
+    <div class="share_buttons">
+      <div class="fb_conn" style="cursor:pointer;">
+        <a class="facebook-share" style="margin-left:20px;" onclick="share_with_friends();"></a>
+      </div>
+      <div class="tw_conn">       
+        <a class="twitter-share-button-tweet" href="#" data-count="none"></a>
+      </div>
+
+      <script>
+      window.twttr = (function (d,s,id) {
+        var t, js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+        js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+      }(document, "script", "twitter-wjs"));
+
+
+      twttr.ready(function(twttr) {
+        twttr.events.bind('tweet', function (event) {
+        record_analytics(0,0,0,1,0,"WebCoupon","coupon_shares");
+
+         jQuery("#before_login").hide();
+          jQuery("#after_login").show();
+        });
+      });
+      </script>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <div class="slider-footer">
+    <label id="offer_validity_label">Offer Valid Till : </label>
+    <label id="offer_validity"></label>
+    <div style="clear:both;"></div>
+   <a href="http://www.usersdelight.com/" target="_blank"><img class="pwd-logo" src="/images/usersdelight.png"/></a>
+ </div>
+</div>
+<div class="inside_content" id="after_login">
+  <div id="shh" class="slider-header" id="sh">
+    <div class="slider-header-offer" id="sho">
+      <%= @response_hash.coupon_title %>
+    </div>
+  </div>
+  <div class="slider-middle" id="sm">
+    <p id='tandc'>Terms and Conditions Apply</p>
+    <div class="code-area">
+      <div class="code-area-text">
+        Coupon Code
+      </div>
+      <input type="text" id="ccode" readonly value="<%= @response_hash.coupon_code%>"></input>
+      <div class="email_label" style="display:none;">Enter your email
+      </div>
+      <input type="hidden" required="required" onblur="IsEmail();" id="email_inp"></input>
+      <div class="email_send_load">
+      </div>
+      <div class="code-area-text">
+        Ctrl+C to Copy clipboard
+      </div>
+      <a class="blue-button" target="_blank" href="<%=@response_hash.redirect_url if @response_hash.redirect_url !='' %>" onclick="record_analytics(0,0,0,0,1,'WebCoupon','continue');">Continue</a>
+      <a class="grey-button" onclick="submit_email();">Email Coupon</a>
+      <a class="send-button" onclick="save_email()">Send</a>
+      <a class="cancel-button" onclick="cancel_email();">Cancel</a>
+    </div>
+  </div>
+  <div class="slider-footer" id="sf">
+    <div class="footer"></div>
+   <a href="http://www.usersdelight.com/" target="_blank"><img class="pwd-logo" src="/images/usersdelight.png" style="margin-top: 34px;"/></a>
+  </div>
+</div>
+

@@ -1,0 +1,61 @@
+<div id="middle">
+  <div class="banner">
+    <div class="banneroneforth">
+      <h1>Give Coupons to your Website & Mobile App visitors</h1>
+      <p>
+        Give coupons to your users intelligently to increase conversion and
+        average order size. Show them to only a section of users where it makes
+        most sense. Use dashboard to track user adoption in depth.
+      </p>
+
+      <% if current_user.blank? %>
+        <a class="button-img" href="/">Start</a>
+      <% else %>
+        <a class="button-img" href="/member/campaigns/web">Configure</a>
+      <% end %>
+    </div>
+    <div class="banneronethird">
+        <div id="slides">
+          <div class="slides_container">
+            <div class="slide">
+                <a href="#" target="_blank"></a>
+      		<img src="https://s3.amazonaws.com/fbappshq-assets/datas/71044/large.png" />
+            </div>
+            <div class="slide">
+                <a href="#" target="_blank"></a>
+		<img src="https://s3.amazonaws.com/fbappshq-assets/datas/71045/large.png">
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+  <div class="content">
+    <div class="features-hig"><h2>Features Highlights</h2>
+      <div class="app-feature">
+        <ul>
+          <li>
+            <h5>Easy Integration</h5>
+            <p>Include our JavaScript file/Android SDK once and then you can run any number of coupons on your site without ever having to bother engineering team. </p>
+          </li>
+          <li>
+            <h5>Audience Groups</h5>
+            <p>Create custom audience groups and then run targeted marketing campaigns for them e.g. Users who have bought a product on your website can be a group and all users who visit book section can be another group</p>
+          </li>
+          <li>
+            <h5>Launch Instantly</h5>
+            <p>
+            Launch campaigns with in seconds of installing JS on your site. It takes a simple click to turn them on/off. Also, you can run multiple coupons at the same time.
+            </p>
+          </li>
+          <li>
+            <h5>Custom Styling</h5>
+            <p>You can change look and feel of the running campaigns almost instantly by simply going to dashboard and click on few links. </p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,24 @@
+<table cellspacing="5" cellpadding="5" id="data_table">
+  <tr>
+    <% if !@field_hash.blank? %>
+		<th>Date</th>
+      <th >Entry Id</th>
+      <% @field_hash.each do |k,v| %>
+        <th ><%= v %></th>
+      <% end %>
+    <%end%>
+  </tr>
+<%
+  if !@export_data.blank?
+    @export_data.each do |id,val| %>
+      <tr>
+			<th style="font-style: normal !important;">   <%= val[1].to_date.to_s %> </th>
+        <th style="font-style: normal !important;">   <%= id %> </th>
+        <% @field_hash.each do |k,v|%>
+          <th style="font-style: normal !important;"> <%= val[0]["#{k}"] %> </th>
+        <%end%>
+    </tr>
+  <% end
+end
+%>
+</table>

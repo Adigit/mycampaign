@@ -1,0 +1,61 @@
+<div id="middle">
+  <div class="banner" style="height:315px">
+    <h1>10x Impact on your Site & Mobile App</h1>
+    <ul>
+      <li><span class="pr_bulb"></span>
+        <h3>Grow</h3>
+        <p>
+          Give out coupons to targeted users, get better ratings  for your mobile app and increase your rank for keywords
+          to get more traffic
+        </p>
+      </li>
+      <li> <span class="pr_grow"></span>
+        <h3>Engage</h3>
+        <p>
+          Collect user feedback, promote your new product using notification and a lot more to engage with users at every opportunity
+          and increase sale.
+        </p>
+      </li>
+      <li style="width:36%;"> <span class="pr_analyze"></span>
+        <h3>Analyze</h3>
+        <p>
+          Use powerful dashboards to measure impact of every widget.
+          Segment your audience based on behavior and context to see what performs best.
+        </p>
+      </li>
+    </ul>
+    
+  </div>
+
+  <div class="center">
+    <div class="columns">
+      <div class="easy-row">
+        <h2>Ultimate Set of Engagement &amp; Growth Tools</h2>
+        <div class="oneFifth esay_platform">
+          <div class="apps-icon"></div>
+          <h4> <a class="info" href="/web/feedback/intro">Feedback</a></h4>
+          <p>Integrate with your Website or Mobile App to collect user feedback to address their issues as well as identify growth opportunities.</p>
+        </div>
+
+        <div class="oneFifth esay_platform">
+          <span class="monitor-icon">&nbsp;</span>
+          <h4> <a class="info" href="/web/notification/intro">Notifications</a></h4>
+          <p>Show Notifications in your app or, as notification bar on your website to tell them about your latest product, features or, blog post</p>
+        </div>
+
+        <div class="oneFifth esay_platform">
+          <span class="planner-icon">&nbsp;</span>
+          <h4> <a class="info" href="/web/coupon/intro">Coupons</a></h4>
+          <p>Give coupons to your customers visiting your website or, mobile app to increase sales</p>
+        </div>
+
+        <div class="oneFifth esay_platform">
+          <span class="ads-icon">&nbsp;</span>
+          <h4>  <a class="info" href="/mobile/pushmessages/intro">Push Messages</a></h4>
+          <p>Send Push Messages to users who have installed your Mobile app and get them back to engage with your App</p>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+

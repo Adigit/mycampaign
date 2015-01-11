@@ -1,0 +1,28 @@
+<style>
+.margin {margin :1%; width:100% !important; float:left;}
+</style>
+<div class= "margin" id="tab_graph"></div>
+<script type="text/javascript">
+$.getJSON("/member/campaigns/web/plot_graph?type=tab_clicks&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#tab_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: "Tab Clicks"
+      },
+      subtitle: {
+        text: 'Source: UsersDelight.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : ' Tab Clicks',
+                                data : data,
+                                tooltip: {
+                                        valueDecimals: 0
+                                },
+                        }]
+                });
+        });
+</script>
+

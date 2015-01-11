@@ -1,0 +1,2 @@
+module IntegrationguideHelper
+end

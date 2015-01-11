@@ -1,0 +1,31 @@
+<%if !@form_fields.blank?%>
+  <% @form_fields.each do |f|%>
+    <% if f.field_name == 'email'%>
+      <p class="top"><label class="form_label">Email</label>  </p>
+      <p><input type="text" name="new[<%=f.id%>]" id = "email" class="required email form_input" requiredfieldname="Email"/></p>
+    <%end%>
+    <% if f.field_type == 'text'%>
+      <p class="top">    <label class="form_label"><%=f.field_name%></label>   </p>
+      <p><input type="<%=f.field_type%>" name="new[<%=f.id%>]" class="required "></input></p>
+    <% elsif f.field_type == 'textarea' %>
+      <p class="top">    <label class="form_label"><%=f.field_name%></label>   </p>
+      <p><textarea name="new[<%=f.id%>]" class="required"></textarea></p>
+    <%elsif f.field_type == 'date'%>
+      <p class="top">    <label class="form_label"><%=f.field_name%></label>   </p>
+      <p><input style="float: left; width: 115px; margin:0px;" type="text" name="new[<%=f.id%>]" class="inputDate custom" id="inputDate"  required="required" readonly/><span onclick="open_calendar('inputDate');" style="float:left;margin:6px 0 0 5px;position:fixed;"><img src="/images/calender.gif" alt="Calendar" /></span></p>
+    <% elsif f.field_type == 'radio'%>
+      <p class="top" style="float:left">    <label class="form_label"><%=f.field_name%></label>   </p>
+      <% if !@radio_opt.blank? && !@radio_opt["#{f.id}"].blank?%>
+	<p style="vertical-align: middle; margin-top: -0.7%  !important;float: left;">
+        <% @radio_opt["#{f.id}"].each do |opt|%>
+         <input type ="radio" name="new[<%=f.id%>]" value = '<%=opt%>'/><%=opt%>
+        <%end%>
+	</p>
+      <% end%>
+    <%end%>
+  <%end%>
+<%end%>
+<div style="clear:both;"></div>
+<input type="hidden" name="signup_form[model_name]" value="<%=model_name%>"/>
+<input type="hidden" name="signup_form[model_id]" value="<%=model_id%>"/>
+<input type="hidden" id = "user_email" name="signup_form[email]" value=""/>

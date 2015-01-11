@@ -1,0 +1,66 @@
+<div id="middle">
+  <div class="banner">
+    <div class="banneroneforth">
+      <h1>Engage Mobile App Users using Push Messages</h1>
+      <p>
+      Only 10% of users who have installed your mobile app ever engage with your app. Solve this problem by sending them targeted &amp; personalized push messages
+      encouraging them to open your mobile app. This will help you engage and increase your page views. In depth Analytics available.
+      </p>
+
+      <% if current_user.blank? %>
+        <a class="button-img" href="/">Start</a>
+      <% else %>
+        <a class="button-img" href="/member/campaigns/web">Configure</a>
+      <% end %>
+    </div>
+    <div class="banneronethird">
+	<div id="slides">
+          <div class="slides_container">
+            <div class="slide">
+              	<a href="#" target="_blank"></a>
+      		<img src="http://shqblogimages.s3.amazonaws.com/androidpush.png" style="max-height:350px"/>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="features-hig"><h2>Features Highlights</h2>
+      <div class="app-feature">
+        <ul>
+          <li>
+            <h5>Easy Integration</h5>
+            <p>
+              Include our SDK once and the you can run any number of
+              coupons on your site without ever having to bother engineering team.
+            </p>
+          </li>
+          <li>
+            <h5>Audience Groups</h5>
+            <p>
+              Create custom audience groups and then send targeted messages
+              to them e.g. Users who are in Delhi and used your app 5 times can be one group where as
+		users who have launched your app just once in past 30 days can be another group.
+            </p>
+          </li>
+          <li>
+            <h5>Launch Instantly</h5>
+            <p>Launch notifications with in seconds of integrating SDK in your mobile app.
+              It takes a simple click to send / schedule them for future delivery. Also, you can send multiple
+              messages at the same time - one for each audience group.
+            </p>
+          </li>
+          <li>
+            <h5>Custom Landing Pages</h5>
+            <p>
+              You can control where users will land when they click on push message notification. Simply specify the name of activity and we will redirect the user to 
+		it within your app.
+            </p>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+

@@ -1,0 +1,115 @@
+<script type="text/javascript" src="https://www.socialappshq.com/javascripts/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="https://www.socialappshq.com/javascripts/ckeditor/adapters/jquery.js"></script>
+
+<style>
+.login {width:100% !important}
+</style>
+
+<!--start middle part -->
+<div id="middle">
+  <div class="imp">
+    <h1>Edit<br/>
+    <!-- subtitle  <span></span> -->
+    </h1>
+  </div>
+<div class="inmid">
+<div class="bradculam"><p><a href="/">Home </a> <img src="/images/socialapps/arow.png" alt="" />  Edit</p></div>
+</div>
+<div class="materdiv">
+<h2>Edit</h2>
+
+<div class="dataentry">
+ <form action="/admin/home/update/?id=<%= @node.id %>" method="POST">
+  <p><b>Title</b><br>
+  <input id="node_title" name="node[title]" size="150"
+         type="text" value="<%= @node.title %>"/>
+  </p>
+  <p><b>Title Tag</b><br>
+  <input id="node_title_tag" name="node[title_tag]" size="150"
+         type="text" value="<%= @node.title_tag %>" />
+  </p>
+  <p><b>Body</b><br>
+  <textarea cols="300" name="node[body]" id="editor1"
+         rows="30" wrap="virtual"><%= @node.body %></textarea>
+  </p>
+  <script type="text/javascript">
+            config =  {
+                fullPage : true,
+   		filebrowserBrowseUrl : '/feature/upload_images/index_from_ckeditor',
+        //	filebrowserUploadUrl : '/uploader/upload.php'
+                toolbar_Full : [
+                    ['Source', '-', '-', '-'],
+                    ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', '-', 'SpellChecker'], //, 'Scayt'
+                    ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+                    ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+                    '/',
+                    ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
+                    ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
+                    ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                    ['Link', 'Unlink', 'Anchor'],
+                    ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],
+                    '/',
+                    ['Styles', 'Format', 'Font', 'FontSize', 'Templates'],
+	            ['TextColor','BGColor'],
+                    ['Maximize', 'ShowBlocks']
+                  ]
+                  }
+            jQuery('#editor1').ckeditor(config);
+
+        </script>
+
+
+
+  <p><b>Meta Keywords</b><br>
+  <input id="node_meta_keywords" name="node[meta_keywords]" size="150"
+         type="text" value="<%= @node.meta_keywords %>"/>
+  </p>
+  <p><b>Meta Description</b> (Shows on Share text of FB share)<br>
+  <input id="node_meta_descriptions" name="node[meta_descriptions]" size="150"
+         type="text" value="<%= @node.meta_descriptions %>" />
+  </p>
+
+  <p><b>Share Image URL (Shows on Share text of FB share)</b><br>
+  <input id="node_meta_image" name="node[share_image]" size="150"
+         type="text" value="<%= @node.share_image %>" />
+  </p>
+
+  <p><b>Deleted ?</b><br>
+  <input id="node_deleted" name="node[deleted]" size="1"
+         type="text" value="<%= @node.deleted %>"/>
+  </p>
+  <p><b>Is Active ?</b><br>
+  <input id="node_is_active" name="node[is_active]" size="1"
+         type="text" value="<%= @node.is_active %>"/>
+  </p>
+  <p><b>Root path</b><br>
+  <input id="node_root_path" name="node[root_path]" size="150"
+         type="text" value="<%= @node.root_path %>"/>
+  </p>
+  <p><b>Action path</b><br>
+  <input id="node_action_path" name="node[action_path]" size="150"
+         type="text" value="<%= @node.action_path %>"/>
+  </p>
+  <p><b>Layout</b><br>
+  <input id="node_layout" name="node[layout]" size="150"
+         type="text" value="<%= @node.layout %>"/>
+  </p>
+
+  <p><b>Breadcrumb</b><br>
+  <input id="node_layout" name="node[breadcrumb]" size="150"
+         type="text" value="<%= @node.breadcrumb %>"/>
+  </p>
+
+  <input type="submit" value="Update" />
+ </form>
+ </div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+<!--end middle part -->
+
+

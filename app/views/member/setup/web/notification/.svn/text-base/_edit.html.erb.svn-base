@@ -1,0 +1,670 @@
+<% session["next_path_credentials"]= nil if session["next_path_credentials"] %>
+<script type="text/javascript" src="/javascripts/colorpicker.js?v=5.3.6"></script>
+<style>
+  #colorSelector1, #colorSelector2, #colorSelector3, #colorSelector4, #colorSelector5, #colorSelector6, #colorSelector7, #colorSelector8, #colorSelector9, #colorSelector10, #colorSelector11 {margin-top:-4px;background:url(../images/select/png) center;}
+  input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="file"], select, textarea {margin: 5px 0 0 0;}
+  textarea {margin:0 5px !important;width:90% !important;font-weight:normal;}
+  .create-ex{margin-left:0 !important}
+  label{width:99% !important}
+  #preview{width:99%;height:900px}
+  .btn_label {font-weight:normal !important;margin-left:-5px;font-size:13px !important;}
+  .preview_link{float:left;width:auto;margin-right:40px;font-weight:bold;font-size:14px;}
+  .inp_title{width:auto !important;font-weight:bold !important;}
+  toggle, .toggleq {padding:0}
+  .create-campaign-left-row label {width:auto !important;}
+  .create-campaign-left-row input {width: 4% !important;margin:0 5px !important;font-weight:normal;}
+  .tab-bar {min-height: 50px;height: auto;background: white;width: 99.5%;border-bottom: 3px solid;border-color:#000;}
+  .min_btn {float: right;padding: 0px 3px;background: gray;border: 1px solid;font-size:11px;}
+  .close_btn {float: right;padding: 0px 3px;background: gray;border: 1px solid;font-size:11px;}
+  .action_btn_div {text-align: center;margin-bottom:5px;display:inline-block;padding:2px;}
+  .action_btn {padding: 5px 8px;cursor: pointer;border:1px solid;border-color:#000;text-decoration: none !important;border-radius: 3px;}
+  .notify_mssg {padding: 16px 7px;font-size: 14px;display:inline-block;}
+  .preview-container-main {background-color: #E2E2E2;}
+  #action_background_color, #action_border_color, #action_text_color, #text_color, #background_color, #border_color {text-align:right;}
+  .theme { border: 1px solid;width: 43%;padding: 21px;clear: both;margin-top: 15%;float: left;font-size:10px;text-decoration: none !important;color:black;}
+</style>
+
+<h1 style="width:100% !important; text-align:left">Setup <%=@web_campaign.title%></h1>
+<div style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+<div class="create-campaign-left" style="width:27.7% !important;border-radius: 5px;border: 1px solid #808080;overflow: hidden;height: 800px;margin-top: 25px;">
+  <form action="#" method="post" id="web_notification_campaign">
+    <input id="campaign_id" name="campaign[id]" type="hidden" value="<%=params[:id]%>" />
+    <input name="campaign[call_to_action_new_window]" type="hidden" value="0" />
+    <input name="campaign[allow_close_notification]" type="hidden" value="0" />
+    <input name="campaign[allow_minimize_notification]" type="hidden" value="0" />
+    <input name="campaign[fixed_position]" type="hidden" value="0" />
+    <input name="campaign[push_down_html]" type="hidden" value="0" />
+    <ul class="expand">
+      <li>
+        <div onclick="custom_accordion('tab_cont','not_cont','custom_filter','action_btn','gen');" class="tools" >
+          <span class="col-circle">1</span>
+          <span class="tools_tab_name">Notification Color Setting</span>
+          <span style="float:right" class="arr_up" id="gen">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="tab_cont">
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Border Color :</label>
+              <div id="customWidget">
+                <div  id="colorSelector1">
+                  <div style="background-color: <%= @campaign.border_color%>;"></div>
+                </div>
+                <input style="width: auto !important;" id="border_color" name="campaign[border_color]" type="text" placeholder="Border Color" value="<%=@campaign.border_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. fff</small>
+              </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Background Color :</label>
+              <div id="customWidget">
+                <div  id="colorSelector2">
+                  <div style="background-color: <%= @campaign.background_color%>;"></div>
+                </div>
+                <input style="width: auto !important;" id="background_color" name="campaign[background_color]" type="text" placeholder="Background Color" value="<%=@campaign.background_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. fff</small>
+              </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Text Color :</label>
+              <div id="customWidget">
+                <div  id="colorSelector3">
+                  <div style="background-color: <%= @campaign.text_color%>;"></div>
+                </div>
+                <input style="width: auto !important;" id="text_color" name="campaign[text_color]" type="text" placeholder="Text Color" value="<%=@campaign.text_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. 000</small>
+              </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Opacity :</label>
+              <input style="width: auto !important;" id="opacity" name="campaign[opacity]" type="text" placeholder="Lies between 0 to 1" value="<%=@campaign.opacity%>"/>
+              <small class="create-ex create_campaign_note">Lies between 0 to 1 e.g. 0.5, 0.67</small>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title">Allow users to close notification?</label><br/>
+              <input id="allow_close" type="checkbox" name="campaign[allow_close_notification]" value="1"  <%if @campaign.allow_close_notification==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+            </div>
+
+            <!--<div class="create-campaign-left-row">
+              <label class="inp_title">Allow users to minimize notification?</label><br/>
+              <input  id="allow_min" type="checkbox" name="campaign[allow_minimize_notification]" value="1" <%if @campaign.allow_minimize_notification==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+            </div>
+            -->
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('not_cont','custom_filter','tab_cont','action_btn','head');" class="tools" >
+          <span class="col-circle">2</span>
+          <span class="tools_tab_name">Notification Content</span>
+          <span style="float:right" class="arr_up" id="head">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="not_cont">
+            <div class="create-campaign-left-row">
+              <label class="inp_title">Notification Message</label>
+              <textarea id="message" name="campaign[message]" type="text"><%=@campaign.message%></textarea>
+              <small class="create-ex create_campaign_note">e.g. Check out our new Blog entry -></small>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title">Fixed position at the top of Browser Window?</label><br/>
+              <input type="checkbox" name="campaign[fixed_position]" value="1" <%if @campaign.fixed_position==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title">Push down HTML content when rendering?</label><br/>
+              <input type="checkbox" name="campaign[push_down_html]" value="1" <%if @campaign.push_down_html==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title">Align Content in Notification</label><br/>
+
+              <input type="radio" name="campaign[content_alignment]" value="0" <%if @campaign.content_alignment==0%>checked<%end%> /><label class="btn_label">Left</label>
+              <input type="radio" name="campaign[content_alignment]" value="1" <%if @campaign.content_alignment==1%>checked<%end%> /><label class="btn_label">Center</label>
+              <input type="radio" name="campaign[content_alignment]" value="2" <%if @campaign.content_alignment==2%>checked<%end%> /><label class="btn_label">Right</label>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('action_btn','custom_filter','tab_cont','not_cont','ban');" class="tools" >
+          <span class="col-circle">3</span>
+          <span class="tools_tab_name">Call to Action Button</span>
+          <span style="float:right" class="arr_up" id="ban">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="action_btn">
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Background Color :</label>
+              <div id="customWidget">
+                <div  id="colorSelector4">
+                  <div style="background-color: <%= @campaign.action_background_color%>;"></div>
+                </div>
+                <input style="width: auto !important;" id="action_background_color" name="campaign[action_background_color]" type="text" placeholder="Background Color" value="<%=@campaign.action_background_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. fff</small>
+              </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Text Color :</label>
+              <div id="customWidget">
+                <div  id="colorSelector5">
+                  <div style="background-color: <%= @campaign.action_text_color%>;"></div>
+                </div>
+                <input style="width: auto !important;" id="action_text_color" name="campaign[action_text_color]" type="text" placeholder="Text Color" value="<%=@campaign.action_text_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. fff</small>
+              </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Border Color :</label>
+              <div id="customWidget">
+                <div  id="colorSelector6">
+                  <div style="background-color: <%= @campaign.action_border_color%>;"></div>
+                </div>
+                <input style="width: auto !important;" id="action_border_color" name="campaign[action_border_color]" type="text" placeholder="Border Color" value="<%=@campaign.action_border_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. fff</small>
+              </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Call to Action Text :</label>
+              <input style="width: auto !important;" id="call_to_action_text" name="campaign[call_to_action_text]" type="text" placeholder="Call to Action Text" value="<%=@campaign.call_to_action_text%>" />
+              <small class="create-ex create_campaign_note">e.g. Read More, Buy Now, Redeem</small>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title" style=" width: 90% !important; ">Button Url :</label>
+              <input style="width: auto !important;" id="call_to_action_url" name="campaign[call_to_action_url]" type="text" placeholder="Call to Action URL" value="<%=@campaign.call_to_action_url%>"/>
+              <small class="create-ex create_campaign_note">e.g. http://www.example.com/blog/latest-entry</small>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="inp_title">Open in New Window?</label><br/>
+              <input type="checkbox" name="campaign[call_to_action_new_window]" value="1" <%if @campaign.call_to_action_new_window==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('custom_filter','action_btn','tab_cont','not_cont','res');" class="tools" >
+          <span class="col-circle">4</span>
+          <span class="tools_tab_name">Audience Targeting </span>
+          <span style="float:right" class="arr_up" id="res">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="custom_filter">
+            <div class="create-campaign-left-row">
+              <%= render :partial => 'member/setup/web/user_filter'%>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="campaign-configure-button"
+           style="float:left;margin-left:1% !important; color: white !important; text-decoration: none !important;width:98% !important"
+           onclick="configure_twitter_app_offer('launch'); return false;">Launch Campaign</a>
+        <div id="response_messg" style=" margin: 17px 0px 0px 10px; float: left; color: green; "></div>
+      </li>
+    </ul>
+  </form>
+</div>
+
+<div class="app-preview" style="margin-top: 25px;height: 800px;width:63.45%;">
+  <h3 style="font-family: Arial;margin:5px;font-size:18px;color:#244386 !important;">Preview</h3>
+  <div class="preview-container-main" style="height:754px">
+    <div class="tab-bar">
+      <div class="tab_btns">
+        <div class="close_btn">x</div>
+        <!--<div class="min_btn">_</div>-->
+      </div>
+      <div class="notify_mssg">
+      </div>
+      <div class="action_btn_div">
+        <a href="#" class="action_btn">Click Me !</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="width: 6%;vertical-align: top;height: 800px;display: inline-block;margin-top:4%;">
+  <a href="#" id="pumpkin" class="theme" onclick="change_theme('pumpkin');return false;" style="background: #eb593c;">Get it!</a>
+  <a href="#" id="yellow" class="theme" onclick="change_theme('yellow');return false;" style="background: yellow;">Get it!</a>
+  <a href="#" id="midnight_blue" class="theme" onclick="change_theme('midnight_blue');return false;" style="background: #2c3e50;">Get it!</a>
+  <a href="#" id="emerald" class="theme" onclick="change_theme('emerald');return false;" style="background: rgb(138, 248, 138);">Get it!</a>
+  <a href="#" id="sunflower" class="theme" onclick="change_theme('sunflower');return false;" style="background: #f1c40f;">Get it!</a>
+  <a href="#" id="silver" class="theme" onclick="change_theme('silver');return false;" style="background: #bdc3c7;">Get it!</a>
+  <a href="#" id="sky" class="theme" onclick="change_theme('sky');return false;" style="background: #def1ff">Get it!</a>
+  <a href="#" id="green" class="theme" onclick="change_theme('green');return false;" style="background: #569625;">Get it!</a>
+  <a href="#" id="peter_river" class="theme" onclick="change_theme('peter_river');return false;" style="background: #3498DB">Get it!</a>
+  <a href="#" id="orange" class="theme" onclick="change_theme('orange');return false;" style="background: #F39C12;">Get it!</a>
+</div>
+
+
+
+<script>
+
+  function change_theme(value)
+  {
+    if (value == 'pumpkin')
+    {
+      var tab_bg_cl = 'eb593c';
+      var tab_bd_cl = 'fff';
+      var tab_txt_cl = 'fff';
+    }
+    else if (value == 'yellow')
+    {
+      var tab_bg_cl = 'ff0';
+      var tab_bd_cl = '000';
+      var tab_txt_cl = '000';
+    }
+    else if (value == 'peter_river')
+    {
+      var tab_bg_cl = '3498DB';
+      var tab_bd_cl = 'fff';
+      var tab_txt_cl = 'fff';
+    }
+    else if (value == 'orange')
+    {
+      var tab_bg_cl = 'F39C12';
+      var tab_bd_cl = 'fff';
+      var tab_txt_cl = 'fff';
+    }
+    else if (value == 'midnight_blue')
+    {
+      var tab_bg_cl = '2c3e50';
+      var tab_bd_cl = 'fff';
+      var tab_txt_cl = 'fff';
+    }
+    else if (value == 'emerald')
+    {
+      var tab_bg_cl = '73F573';
+      var tab_bd_cl = '000';
+      var tab_txt_cl = '000';
+    }
+    else if (value == 'sunflower')
+    {
+      var tab_bg_cl = 'f1c40f';
+      var tab_bd_cl = '000';
+      var tab_txt_cl = '000';
+    }
+    else if (value == 'silver')
+    {
+      var tab_bg_cl = 'bdc3c7';
+      var tab_bd_cl = '000';
+      var tab_txt_cl = '000';
+    }
+    else if (value == 'green')
+    {
+      var tab_bg_cl = '569625';
+      var tab_bd_cl = 'fff';
+      var tab_txt_cl = 'fff';
+    }
+    else if (value == 'sky')
+    {
+      var tab_bg_cl = 'def1ff';
+      var tab_bd_cl = '000';
+      var tab_txt_cl = '000';
+    }
+    jQuery('.tab-bar').css({'background-color':"#"+tab_bg_cl});
+    jQuery('#background_color').val(tab_bg_cl);
+    jQuery('.tab-bar').css({'border-color':"#"+tab_bd_cl});
+    jQuery('#border_color').val(tab_bd_cl);
+    jQuery('.notify_mssg').css({'color':"#"+tab_txt_cl});
+    jQuery('#text_color').val(tab_bd_cl);
+    jQuery('#colorSelector1 div').css({'background-color':"#"+tab_bd_cl});
+    jQuery('#colorSelector2 div').css({'background-color':"#"+tab_bg_cl});
+    jQuery('#colorSelector3 div').css({'background-color':"#"+tab_txt_cl});
+  }
+
+  //Tabular up-down function
+  function custom_accordion(id_1, id_2, id_3,id_4,id_5){
+    jQuery('#ban').html('&#8594;');
+    jQuery('.toggleq').css({'display':'block'});
+    jQuery('#head').html('&#8594;');
+    jQuery('#gen').html('&#8594;');
+    jQuery('#res').html('&#8594;');
+    jQuery('#'+id_5).html('&#8595;');
+    jQuery('#' + id_1).slideDown();
+    jQuery('#' + id_2).slideUp();
+    jQuery('#' + id_3).slideUp();
+    jQuery('#' + id_4).slideUp();
+  }
+
+  // Notification Message
+  $('#message').keyup(function(){
+    $('.notify_mssg').html($('#message').val());
+  });
+
+  //Button Text
+  $('#call_to_action_text').keyup(function(){
+    $('.action_btn').html($('#call_to_action_text').val());
+  });
+
+  //Setting href attribute of <a> tag of button
+  $('#call_to_action_url').keyup(function(){
+    var _val = $("#call_to_action_url").val();
+    $('.action_btn').attr('href',_val);
+  });
+
+  //opacity of the Tab
+  $('#opacity').blur(function(){
+    var val = $('#opacity').val();
+    if (val >= 0 && val <= 1)
+    { $('.tab-bar').css({'opacity':val}); }
+  });
+
+  //Border-color of tab
+  $('#border_color').blur(function(){
+    var val = $('#border_color').val();
+    $('.tab-bar').css({'border-color':'#'+val});
+    $('#colorSelector1 div').css({'background-color':'#'+val});
+  });
+
+  $('#colorSelector1').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#border_color').val(hex);
+      $('.tab-bar').css({'border-color':'#'+hex});
+      $('#colorSelector1 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Background-color of tab
+  $('#background_color').blur(function(){
+    var val = $('#background_color').val();
+    $('.tab-bar').css({'background':'#'+val});
+    $('#colorSelector2 div').css({'background-color':'#'+val});
+  });
+
+  $('#colorSelector2').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#background_color').val(hex);
+      $('.tab-bar').css({'background':'#'+hex});
+      $('#colorSelector2 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Text-color of tab
+  $('#text_color').blur(function(){
+    var val = $('#text_color').val();
+    $('.tab-bar').css({'color':'#'+val});
+    $('#colorSelector3 div').css({'background-color':'#'+val});
+  });
+
+  $('#colorSelector3').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#text_color').val(hex);
+      $('.tab-bar').css({'color':'#'+hex});
+      $('#colorSelector3 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Text-color of button
+  $('#action_text_color').blur(function(){
+    var val = $('#action_text_color').val();
+    $('.action_btn').css({'color':'#'+val});
+    $('.close_btn').css({'color':'#'+val});
+    $('#colorSelector5 div').css({'background-color':'#'+val});
+  });
+
+  $('#colorSelector5').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#action_text_color').val(hex);
+      $('.action_btn').css({'color':'#'+hex});
+      $('.close_btn').css({'color':'#'+hex});
+      $('#colorSelector5 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //background-color of button
+  $('#action_background_color').blur(function(){
+    var val = $('#action_background_color').val();
+    $('.action_btn').css({'background':'#'+val});
+    $('.close_btn').css({'background':'#'+val});
+    $('#colorSelector4 div').css({'background-color':'#'+val});
+  });
+
+  $('#colorSelector4').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#action_background_color').val(hex);
+      $('.action_btn').css({'background':'#'+hex});
+      $('.close_btn').css({'background':'#'+hex});
+      $('#colorSelector4 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //border-color of button
+  $('#action_border_color').blur(function(){
+    var val = $('#action_border_color').val();
+    $('.action_btn').css({'border-color':val});
+    $('.close_btn').css({'border-color':'#'+val});
+    $('#colorSelector6 div').css({'background-color':'#'+val});
+  });
+
+  $('#colorSelector6').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#action_border_color').val(hex);
+      $('.action_btn').css({'border-color':'#'+hex});
+      $('.close_btn').css({'border-color':'#'+hex});
+      $('#colorSelector6 div').css({'background-color':'#'+hex});
+    }
+  });
+
+
+
+  //allow user to close
+  $('#allow_close').change(function () {
+    if ($(this).is(":checked")) {
+      $('.close_btn').css({'display':'block'});// checked
+      return;
+    }
+    $('.close_btn').css({'display':'none'});// not checked
+  });
+
+
+  //Text-align
+  $('input:radio').change(function () { // listen to change event
+    if(this.value == '0')
+    {
+      console.log("Radio Button Value is 0");
+      $('.tab-bar').css({'text-align':'left'});
+    }
+    if(this.value == '1')
+    {
+      console.log("Radio Button Value is 1");
+      $('.tab-bar').css({'text-align':'center'});
+    }
+    if(this.value == '2')
+    {
+      console.log("Radio Button Value is 2");
+      $('.tab-bar').css({'text-align':'right'});
+    }
+  });
+
+
+  $(document).ready(function () {
+<%if !@campaign.message.blank?%>
+      $('.notify_mssg').html('<%= @campaign.message%>');
+<%end%>
+<%if !@campaign.call_to_action_text.blank?%>
+      $('.action_btn').html('<%= @campaign.call_to_action_text%>');
+<%end%>
+<%if !@campaign.border_color.blank?%>
+      $('.tab-bar').css({'border-color':'#'+'<%= @campaign.border_color%>'});
+      $('#colorSelector1 div').css({'background-color':'#'+'<%= @campaign.border_color%>'});
+<%end%>
+<%if !@campaign.background_color.blank?%>
+      $('.tab-bar').css({'background':'#'+'<%= @campaign.background_color%>'});
+      $('#colorSelector2 div').css({'background-color':'#'+'<%= @campaign.background_color%>'});
+<%end%>
+<%if !@campaign.text_color.blank?%>
+      $('.tab-bar').css({'color':'#'+'<%= @campaign.text_color%>'});
+      $('#colorSelector3 div').css({'background-color':'#'+'<%= @campaign.text_color%>'});
+<%end%>
+<%if !@campaign.action_text_color.blank?%>
+      $('.action_btn').css({'color':'#'+'<%= @campaign.action_text_color%>'});
+      $('.close_btn').css({'color':'#'+'<%= @campaign.action_text_color%>'});
+      $('#colorSelector5 div').css({'background-color':'#'+'<%= @campaign.action_text_color%>'});
+<%end%>
+<%if !@campaign.action_background_color.blank?%>
+      $('.action_btn').css({'background':'#'+'<%= @campaign.action_background_color%>'});
+      $('.close_btn').css({'background':'#'+'<%= @campaign.action_background_color%>'});
+      $('#colorSelector4 div').css({'background-color':'#'+'<%= @campaign.action_background_color%>'});
+<%end%>
+<%if !@campaign.action_border_color.blank?%>
+      $('.action_btn').css({'border-color':'#'+'<%= @campaign.action_border_color%>'});
+      $('.close_btn').css({'border-color':'#'+'<%= @campaign.action_border_color%>'});
+      $('#colorSelector6 div').css({'background-color':'#'+'<%= @campaign.action_border_color%>'});
+<%end%>
+<%if @campaign.allow_close_notification != 1%>
+      $('.close_btn').css({'display':'none'});
+<%end%>
+<%#if @campaign.allow_minimize_notification != 1%>
+    //   $('.min_btn').css({'display':'none'});
+<%#end%>
+<%if !@campaign.call_to_action_url.blank?%>
+      $('.action_btn').attr('href','<%=@campaign.call_to_action_url%>');
+<%end%>
+<%if !@campaign.opacity.blank?%>
+      $('.tab-bar').css({'opacity':'<%=@campaign.opacity%>'});
+<%end%>
+<%if @campaign.content_alignment == 0%>
+      $('.tab-bar').css({'text-align':'left'});
+<%elsif @campaign.content_alignment == 1%>
+      $('.tab-bar').css({'text-align':'center'});
+<%elsif @campaign.content_alignment == 2%>
+      $('.tab-bar').css({'text-align':'right'});
+<%end%>
+    custom_accordion('tab_cont','not_cont','action_btn','custom_filter','gen');
+  });
+
+
+  //this function is used to get the value of all filters applicable and make it in array of hashes form(for saving purpose) ...
+  function save_filters_data()
+  {
+    if ( $('.custom-filters li').length != 0 )
+    {
+      //Getting the last <li> element of ul
+      var _last_li_id = $('.add-more').prev().attr('id');
+      if (_last_li_id == undefined)
+      {  return false; }
+      var _length_of_li_elements = _last_li_id.split("-")[2];
+      var array_of_filters = new Array; //String which is to be save in db and contains list of all filters.
+      for(var i=0;i<=_length_of_li_elements;i++)
+      {
+        if (($('#filter-row-'+i).is(':empty')) == false)
+        {
+          var array_of_values = new Array;
+          array_of_values[0] = $('#select-filter-'+i).val();
+          array_of_values[1] = $('#select-qual-'+i).children(":selected").val();
+          if (array_of_values[0] == "Day of the month" || array_of_values[0] == "Month of the year" || array_of_values[0] == "Hour of the day"||array_of_values[0] == "Minute of the hour" )
+          {
+            var start_and_end_camp_values = [];
+            start_and_end_camp_values[0] = $('#inp_'+i+'_0').val();
+            start_and_end_camp_values[1] = $('#inp_'+i+'_1').val();
+            array_of_values[2] = start_and_end_camp_values;
+          }
+          else{
+            if ($('#input_method_'+i).length > 0)
+            {
+              array_of_values[2] = $('#input_method_'+i).children(":selected").val();
+            }
+            else if ($('#inp_'+i).length > 0)
+            {
+              array_of_values[2] = $('#inp_'+i).val();
+            }
+          }
+          //console.log("arr_of_values = "+array_of_values);
+          if (array_of_values[0] != '' && array_of_values[1] != '' && array_of_values[2] != '')
+          {
+            array_of_filters.push(array_of_values);
+          }
+        }
+      }
+      console.log("array_of_filters  = " + array_of_filters);
+      //Finally the data formed would be as :
+      return array_of_filters;
+      // [[filter_option_val,qual_option_val,input_val],[filter_option_val,qual_option_val,input_val],...]
+    }
+    else{
+      return [];
+    }
+  };
+
+  function configure_twitter_app_offer(mode)
+  {
+    if (jQuery("#campaign_title").val( ) == "")
+    {
+      alert ('Please Specify Campaign Title.');
+      return ;
+    }
+    dataString = jQuery('#web_notification_campaign').serialize();
+    var _custom_filters = save_filters_data();
+    dataString += "&filters="+JSON.stringify(_custom_filters);
+    jQuery.ajax({
+      url: "/member/setup/web/notification/create_or_update",
+      data: dataString,
+      type: "POST",
+      dataType: 'jsonp',
+      cache: false,
+      beforeSend: function(){
+        console.log("Before SEND Block")
+        jQuery('#response_messg').show();
+        jQuery('#response_messg').html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        if (response_data.status == 'Error') {
+          alert(response_data.message);
+        } else {
+          console.log("In Success Block");
+          jQuery('#response_messg').html("Changes in Campaign saved successfully. Please check campaign on your website '" +'<%= domain %>'+"'");
+        };
+      },
+      error: function(response_data) {
+        jQuery('#response_messg').html(response_data.message);
+      }
+    });
+  }
+
+</script>

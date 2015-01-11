@@ -1,0 +1,45 @@
+<style>
+  #content {font: inherit;vertical-align: baseline;color: #555;font-size: 14px;line-height: 24px;float: right;position: relative;margin: 0 18px 0 0;border: 1px solid #CCCCCC;padding: 10px;border-radius: 8px;;width: 640px;}
+  .top-heading {padding:10px 0 !important;line-height: 50px;}
+  #content img {border: 1px solid #ccc;padding: 5px;border-radius: 7px;margin: 6px 0 0 0;}
+</style>
+<%= render :partial=>"/integrations/instructions_left_menu" %>
+<div id="content">
+  <h1 class="top-heading">Integrate UsersDelight with Shopify Store</h1>
+
+  <p>Helps Shopify customers to increase conversions using Notification, gain customer insights using Survey and have customer support up and running within few seconds using Feedback.</p>
+
+  <div class="content-section-data">
+    <p>If you are not signed up with UsersDelight already, you'll need to do so. Please sign up and create a widget for
+      your Shopify store first. <a href="/pricing">Select a plan and sign-up</a> now.</p>
+
+    <p>Follow these steps to add UsersDelight integration code to your store:</p>
+
+    <h2>1. Go to Shopify store's control panel and click on "Themes &gt; Template Editor"</h2>
+    <div class="we-thumbnail-container" align="center">
+      <img src="//d3701cc9l7v9a6.cloudfront.net/images/v1/platform/shopify-1.jpg" height="286" width="600" alt="Shopify UsersDelight Integration Step 1"/>
+      <div class="caption">Login to your store's control panel and click "Themes &gt; Template Editor"
+        link in header navigation</div>
+    </div>
+
+    <h2>2. Browse layout themes</h2>
+    <p>On the left hand side, you would see Layouts section. Click on the layout that you use. By default, you would see a layout named  'theme.liquid'. On clicking your theme, its HTML markup will appear on the right hand side. Scroll-down to the bottom of the markup section.</p>
+    <div class="we-thumbnail-container" align="center">
+      <img src="//d3701cc9l7v9a6.cloudfront.net/images/v1/platform/shopify-2.jpg" height="324" width="600" alt="Shopify UsersDelight Integration Step 2"/>
+      <div class="caption">Go to store "Template Editor &gt; Layouts &gt; Themes".</div>
+    </div>
+
+    <h2>3. Copy-paste UsersDelight integration code into "Themes" and save the file</h2>
+    <p> Paste the integration code just before the end of the body tag (<i>&lt;/body&gt;</i>)</p>
+    <div class="we-thumbnail-container" align="center">
+      <img src='/images/webcode.png'/>
+      <div class="caption">Get it from UsersDelight Dashboard &gt; Website Campaigns &gt; Add website</div>
+    </div>
+
+    <p>
+      That's it! Your Shopify store is now UsersDelight ready. You can customize your Feedback options, create
+      new Surveys and new Notifications in your UsersDelight Dashboard. No code changes are needed on your store.
+    </p>
+    Note: SSL support is only available for customers subscribed to the <a href="/pricing">Basic plan</a> or higher.
+  </div>
+</div>

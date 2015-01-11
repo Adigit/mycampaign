@@ -1,0 +1,287 @@
+<style>
+#mobile_notification_campaign input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="file"], select, textarea {margin:0 5px;width:90% !important;font-weight:normal;}
+  #mobile_notification_campaign .create-ex{margin-left:0 !important}
+  #mobile_notification_campaign label{width:99% !important}
+  #preview{width:99%;height:900px}
+  .create-campaign-left-row label {font-weight: bold !important;}
+  .create-campaign-left-row select {width: 94% !important;}
+  .arr_up {margin-top:-5px;}
+  toggle, .toggleq {padding: 0 !important;}
+  .preview-container-main {background-color: #e2e2e2;}
+  #mobile_notification_campaign .preview_link{float:left;width:auto;margin-right:40px;font-weight:bold;font-size:14px;}
+</style>
+
+<h1 style="width:100% !important; text-align:left">Setup <%=@mobile_campaign.title%></h1>
+<div style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+<div class="create-campaign-left" style="width:30% !important;border-radius: 5px;border: 1px solid #808080;overflow: hidden;height: 700px;margin-top: 25px;">
+  <form action="#" method="post" id="mobile_notification_campaign">
+    <input id="campaign_id" name="campaign[id]" type="hidden" value="<%=params[:id]%>"/>
+    <ul class="expand">
+      <li>
+        <div onclick="custom_accordion('tab_cont','coupon','gen');" class="tools" >
+          <span class="col-circle">1</span>
+          <span class="tools_tab_name">Configure Tab</span>
+          <span style="float:right" class="arr_up" id="gen">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="tab_cont">
+            <div class="create-campaign-left-row">
+              <label>Header Message</label>
+              <input id="campaign_header_message" name="campaign[header_message]" type="text" placeholder="Header Message" value="<%=@campaign.header_message%>"/>
+              <small class="create-ex create_campaign_note">e.g. Upgrade to New Version -></small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Main Message</label>
+              <input id="campaign_main_message" name="campaign[main_message]" type="text" placeholder="Main Message" value="<%=@campaign.main_message%>"/>
+              <small class="create-ex create_campaign_note">e.g. New Version offers Voice Calls and lot more features.</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>First Button</label>
+              <input maxlength="23" id="campaign_first_button_text" name="campaign[first_button_text]" type="text" placeholder="Upgrade Now" value="<%=@campaign.first_button_text%>"/>
+              <input  id="campaign_first_button_link" name="campaign[first_button_link]" type="text" placeholder="http://play.google.com/..." value="<%=@campaign.first_button_link%>"/>
+              <small class="create-ex create_campaign_note">e.g. Upgrade Now can be the call to action and user can be directed to Google Play store for updating the app</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Second Button</label>
+              <input maxlength="8" id="campaign_second_button_text" name="campaign[second_button_text]" type="text" placeholder="Close" value="<%=@campaign.second_button_text%>"/>
+              <small class="create-ex create_campaign_note">e.g. Later, Not Now. This button always closes the notification popup</small>
+            </div>
+          </div>
+        </div>
+
+			<div onclick="custom_accordion('coupon','tab_cont','head');" class="tools" >
+          <span class="col-circle">2</span>
+          <span class="tools_tab_name">Audience Targeting </span>
+          <span style="float:right" class="arr_up" id="res">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="share">
+            <div class="create-campaign-left-row">
+              <%= render :partial => 'member/setup/web/user_filter'%>
+            </div>
+          </div>
+        </div>
+
+<!--
+        <div onclick="custom_accordion('coupon', 'tab_cont','head');" class="tools" >
+          <span class="col-circle">2</span>
+          <span class="tools_tab_name">Show Notification Only To Following Users</span><span id="head" style="float:right; font-size: 24 !important;" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="coupon">
+            <div class="create-campaign-left-row">
+	<div style="width:20%; float:left; margin-top:7%" >	
+               <select id="android_version_support_condition" name="campaign[version_support_condition]" style="width:93% !important;">
+               <option value="=" <#% if @campaign.version_support_condition == "="%>selected="selected"<#% end%> > = </option>
+                  <option value=">" <#% if @campaign.version_support_condition == ">"%>selected="selected"<#% end%>> > </option>
+                  <option value="<" <#% if @campaign.version_support_condition == "<"%>selected="selected"<#% end%>> < </option>
+                  <option value=">=" <#% if @campaign.version_support_condition == ">="%>selected="selected"<#% end%>> >= </option>
+                  <option value="<=" <#% if @campaign.version_support_condition == "<="%>selected="selected"<#% end%>> <= </option>
+
+		</select>
+	</div>
+	<div style = "width :74%; float:left; margin-left:3%">
+              <label>Version Code</label>
+              <input id="campaign_app_version_code" name="campaign[app_version_code]" type="text" placeholder="1" value="<#%=@campaign.app_version_code%>"/>
+              <small class="create-ex create_campaign_note">If left blank, all version codes will be included in test. You may input multiple entries using comma as a separator.</small>
+	</div>
+            </div>
+		<div class="create-campaign-left-row" style="float:left;">
+               <div style="width:20%; float;left; margin-top:7%;">
+                  <select id="app_launch_condition" name="campaign[app_launch_condition]" style="width:93% !important;">
+                     <option value="=" <#% if @campaign.app_launch_condition == "="%>selected="selected"<#% end%> > = </option>
+                  <option value=">" <#% if @campaign.app_launch_condition == ">"%>selected="selected"<#% end%>> > </option>
+                  <option value="<" <#% if @campaign.app_launch_condition == "<"%>selected="selected"<#% end%>> < </option>
+                  <option value=">=" <#% if @campaign.app_launch_condition == ">="%>selected="selected"<#% end%>> >= </option>
+                  <option value="<=" <#% if @campaign.app_launch_condition == "<="%>selected="selected"<#% end%>> <= </option>
+                  </select>
+               </div>
+               <div style = "width :74%; float:right; margin-top:-15%">
+                  <label style="margin-left:-2%">App Launch Count</label>
+                  <input style="margin-left:-2%" id="app_launches_counter" name="campaign[app_launches_counter]" type="text" placeholder="App Launch Count" value="<#%=@campaign.app_launches_counter%>"/>
+               </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label>Percentage of Users</label>
+              <input id="campaign_user_percentage" name="campaign[user_percentage]" type="text" placeholder="100" value="<#%=@campaign.user_percentage%>"/>
+              <small class="create-ex create_campaign_note">Input anything from 0-100.</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Name of App Activity</label>
+              <input id="campaign_activity" name="campaign[activity]" type="text" placeholder="MainActivity" value="<#%=@campaign.activity%>"/>
+              <small class="create-ex create_campaign_note">If left blank, user will be shown this popup on first screen itself</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Wireless Connection</label>
+              <select id="select_internet_connection_type" name="campaign[internet_connection_type]">
+                <option value="all" <#%if @campaign.internet_connection_type=="all"%>selected="true" <#%end%>>All mobile users</option>
+                <option value="wifi" <#%if @campaign.internet_connection_type=="wifi"%>selected="true" <#%end%>>Wi-Fi Only</option>
+              </select>
+
+              <small class="create-ex create_campaign_note">If left blank, user will be shown this popup on first screen itself</small>
+            </div>
+          </div>
+        </div>
+-->
+
+        <a href="#" class="campaign-configure-button"
+           style="float:left;margin-left:1% !important; color: white !important; text-decoration: none !important;width:97% !important"
+           onclick="configure_mobile_notification('preview'); return false;">Save Configuration</a>
+
+        <div class="pro_box" style="display:none;border:none;width: 98%;margin: 10px 0 0 5px;float: left; margin-left:6%"></div>
+      </li>
+    </ul>
+  </form>
+</div>
+<style>
+.bg {
+background-image: url(http://beta.socialappshq.com:8087/images/socialapps/mobile_panel.png);
+width: 33%;
+height: 492px;
+background-repeat: no-repeat;
+float: left;
+margin-left: 35%;
+margin-top: 5%
+}</style>
+<div class="app-preview" style="height:700px;margin-top:25px;width:68.45% !important;">
+  <h3 style="font-family: Arial;margin:5px;font-size:18px;color:#244386 !important;border-bottom: 1px solid #ccc;width: 98%;padding: 7px 2px !important;">Preview</h3>
+  <div class="preview-container-main" style="width:96.5% !important; margin: 1% 1% 1%; background-color: #F1F1F1; height:634px;" >
+	<div class="bg">
+    		<div class="coupon_popup" style=" width: 76%; background: white;border: 5px solid #555;height: auto;clear: none;margin-top:67%; margin-left: 6%; float: left;border-radius: 3px;">
+	        <p id="header_mssg" style="border-bottom: 3px solid rgb(42, 195, 207);margin-left: 3px;font-size: 24px; color: rgb(23, 208, 224);margin-left: 0%;">Flat 80% Off</p>
+	        <p id="main_mssg" style="font-size: 12px; color:black; margin: 1% 2%"></p><br/>
+	        <div class="action_btns" style="border-top: 1px solid rgb(29, 28, 28);height: 50px;">
+	        <a href="#" id="custom_btn" style="text-decoration: none;font-size: 13px;padding: 5% 10% 5% 10%;color: black;background: white; float: left; width: 27%;"></a>
+        	<a href="#" id="closebtn" style="text-decoration: none; font-size: 13px; border-left: 1px solid #000; padding: 5% 10%  10%; color: black; background: white;float: left;width: 32%;"></a>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  //popup title
+  $('#campaign_header_message').keyup(function(){
+    $('#header_mssg').html($('#campaign_header_message').val());
+  });
+
+  //popup Message
+  $('#campaign_main_message').keyup(function(){
+    $('#main_mssg').html($('#campaign_main_message').val());
+  });
+
+  //campaign_first_button_text
+  $('#campaign_first_button_text').keyup(function(){
+    $('#custom_btn').html($('#campaign_first_button_text').val());
+  });
+
+  //campaign_second_button_text
+  $('#campaign_second_button_text').keyup(function(){
+    $('#closebtn').html($('#campaign_second_button_text').val());
+  });
+
+
+  function configure_mobile_notification(mode)
+  {
+    if ((jQuery("#campaign_header_message").val( ) == "") || (jQuery("#campaign_main_message").val( ) == "") || (jQuery("#campaign_first_button_text").val( ) == "") || (jQuery("#campaign_first_button_link").val( ) == "") || (jQuery("#campaign_second_button_text").val( ) == ""))
+    {
+      alert ('Please specify all input fields');
+      return ;
+    }
+
+    dataString = jQuery('#mobile_notification_campaign').serialize();
+		var _custom_filters = save_filters_data();
+        dataString += "&filters="+JSON.stringify(_custom_filters);
+    jQuery.ajax({
+      url: "/member/setup/mobile/notification/create_or_update",
+      data: dataString,
+      type: "POST",
+      dataType: 'jsonp',
+      cache: false,
+      beforeSend: function(){
+        jQuery('.pro_box').show();
+        jQuery('.pro_box').html('<img src=\"/images/socialapps/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        jQuery('.pro_box').hide();
+        if (response_data.status == 'Error') {
+          alert(response_data.message);
+        } else {
+          jQuery('.pro_box').show();
+          jQuery('.pro_box').css({'color':'green'});
+          jQuery('.pro_box').html("Your configuration is successfully saved.");
+        };
+      },
+      error: function(response_data) {
+        jQuery('.pro_box').html(response_data.message);
+      }
+    });
+  }
+
+  function custom_accordion(id_1, id_2,id_3){
+    jQuery('.toggleq').css({'display':'block'});
+    jQuery('#head').html('&#8594;');
+    jQuery('#gen').html('&#8594;');
+    jQuery('#'+id_3).html('&#8595;');
+    jQuery('#' + id_1).slideDown();
+    jQuery('#' + id_2).slideUp();
+  }
+
+
+
+	//this function is used to get the value of all filters applicable and make it in array of arrays form(for saving purpose) ...
+  function save_filters_data()
+  {
+    if ( $('.custom-filters li').length != 0 )
+    {
+      //Getting the last <li> element of ul
+      var _last_li_id = $('.add-more').prev().attr('id');
+      var _length_of_li_elements = _last_li_id.split("-")[2];
+      var array_of_filters = new Array; //String which is to be save in db and contains list of all filters.
+      for(var i=0;i<=_length_of_li_elements;i++)
+      {
+        if ($('#filter-row-'+i).length > 0)
+        {
+          var array_of_values = new Array;
+          array_of_values[0] = $('#select-filter-'+i).val();
+          array_of_values[1] = $('#select-qual-'+i).children(":selected").val();
+          
+            if ($('#input_method_'+i).length > 0)
+            {
+              array_of_values[2] = $('#input_method_'+i).children(":selected").val();
+            }
+            else if ($('#inp_'+i).length > 0)
+            {
+              array_of_values[2] = $('#inp_'+i).val();
+            }
+          
+          console.log("arr_of_values = "+array_of_values);
+          if (array_of_values[0] != '' && array_of_values[1] != '' && array_of_values[2] != '')
+          {
+            array_of_filters.push(array_of_values);
+          }
+        }
+      }
+      console.log("array_of_filters  = " + array_of_filters);
+      //Finally the data formed would be as :
+		return array_of_filters;
+      // [[filter_option_val,qual_option_val,input_val],[filter_option_val,qual_option_val,input_val],...]
+    }
+  };
+
+
+  $(document).ready(function () {
+    $('#header_mssg').html('<%= @campaign.header_message %>');
+    $('#main_mssg').html('<%= @campaign.main_message %>');
+    $('#custom_btn').html('<%= @campaign.first_button_text %>');
+    $('#closebtn').html('<%= @campaign.second_button_text %>');
+  });
+
+$("#campaign_second_button_text,#campaign_first_button_text").maxlength();
+</script>

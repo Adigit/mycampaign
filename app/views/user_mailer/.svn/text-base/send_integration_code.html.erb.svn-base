@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+      <%if @data[:type] == 'website'%>
+        Hi,<br/><br/>
+        <% if !@data[:to].blank? && @data[:to] == 'admin'%>
+           This email has been sent  for instructions on how to integrate the widgets in your Website.
+        <%else%>
+           This email has been sent by <%=@data[:admin_mail]%> for instructions on how to integrate the widgets in your Website.<br/><br/>
+        <%end%>
+         Please do the following to integrate the code:<br/><br/>
+      1) Copy and paste the following code within body tag for all pages of your website-<br/><br/>
+        &lt;script type="text/javascript"&gt;var _key=_key||{};_key["_key"]="<%= @data[:website_key] %>";_key["_id"]="<%= @data[:website_id] %>";(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "http://www.usersdelight.com/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://www.usersdelight.com"&gt;UseresDelight.com&lt;/a&gt; apps&lt;/noscript&gt;<br/><br/>
+      2) Please make sure that you have configured and launched at least one widget via UsersDelight.com to see it in action on your website.
+      <%else%>
+         Hi,<br/><br/>
+        This email has been sent by <%=@data[:admin_mail]%> for instructions on how to integrate the widgets in your Website.<br/><br/>
+        Please do the following to integrate the code:<br/><br/>
+
+      1)  Download the JAR file and include it in your app's lib folder - <a href="http://www.usersdelight.com/usersdelight.jar">http://www.usersdelight.com/usersdelight.jar</a> <br/><br/>
+
+      2) Use this API Key:<br/>
+         "<%= @data[:mobile_key] %>"<br/><br/>
+
+      3) Integrate the code listed here -  <a href="http://www.usersdelight.com/integrationguide/index">http://www.usersdelight.com/integrationguide/index</a>
+      <%end%>
+     <br/><br/>If you have any other queries, please email us at support@usersdelight.com and we will get back to you right away.<br/><br/><br/><br>
+	Thanks
+        <a href="http://www.usersdelight.com">UsersDelight Team</a>
+    </div>
+  </body>
+</html>
+
+

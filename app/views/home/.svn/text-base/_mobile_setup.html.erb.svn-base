@@ -1,0 +1,128 @@
+<style>
+  .campaign_btn {margin-left: 16px;text-decoration: none;border: 0px solid;background: #3f6eba;color: white;padding: 7px 26px;border-radius: 5px;}
+  .new_generated_js {padding-top:10px;}
+  .small_btns {margin-left: 16px;text-decoration: none;border: 0px solid;background: #3f6eba;color: white;padding: 4px 10px;border-radius: 5px;margin-top:0px;fon-size:14px;}
+  #enter_email,.small_btns {display:none;}
+  .custom_source_code {display: inline-block;border: 1px solid;width: 34%;padding: 10px;margin-top: 5px;}
+</style>
+<div class="row" style="text-align:center;float:left">
+  <div class="banner" style="min-height:725px !important;">
+    <h1 style="padding:20px;">Hurrray!! Here's your SDK code.</h1>
+    <div id="code_box">
+      <b>Step 1 -</b> Integrate this in main activity of your app.<br/>
+      <div class="new_generated_js">
+        <div style="clear:both;margin-bottom:-10px;"></div>
+        <textarea id="code-area" readonly="readonly" rows="1" cols="10" style="text-align:center;font-weight: bold;margin-top:5px;padding:10px;font-size:14px;background:#eee;width: 95% !important;"><%= @response_hash["app_key"]%></textarea>
+        <div style="clear: both;text-align: left;float: left;width: 100%;padding: 8px;">
+          <a href="#" style=" margin-left: 30%; float: left; " class="campaign_btn" id="option_to_copy">Copy this code</a>
+          <div style="float: left;margin: 0.5% 0px 0px 2%;">|</div>
+          <a href="#" style="float: left;" class="campaign_btn" id="option_for_email" onclick="send_code_via_email();return false;">Send code via email</a>
+          <input type="text" id="enter_email"  style="margin-left: 2%;float: left;"></input>
+          <a href="#" id="send_email_btn" class="small_btns" onclick="send_email();return false;">Send</a>
+          <a href="#" id="send_email_btn" class="small_btns" onclick="cancel_email();return false;">Cancel</a>
+          <span style="font-size: 16px;margin-left:4px;display:none;" id="email_response"></span>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div id="reference_manual"><b>For Reference :</b><br/>
+          <div class="custom_source_code">
+            <div class="image-box" onclick="top.location.href='/UsersDelight.jar'" style="cursor: pointer;margin-left: 8px;">
+              <div class="image-area">
+                <center><img style="padding-left:0px;width:61%;" src="https://s3.amazonaws.com/fbappshq-assets/datas/62243/large.png"/></center></div>
+              <center><a href="http://www.usersdelight.com/UsersDelight.jar">Download Android SDK</a></center>
+            </div>
+            <div class="image-box" onclick="top.location.href='/integrationguide/index'" style="cursor: pointer;">
+              <div class="image-area">
+                <center><img style="padding-left:0px;width:61%;" src="https://s3.amazonaws.com/fbappshq-assets/datas/62244/large.png"/></center>
+              </div>
+              <center><a href="/integrationguide/index" target="_blank">Integration Guide</a></center>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>      
+      <b>Step 2 -</b> Choose the widget to configure &nbsp;&nbsp;&nbsp;&nbsp;
+      <br/>
+      <div class="select_to_configure" style="padding-top:10px;">
+        <select style="margin-top:10px;" id="choose_to_go">
+          <option value="notification">Notification</option>
+          <option value="feedback">Feedback</option>
+          <option value="coupon">Coupon</option>
+        </select>
+        <a class="campaign_btn" onclick="go_to_configuration_page(); return false;" href="<%=SITE_URL%>/users/sign_in" >Configure Widget</a><br/>
+      </div>
+<%#= render :partial => "/devise/sessions/step3_login.html.erb" %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#option_to_copy').zclip({
+    path:'/ZeroClipboard.swf',
+    copy:$('#code-area').val()
+  });
+
+  $('#code-area').focus(function(){
+    $('#code-area').css({"background":"none"});
+    $('#code-area').css({"color":"#000"});
+  });
+
+  function send_code_via_email()
+  {
+    jQuery('#option_for_email').hide();
+    jQuery('.small_btns').show();
+    jQuery('#enter_email').show();
+
+  }
+
+  function send_email()
+  {
+    jQuery('#email_response').hide();
+    jQuery('#email_response').text('');
+    jQuery('#enter_email').css({'border-color':'none'});
+    var _email = jQuery("#enter_email").val();
+    dataString ="user_id=<%=@response_hash['user_id']%>&email="+_email+"&type='mobile'&mobile_key=<%= @response_hash["app_key"]%>";
+    $.ajax({
+      url:"/home/send_code_via_email",
+      data : dataString,
+      dataType:"text",
+      type:"POST",
+      beforeSend:function(){
+        jQuery('#email_response').show();
+        jQuery("#email_response").html("<img src=\"/images/loading.gif\" style=\"padding-left: 0px !important;vertical-align: -9px;\" />");
+      },
+      success:function (response) {
+        if (response == "sent")
+        {
+          jQuery('#email_response').show();
+          jQuery('#email_response').css({'color':'green'});
+          jQuery('#email_response').text('Email sent successfully.');
+          jQuery('#enter_email').css({'border-color':'green'});
+        }
+        else if (response == "error")
+        {
+          jQuery('#email_response').show();
+          jQuery('#email_response').css({'color':'red'});
+          jQuery('#email_response').text('Please try again.');
+          jQuery('#enter_email').css({'border-color':'red'});
+        }
+      },
+      error:function (){
+        jQuery('#enter_email').css({'border-color':'red'});
+      }
+    })
+  }
+
+  function cancel_email()
+  {
+    jQuery('#option_for_email').show();
+    jQuery('.small_btns').hide();
+    jQuery('#enter_email').hide();
+    jQuery('#email_response').hide();
+  }
+</script>
+<script>
+  sessionStorage.setItem("MobileVisited", "True");
+</script>

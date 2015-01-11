@@ -1,0 +1,16 @@
+<html>
+<head>
+<style>
+ #img_heading{text-align:center;font-size:25px;}
+</style>
+</head>
+<body>
+
+ <p id="img_heading">Screenshot</p>
+ <% if !@data_img_src.blank?%>
+   <img src = <%= @data_img_src%> style="width=400px;height=400px;"></img>
+<%end%>
+
+</body>
+</html>
+

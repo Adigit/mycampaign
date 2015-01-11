@@ -1,0 +1,66 @@
+<style>
+  #sidebar {margin: 0;width:240px;float:left;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;border: 1px solid #CCCCCC;padding: 10px;text-align: center;border-radius:11px;}
+  #content {font: inherit;vertical-align: baseline;color: #555;font-size: 14px;line-height: 24px;float: right;position: relative;margin: 0 18px 0 0;border: 1px solid #CCCCCC;padding: 10px;border-radius: 8px;;width: 640px;}
+  .menu-platform-menu {widht:100%;}
+  .menu-platform-menu li {padding:10px 0;border-bottom:1px solid #CCCCCC;}
+  .menu-platform-menu li:hover {background-color: #ccc;}
+</style>
+<div id="sidebar">
+  <ul class="menu-platform-menu">
+    <li id="blogger"><a href="#" onclick="open_instructions('blogger');"><img src="https://www.blogger.com/img/blogger-logo-medium.png" height="34" width="131" alt="Blogger" /></a><span class="arrow"></span></li>
+    <li id="joomla"><a href="#" onclick="open_instructions('joomla');"><img src="http://www.smartitians.com/smartitians/wp-content/themes/smartitians/images/joomla-development.png" style="max-width: 122px"/></a><span class="arrow"></span></li>
+    <li id="magento"><a href="#" onclick="open_instructions('magento');"><img src="http://upload.wikimedia.org/wikipedia/en/c/c2/Magento_logo.png" style="max-width: 129px;"/></a><span class="arrow"></span></li>
+    <li id="wordpress"><a href="#" onclick="open_instructions('wordpress');"><img src="http://cloudproxy.sucuri.net/images/wordpress.jpg" style="max-width: 143px;max-height: 100px;"/></a><span class="arrow"></span></li>
+    <li id="shopify"><a href="#" onclick="open_instructions('shopify');"><img src="http://www.clearbusinessdynamics.com/wp-content/uploads/2012/08/Shopify-bag-and-logotype.png" style="max-width: 143px;"/></a><span class="arrow"></span></li>
+    <li id="bigcommerce"><a href="#" onclick="open_instructions('bigcommerce');"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnjh12uPOTAUSJ4hwPyEDsTcySUe4PSOvy2KFwKDY1EW7I8WE2Og" style="max-width: 132px;"/></a><span class="arrow"></span></li>
+    <li id="drupal"><a href="#" onclick="open_instructions('drupal');"><img src="http://www.activemedia.by/i/drupal_1.png" style="max-width: 103px;"/></a><span class="arrow"></span></li>
+    <li id="prestashop" style="border-bottom:none !important;"><a href="#" onclick="open_instructions('prestashop');"><img src="http://www.ezeelive.com/wp-content/uploads/2014/02/prestashop-development-company-india-ezeelive-technologies.png" style="max-width: 144px;"/></a><span class="arrow"></span></li>
+  </ul>
+</div>
+<script>
+  jQuery(document).ready(function () {
+    open_instructions("<%= params["platform"]%>");
+  });
+
+  function open_instructions(platform_name)
+  {
+    console.log("Rendering instructions for platform = "+platform_name);
+    jQuery(".menu-platform-menu li").css({"background-color":"white"});
+    jQuery("#"+platform_name).css({"background-color":"#ccccc"});
+    if (platform_name == 'blogger')
+    {
+      jQuery("#content").html("<%= render :partial => '/admin/home/blogger'%>");
+    }
+    else if (platform_name == 'joomla')
+    {
+      //jQuery("#content").html("<%#=  render :partial => '/admin/home/joomla'%>");
+    }
+    else if (platform_name == 'magento')
+    {
+      //jQuery("#content").html("<%#=  render :partial => '/admin/home/magento'%>");
+    }
+    else if (platform_name == 'wordpress')
+    {
+      //jQuery("#content").html("<%#=  render :partial => '/admin/home/wordpress'%>");
+    }
+    else if (platform_name == 'shopify')
+    {
+      //jQuery("#content").html("<%#=  render :partial => '/admin/home/shopify'%>");
+    }
+    else if (platform_name == 'bigcommerce')
+    {
+      //jQuery("#content").html("<%#=  render :partial => '/admin/home/bigcommerce'%>");
+    }
+    else if (platform_name == 'drupal')
+    {
+      //jQuery("#content").html("<%#=  render :partial => '/admin/home/drupal'%>");
+    }
+    else if (platform_name == 'prestashop')
+    {
+      //jQuery("#content").html("<%#=  render :partial => '/admin/home/prestashop'%>");
+    }
+  }
+</script>
+
+<div id="content">  
+</div>

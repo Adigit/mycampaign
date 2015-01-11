@@ -1,0 +1,234 @@
+<style>
+.bold_label {font-weight:bold !important; }
+  #mobile_feedback_new input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="file"], select, textarea {margin:0 5px;width:90% !important;font-weight:normal;}
+  #mobile_feedback_new .create-ex{margin-left:0 !important}
+  #mobile_feedback_new label{width:99% !important}
+.app-preview {
+display: inline-block;
+width: 70.45%;
+border: 1px solid #CCC;
+vertical-align: top;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+margin-top: 2%;
+}
+  #preview{width:99%;height:900px}
+  #mobile_feedback_new .preview_link{float:left;width:auto;margin-right:40px;font-weight:bold;font-size:14px;}
+  #mobile_feedback_new h5 {margin-left:10px}
+  .bg {
+    background-image: url(http://beta.socialappshq.com:8087/images/socialapps/mobile_panel.png);
+    width: 30%;
+    height: 575px;
+    background-repeat: no-repeat;
+    float: left;
+    margin-left: 3%;
+    margin-top: 6%;
+  }</style>
+
+  
+<h1 style="width:100% !important; text-align:left">Setup <%=@mobile_campaign.title%></h1>
+<div style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+<div class="create-campaign-left" style="width:28% !important;border-radius: 5px;border: 1px solid #808080;overflow: hidden; padding-bottom:2.5% ;margin-top: 25px; min-height:683px">
+  <form action="#" method="post" id="mobile_feedback_new">
+    <input id="campaign_id" name="campaign[id]" type="hidden" value="<%=params[:id]%>">
+    <ul>
+      <li>
+        <div class="tools" onclick="custom_accordion('tab_cont','share','cus_users' ,'gen');">
+          <span class="col-circle">1</span>
+          <span class="tools_tab_name">Survey Popup Settings</span>
+          <span style="float:right" class="arr_up" id="gen">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="tab_cont">
+            <div class="create-campaign-left-row ">
+              <label class="bold_label">Header Message</label>
+              <input id="campaign_header_message" name="campaign[header_message]" type="text" placeholder="Header Message" value="<%=@campaign.header_message%>" onblur="configure_mobile_feedback('preview')">
+              <small class="create-ex create_campaign_note">e.g. Survey</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label class="bold_label">Main Message</label>
+              <input id="campaign_main_message" name="campaign[main_message]" type="text" placeholder="Main Message" value="<%=@campaign.main_message%>" onblur="configure_mobile_feedback('preview')">
+              <small class="create-ex create_campaign_note">e.g. Please provide us your valuable inputs. It will just take 1-2 minutes.</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label class="bold_label">First Button</label>
+              <input id="campaign_first_button_text" name="campaign[first_button_text]" type="text" placeholder="Upgrade Now" value="<%=@campaign.first_button_text%>" onblur="configure_mobile_feedback('preview')">
+              <small class="create-ex create_campaign_note">e.g. Participate. User will be taken to a form to submit his/her details as per your questions</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label class="bold_label">Second Button</label>
+              <input id="campaign_second_button_text" name="campaign[second_button_text]" type="text" placeholder="Close" value="<%=@campaign.second_button_text%>" onblur="configure_mobile_feedback('preview')">
+              <small class="create-ex create_campaign_note">e.g. Later, Not Now. This button always closes the notification popup</small>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('share','tab_cont','cus_users' ,'head');" class="tools" >
+          <span class="col-circle">2</span>
+          <span class="tools_tab_name">Configure Survey Questions</span><span id="head" style="float:right" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="share">
+            <%=render :partial => "custom_form_designer", :locals => {:data => @campaign}%>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('cus_users','tab_cont','share','slash');" class="tools" >
+          <span class="col-circle">3</span>
+          <span class="tools_tab_name">Show Coupon Only To Following Users</span> <span id="slash" style="float:right" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq"style="display:none">
+          <div class="row" id="cus_users">
+            <div class="create-campaign-left-row">
+					<div style="width:20%; float:left; margin-top:7%" >
+               <select id="android_version_support_condition" name="campaign[version_support_condition]" style="width:93% !important;" value="<%=@campaign.version_support_condition%>">
+                  <option value="=" <% if @campaign.version_support_condition == "="%>selected="selected"<% end%> > = </option>
+                  <option value=">" <% if @campaign.version_support_condition == ">"%>selected="selected"<% end%>> > </option>
+                  <option value="<" <% if @campaign.version_support_condition == "<"%>selected="selected"<% end%>> < </option>
+                  <option value=">=" <% if @campaign.version_support_condition == ">="%>selected="selected"<% end%>> >= </option>
+                  <option value="<=" <% if @campaign.version_support_condition == "<="%>selected="selected"<% end%>> <= </option>
+               </select>
+					</div>
+					<div style = "width :74%; float:left; margin-left:3%">
+              <label class="bold_label">Version Code</label>
+              <input id="campaign_app_version_code" name="campaign[app_version_code]" type="text" placeholder="1" value="<%=@campaign.app_version_code%>" onblur="configure_mobile_feedback('preview')">
+              <small class="create-ex create_campaign_note">If left blank, all version codes will be included in test. You may input multiple entries using comma as a separator.</small>
+				</div>
+            </div>
+		<div class="create-campaign-left-row" style="float:left;">
+               <div style="width:20%; float;left; margin-top:7%;">
+                  <select id="app_launch_condition" name="campaign[app_launch_condition]" style="width:93% !important;">
+                     <option value="=" <% if @campaign.app_launch_condition == "="%>selected="selected"<% end%> > = </option>
+                  <option value=">" <% if @campaign.app_launch_condition == ">"%>selected="selected"<% end%>> > </option>
+                  <option value="<" <% if @campaign.app_launch_condition == "<"%>selected="selected"<% end%>> < </option>
+                  <option value=">=" <% if @campaign.app_launch_condition == ">="%>selected="selected"<% end%>> >= </option>
+                  <option value="<=" <% if @campaign.app_launch_condition == "<="%>selected="selected"<% end%>> <= </option>
+                  </select>
+               </div>
+               <div style = "width :74%; float:right; margin-top:-15%">
+                  <label style="margin-left:-2%">App Launch Count</label>
+                  <input style="margin-left:-2%" id="app_launches_counter" name="campaign[app_launches_counter]" type="text" placeholder="App Launch Count" value="<%=@campaign.app_launches_counter%>"/>
+               </div>
+            </div>
+            <div class="create-campaign-left-row">
+              <label class="bold_label">Percentage of Users</label>
+              <input id="campaign_user_percentage" name="campaign[user_percentage]" type="text" placeholder="100" value="<%=@campaign.user_percentage%>" onblur="configure_mobile_feedback('preview')">
+              <small class="create-ex create_campaign_note">Input anything from 0-100.</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label class="bold_label">Name of App Activity</label>
+              <input id="campaign_activity" name="campaign[activity]" type="text" placeholder="MainActivity" value="<%=@campaign.activity%>" onblur="configure_mobile_feedback('preview')">
+              <small class="create-ex create_campaign_note">If left blank, user will be shown this popup on first screen itself</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label class="bold_label">Wireless Connection</label>
+              <select id="select_internet_connection_type" name="campaign[internet_connection_type]" style="width:93% !important;">
+                <option value="all" <%if @campaign.internet_connection_type=="all"%>selected="true" <%end%>>All mobile users</option>
+                <option value="wifi" <%if @campaign.internet_connection_type=="wifi"%>selected="true" <%end%>>Wi-Fi Only</option>
+              </select>
+
+              <small class="create-ex create_campaign_note">If left blank, user will be shown this popup on first screen itself</small>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <a href="#" class="campaign-configure-button"
+       style="float:left;margin-left:1% !important; color: white !important; text-decoration: none !important;width:97% !important"
+       onclick="configure_mobile_feedback('preview'); return false;">Save Configuration</a>
+
+    <div class="pro_box" style="display:none;border:none;width: 98%;margin: 10px 0 0 5px;float: left; color:green; margin-left:6%;"></div>
+  </form>
+</div>
+<div class="app-preview">
+<h3 style="font-family: Arial;margin:5px;font-size:18px;color:#244386 !important;border-bottom: 1px solid #ccc;width: 98%;padding: 7px 2px !important;">Preview</h3>
+<div class="create-campaign-right" style="width:96.5% !important; margin: 1% 1% 1%">
+
+<div class="bg" style="margin-left:22% !important">
+<div class="coupon_popup" style=" width: 76%; background: white;border: 5px solid #555;height: auto;clear: none;margin-top:67%; margin-left: 8%; float: left;border-radius: 3px;">
+      <p id="header_mssg" style="border-bottom: 3px solid rgb(42, 195, 207);margin-left: 3px;font-size: 24px; color: rgb(23, 208, 224);margin-left: 0%;"><%=@campaign.header_message%></p>
+      <p id="main_mssg" style="font-size: 12px; color:black; margin: 1% 2%"><%=@campaign.main_message%></p><br/>
+      <div class="action_btns" style="border-top: 1px solid rgb(29, 28, 28);height: 50px;">
+        <a href="#" id="custom_btn" style="text-decoration: none;font-size: 13px;padding: 5% 10% 5% 10%;color: black;background: white; float: left; width: 27%;" ><%=@campaign.first_button_text%></a>
+        <a href="#" id="closebtn" style="text-decoration: none; font-size: 13px; border-left: 1px solid #000; padding: 5% 10%  10%; color: black; background: white;float: left;width: 32%;"><%=@campaign.second_button_text%></a>
+      </div>
+    </div>
+   </div>
+
+
+  <div class="bg">
+    <iframe src="<%=SITE_URL%>/mobile/feedback?id=<%=@campaign.mobile_campaign_id%>" id="preview" style = "width: 84% !important; height:326px !important; margin-left:6% !important;margin-top:31% !important; " />
+  </div>
+<div style="float:left; width:100%; margin-top: -5%;">
+	<div style="float:left; width:33%; margin-left:30%;">In-app Popup</div>
+	<div>User Input Form</div>
+</div>
+</div>
+</div>
+<div style="clear:both; padding:10px;"></div>
+
+
+<script>
+  function custom_accordion(id_1, id_2, id_3,id_5){
+    jQuery('.toggleq').css({'display':'block'});
+    jQuery('#head').html('&#8594;');
+    jQuery('#slash').html('&#8594;');
+    jQuery('#gen').html('&#8594;');
+    jQuery('#'+id_5).html('&#8595;');
+    jQuery('#' + id_1).slideDown();
+    jQuery('#' + id_2).slideUp();
+    jQuery('#' + id_3).slideUp();
+  }
+  function show_row(div_id) {
+    jQuery('#'+div_id).toggle();
+  }
+
+  function configure_mobile_feedback(mode)
+  {
+    if ((jQuery("#campaign_header_message").val( ) == "") || (jQuery("#campaign_main_message").val( ) == "") || (jQuery("#campaign_first_button_text").val( ) == "") || (jQuery("#campaign_second_button_text").val( ) == ""))
+    {
+      alert ('Please specify all input fields');
+      return ;
+    }
+    compute_ordering();
+
+    dataString = jQuery('#mobile_feedback_new').serialize();
+    jQuery.ajax({
+      url: "/member/setup/mobile/feedback/create_or_update",
+      data: dataString,
+      type: "POST",
+      dataType: 'jsonp',
+      cache: false,
+      beforeSend: function(){
+        jQuery('.pro_box').show();
+        jQuery('.pro_box').html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+//        jQuery('.pro_box').hide();
+        if (response_data.status == 'Error') {
+          alert(response_data.message);
+        } else {
+		jQuery('.pro_box').html("Your configuration is successfully saved.");
+          jQuery('#preview').attr("src", response_data.url);
+        };
+      },
+      error: function(response_data) {
+        jQuery('.pro_box').html(response_data.message);
+      }
+    });
+  }
+
+	jQuery("#campaign_header_message").keyup(function() { jQuery("#header_mssg").html(jQuery("#campaign_header_message").val());});
+	jQuery("#campaign_main_message").keyup(function() { jQuery("#main_mssg").html(jQuery("#campaign_main_message").val());});
+	jQuery("#campaign_first_button_text").keyup(function() { jQuery("#custom_btn").html(jQuery("#campaign_first_button_text").val());});
+	jQuery("#campaign_second_button_text").keyup(function() { jQuery("#closebtn").html(jQuery("#campaign_second_button_text").val());});
+
+</script>
+

@@ -1,0 +1,34 @@
+<h1>Insights</h1>
+<script type="text/javascript">
+function show_insights(){
+   var camp_id = jQuery("#webcampaigns").val();
+   console.log(camp_id);
+   if (camp_id != ""){
+   jQuery.ajax({
+      url: "<%=SITE_URL%>/member/campaigns/web/graph",
+      type: "POST",
+      dataType: 'text',
+      data: "camp_id="+camp_id,
+      cache: false,
+      beforeSend: function(){
+      jQuery("#graph_area").html('<img src="/images/loading.gif"  style="margin-left:600px;margin-top:200px;height:30px;width:30px;"/>')},
+      success: function(response){
+      jQuery("#graph_area").html(response); }
+   });}
+}
+</script>
+<div class="insights">
+   <% if !@web_campaigns.blank? %>
+      <div class = "campaigns">
+         <label> Select Campaign </label>
+         <select id="webcampaigns" onchange="show_insights();">
+            <option value=""> Select Campaign</option>
+            <% @web_campaigns.each do |camp|%>
+               <option value="<%=camp.id%>"> <%= camp.title %> </option>
+            <% end %>
+         </select>
+      </div>
+   <% end %>
+   <!-- Graphs starts from here -->
+   <div id="graph_area"></div>
+</div>

@@ -1,0 +1,75 @@
+<style>
+.margin {margin :1%; float:left;}
+</style>
+<div class= "margin" id="impressions_graph"></div>
+<div class= "margin" id="btn1_graph"></div>
+<div class= "margin" id="btn2_graph"></div>
+<script type="text/javascript">
+$.getJSON("/member/campaigns/mobile/plot_graph?type=impressions&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#impressions_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: " Impressions"
+      },
+      subtitle: {
+        text: 'Source: SocialAppsHQ.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : 'Impressions',
+                                data : data,
+                                tooltip: {
+                                        valueDecimals: 0
+                                }
+                        }]
+                });
+        });
+
+$.getJSON("/member/campaigns/mobile/plot_graph?type=btn1&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#btn1_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: " Button 1"
+      },
+      subtitle: {
+        text: 'Source: SocialAppsHQ.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : 'Button 1',
+                                data : data,
+                                tooltip: {
+valueDecimals: 0
+                                }
+                        }]
+                });
+        });
+
+$.getJSON("/member/campaigns/mobile/plot_graph?type=btn2&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#btn2_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: " Button 2"
+      },
+      subtitle: {
+        text: 'Source: SocialAppsHQ.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : 'Button 2',
+                                data : data,
+                                tooltip: {
+                                        valueDecimals: 0
+                                }
+                        }]
+                });
+        });
+
+</script>
+

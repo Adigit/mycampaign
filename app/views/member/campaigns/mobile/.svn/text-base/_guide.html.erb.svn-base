@@ -1,0 +1,152 @@
+<style>
+.oneThird {
+margin: 0%;
+}
+.alignRight {
+float: right !important;
+margin-left: 1em;
+}
+.toctree-wrapper {
+background: #F1F1F1;
+border-left: 1px solid #CCC;
+}
+h1 .headerlink, h2 .headerlink, h3 .headerlink {
+width: 33px;
+height: 30px;
+background: url(images/bkg/perma-tag.png);
+top: 30px;
+right: -33px;
+text-indent: -5000px;
+position: absolute;
+}
+a {
+color: #466087;
+text-decoration: underline;
+}
+pre {
+background-color: white;
+box-shadow: 0 2px 3px rgba(78, 68, 60, 0.3);
+display: block;
+padding: 8.5px;
+margin: 0 0 18px;
+line-height: 18px;
+font-size: 12px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+white-space: pre;
+white-space: pre-wrap;
+word-wrap: break-word;
+}
+tt.docutils {
+font-size: 0.95em;
+font-family: Monaco,Andale Mono,Courier New,monospace;
+color: #363;
+}
+.highlight .kd, .highlight .n {
+color: #007020;
+font-weight: bold;
+}
+</style>
+<div class="oneThird alignRight toctree-wrapper" id="overview">
+<div style ="margin: 1% 1% 1% 1%">
+                                    <div class="section" id="getting-started">
+                                        <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+                                        <p>First, download the <a class="reference external" href="<%=SITE_URL%>/
+.jar">UsersDelight library</a> JAR file (you are required to login to download), and add it to your project.
+                                            Now, in your project’s main Activity, you should add these four calls: one in <tt class="docutils literal"><span class="pre">onCreate</span></tt>, <tt class="docutils literal"><span class="pre">onResume</span></tt> , <tt class="docutils literal"><span class="pre">onPause</span></tt> and <tt class="docutils literal"><span class="pre">onDestroy</span></tt>.  Here’s
+                                            how it should look:</p>
+
+                                        <p>In <tt class="docutils literal"><span class="pre">onCreate</span></tt>, call the <tt class="docutils literal"><span class="pre">UsersDelight.setup(Context</span> <span class="pre">context, </span> <span class="pre">String</span> <span class="pre">app_key)</span></tt> method before the setContentView(<your activity layout>).But make sure this setup must be only in main launcher activity only</p>
+                                        <div class="highlight-java">
+                                            <div class="highlight">
+                                                <pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+    <span class="n">UsersDelight</span><span class="o">.</span><span class="na">setup</span><span class="o">(</span><span class="k">this</span><span class="o">,</span><span class="s">"YOUR_APPLICATION_KEY"</span>
+    <span class="o">);</span>
+
+    <span class="c1">// The rest of your code here, maybe something like:</span>
+    <span class="c1">// setContentView(R.layout.main);</span>
+<span class="o">}</span>
+                                                </pre>
+                                            </div>
+                                        </div>
+
+<p>In <tt class="docutils literal"><span class="pre">onDestroy</span></tt>, call the <tt class="docutils literal"><span class="pre">UsersDelight.onDestroy(<span class="k">this</span>)</span></tt> method: (only call this in main activity or activity which exits the app or the same main launcher activity in which you have called setup. Be very careful about setup and onDestroy)</p>
+<div class="highlight-java">
+                                            <div class="highlight">
+                                                <pre><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+    <span class="n">UsersDelight</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">(this);</span>
+<span class="o">}</span>
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        <p>In <tt class="docutils literal"><span class="pre">onResume</span></tt>, call the <tt class="docutils literal"><span class="pre">UsersDelight.onResume(<span class="k">this</span>)</span></tt> method in each activiy, including the MainActivity in which you have called the above mentioned setup and onDestroy methods.</p>
+                                        <div class="highlight-java">
+                                            <div class="highlight">
+                                                <pre><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
+    <span class="n">UsersDelight</span><span class="o">.</span><span class="na">onResume</span><span class="o">(<span class="k">this</span>);</span>
+<span class="o">}</span>
+                                                </pre>
+                                            </div>
+                                        </div>
+ 
+													<p>In <tt class="docutils literal"><span class="pre">onPause</span></tt>, call the <tt class="docutils literal"><span class="pre">UsersDelight.onPause(<span class="k">this</span>)</span></tt> method in each activiy,including the MainActivity in which you have called the above mentioned setup and onDestroy methods.</p>
+                                        <div class="highlight-java">
+                                            <div class="highlight">
+                                                <pre><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPause</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onPause</span><span class="o">();</span>
+    <span class="n">UsersDelight</span><span class="o">.</span><span class="na">onPause</span><span class="o">(<span class="k">this</span>);</span>
+<span class="o">}</span>
+                                                </pre>
+                                            </div>
+                                        </div>
+
+<p>Add these lines in <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> of your app:</p>
+
+<div class="highlight-java">
+                                            <div class="highlight">
+                                                <pre>	<br><span class="o">//Permissions required.</span>
+	<br><span class="kd">&lt;uses-permission </span><span class="kt">android:name="</span><span class="nf">android.permission.INTERNET</span><span class="kt">"</span><span class="kd">/&gt;</span>
+<span class="kd">&lt;uses-permission </span><span class="kt">android:name="</span><span class="nf">android.permission.ACCESS_NETWORK_STATE</span><span class="kt">"</span><span class="kd">/&gt;</span>
+<span class="kd">&lt;uses-permission </span><span class="kt">android:name="</span><span class="nf">android.permission.WAKE_LOCK</span><span class="kt">"</span><span class="kd">/&gt;</span>
+<span class="kd">&lt;uses-permission </span><span class="kt">android:name="</span><span class="nf">android.permission.VIBRATE</span><span class="kt">"</span><span class="kd">/&gt;</span>
+<span class="kd">&lt;uses-permission </span><span class="kt">android:name="</span><span class="nf">com.google.android.c2dm.permission.RECEIVE</span><span class="kt">"</span><span class="kd">/&gt;</span>
+<span class="kd">&lt;uses-permission </span><span class="kt">android:name="</span><span class="nf"><strong>com.example.test</strong>.permission.C2D_MESSAGE</span><span class="kt">"</span><span class="kd">/&gt;</span>
+<span class="kd">&lt;permission </span><span class="kt">android:name="</span><span class="nf"><strong>com.example.test</strong>.permission.C2D_MESSAGE</span><span class="kt">"</span><span class="kt"> 
+		android:protectionLevel="</span><span class="nf">signature</span><span class="kt">"</span><span class="kd">/&gt;</span>
+
+<span class="o">//Add below activity inside application tag.</span>
+
+<span class="kd">&lt;activity</span> <br>&nbsp;&nbsp;<span class="kt">android:name="</span><span class="nf">com.usersdelight.UsersDelightFeedbackActivity</span><span class="kt">"</span><div style="clear:both;display:block;padding-left:14px;width:100%"><span class="kt">android:theme="</span><span class="nf">@android:style/Theme.NoTitleBar</span><span class="kt">"</span><span class="kd">&gt;</span>
+</div><span class="kd">&lt;/activity&gt;</span>
+<span class="kd">&lt;activity</span> <br>&nbsp;&nbsp;<span class="kt">android:name="</span><span class="nf">com.usersdelight.UsersDelightCouponActivity</span><span class="kt">"</span><div style="clear:both;display:block;padding-left:14px;width:100%"><span class="kt">android:theme="</span><span class="nf">@android:style/Theme.NoTitleBar.Fullscreen</span><span class="kt">"</span><span class="kd">&gt;</span>
+</div><span class="kd">&lt;/activity&gt;</span>
+
+<span class="o">//Add below code in the bottom of application tag.</span>
+
+<span class="kd">&lt;receiver</span><br>&nbsp;&nbsp;<span class="kt">android:name="</span><span class="nf">com.usersdelight.GCMBroadcastReceiver</span><span class="kt">"</span><div style="clear:both;display:block;padding-left:14px;width:100%"><span class="kt">android:permission="</span><span class="nf">com.google.android.c2dm.permission.SEND</span><span class="kt">"</span><span class="kd">&gt;</span>
+<span class="kd">&lt;intent-filter</span><span class="kd">&gt;</span>
+&nbsp;&nbsp;<span class="kt">&lt;action</span>&nbsp;&nbsp;<span class="kt">android:name="</span><span class="nf">com.google.android.c2dm.intent.RECEIVE</span><span class="kt">"</span><span class="kt">/&gt;</span>
+&nbsp;&nbsp;<span class="kt">&lt;action</span>&nbsp;&nbsp;<span class="kt">android:name="</span><span class="nf">com.google.android.c2dm.intent.REGISTRATION</span><span class="kt">"</span><span class="kt">/&gt;</span>
+&nbsp;&nbsp;<span class="kt">&lt;category</span>&nbsp;&nbsp;<span class="kt">android:name="</span><span class="nf">com.UsersDelight</span><span class="kt">"</span><span class="kt">/&gt;</span>
+<span class="kd">&lt;/intent-filter</span><span class="kd">&gt;</span>
+</div><span class="kd">&lt;/receiver&gt;</span>
+<span class="kd">&lt;service</span>&nbsp;<span class="kt">android:name="</span><span class="nf">com.usersdelight.GCMIntentService</span><span class="kt">"</span><span class="kd">/&gt;</span>
+
+<span ><strong>NOTE:Replace<span style="color:Red"> com.example.test </span>with your package name in the above given manifest code snippet</strong></span>
+                                                </pre>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <p>Those integration points will set everything up, and prepare your code to
+                                            start campaigns.</p>
+                                    </div>
+    </div>                            </div>
+

@@ -1,0 +1,233 @@
+
+.hide { position: absolute; top: -9999px; left: -9999px; }
+/* Specific to example one */
+#top-half{min-height:475px !important; height:auto !important;}
+#example-one { width:980px; margin:25px;}
+.nav-one, .nav-two, .nav-three{cursor:pointer}
+#example-one .nav {  margin: 0 0 15px 0; background-color:#f1f1f1; border-bottom:1px solid #ccc; padding:10px;  padding-left:19%;	}
+#example-one .nav li { width: auto; display:inline-block; margin:0 10px; }
+#example-one .nav li.last { margin-right: 0; }
+#example-one .nav li a { display: block; padding: 5px; background: #f1f1f1; color: #474747; font-size: 16px; text-align: center; border: 1px solid #ccc; -webkit-border-radius:5px; -moz-border-radius:5px;border-radius:5px; padding:5px 15px 5px 15px; text-decoration:none; }
+#example-one .nav li a:hover { background-color: #1348A2;color:#fff; }
+#featured .right ul{width:110px;height:213px;cursor: pointer;}
+.circle{width:20px !important;height:20px !important; float:right;margin:0px !important;}
+#example-one ul { list-style: none; }
+#example-one ul li a { display: block; border-bottom: 1px solid #ccc; padding: 4px; color: #000; }
+#example-one ul#featured li a:hover { background-color: #1348A2; color: white; }
+#example-one ul#core li a:hover { background-color: #1348A2; color: white; border:none; }
+#example-one ul li.nav-three a.current, #example-one ul#jquerytuts li a:hover { background-color: #1348A2; color: white; }
+#example-one ul li.nav-four a.current, #example-one ul#classics li a:hover { background-color: #1348A2; color: white; }
+/*Nav two active toltip*/
+#example-one ul li.nav-two a.current {position: relative; color:white;background: #1348A2;border: 1px solid #1348A2;}
+#example-one ul li.nav-two a.current:after, #example-one ul li.nav-two a.current:before {
+	top: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#example-one ul li.nav-two a.current:after {
+	border-color: #1348A2 rgba(19, 72, 162, 0) rgba(19, 72, 162, 0);
+    border-width: 10px;
+    left: 53%;
+    margin-left: -18px
+}
+#example-one ul li.nav-two a.current:before {
+	border-color: #1F55B0 rgba(31, 85, 176, 0) rgba(31, 85, 176, 0);
+    border-width: 14px;
+    left: 55%;
+    margin-left: -36px;
+}
+
+/*Nav two active toltip*/
+/*Nav one active toltip*/
+#example-one ul li.nav-one a.current {
+	position: relative; color:white;
+	background: #1348A2;
+	border: 1px solid #1348A2;
+}
+#example-one ul li.nav-one a.current:after, #example-one ul li.nav-two a.current:before {
+	top: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#example-one ul li.nav-one a.current:after {
+	border-color: #1348A2 rgba(19, 72, 162, 0) rgba(19, 72, 162, 0);
+    border-width: 10px;
+    left: 53%;
+    margin-left: -16px
+}
+#example-one ul li.nav-one a.current:before {
+	border-color: #1F55B0 rgba(31, 85, 176, 0) rgba(31, 85, 176, 0);
+    border-width: 14px;
+    left: 55%;
+    margin-left: -36px;
+}
+/*Nav one active toltip end*/
+
+/*Nav three start*/
+#example-one ul li.nav-three a.current {
+	position: relative; color:white;
+	background: #1348A2;
+	border: 1px solid #1348A2;
+}
+#example-one ul li.nav-three a.current:after, #example-one ul li.nav-two a.current:before {
+	top: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#example-one ul li.nav-three a.current:after {
+	border-color: #1348A2 rgba(19, 72, 162, 0) rgba(19, 72, 162, 0);
+    border-width: 10px;
+    left: 53%;
+    margin-left: -14px
+}
+#example-one ul li.nav-three a.current:before {
+	border-color: #1F55B0 rgba(31, 85, 176, 0) rgba(31, 85, 176, 0);
+    border-width: 14px;
+    left: 55%;
+    margin-left: -36px;
+}
+/*end of three*/
+/*start of four tab*/
+#example-one ul li.nav-four a.current {
+        position: relative; color:white;
+        background: #1348A2;
+        border: 1px solid #1348A2;
+}
+#example-one ul li.nav-four a.current:after, #example-one ul li.nav-two a.current:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+}
+
+#example-one ul li.nav-four a.current:after {
+        border-color: #1348A2 rgba(19, 72, 162, 0) rgba(19, 72, 162, 0);
+    border-width: 10px;
+    left: 53%;
+    margin-left: -14px
+}
+#example-one ul li.nav-four a.current:before {
+        border-color: #1F55B0 rgba(31, 85, 176, 0) rgba(31, 85, 176, 0);
+    border-width: 14px;
+    left: 55%;
+    margin-left: -36px;
+}
+/*end of four tab*/
+.home{background-image:url("https://s3.amazonaws.com/fbappshq-assets/datas/56907/large.png") !important;}
+/*div one */
+#featured{}
+#frequently-asked-question{width:990px !important;}
+#bottom-half_2{margin-top:75px;}
+.other-discrip h1 {color: #474747;
+    font-size: 23px;
+    font-weight: normal;
+    margin: 10px 0 10px -107px;
+    text-align: center;}
+ .left ul{width:100% !important;}
+ .left ul li{text-align:left !important; padding:5.2px 5px!important}
+ .left ul li span{display: block;
+    padding: 10px 0}
+ .left{ display:inline-block; background:#EDEDED;font-size:15px; width:177px; vertical-align:top;}
+ .right{ display:inline-block; background-color:#F7F7F7; width:800px; border-bottom:1px solid #ccc; min-height:220px;}
+ .right ul, .left ul {width:110px; display:inline-block; margin:0px; padding:0px;vertical-align:top;}
+ .right ul li,.left ul li{ border-bottom: 1px solid #CCCCCC;
+ 
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    list-style: none outside none;
+    margin-left: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    width: 74%;font-weight:normal;
+}.tooltip {border-bottom:1px dotted #1348A2 !important;}
+.tooltip span {padding:10px !important;}
+.right ul li b,.left ul li b{font-size:16px;}
+#core .right ul {width:129px !important; cursor: pointer; }
+#jquerytuts .right ul{height:380px; cursor: pointer;}
+#core .right ul li{padding:5px 12px;}
+#jquerytuts .right{min-width:375px;}
+.right ul li span{ color: #474747;
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 10px 0;}
+	#core .right ul li span{padding: 11px 0 !important;}
+	#core .right ul li,	#core .left ul li {line-height:21px;}
+.active,#featured .right ul:hover{ background-image:url(/images/selected.png); background-repeat:no-repeat;background-position:1px 0; background-size:contain; width:110px; height:213px; cursor:pointer;}
+.active li:last-child,.right ul li:last-child,.left ul li:last-child {border:none !important;}
+.active {padding:0 1px;}
+.active li {margin-left: 6px !important;
+    width: 79px;}
+.other-discrip{width:100%; clear:both;padding-left:48px;}
+.other-discrip ul{display:block;}
+.other-discrip ul li {float:left; width:30%; list-style-image:url(/images/tick-mark.png); font-size:14px;  padding:5px 0;}
+#core .active,.right ul:hover,#jquerytuts .active{background-image: url("/images/m-selected.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position:-1px 0px;
+    width: 110px;}
+	.monit_p{margin-top: -13px !important;}
+	.app_p,.monit_p{clear
+: both;
+    float: left;
+    margin-top: 10px;
+    padding-top: 20px}
+
+.app_p ul,.monit_p ul{ width:127px !important; background:none repeat scroll 0 0 #EDEDED;}
+.mark{ background-image: url("/images/app.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    float: left;
+    height: 155px;
+    position: relative;
+    top: -26px;
+    width: 50px;}
+#sign-up-01{margin-top:10px !important; margin-left: 42% !important;}
+.free-app,.free-monit{width:49.9%;float:left;background:#F7F7F7;min-height: 180px;}
+.free-app ul,.free-monit ul{width:70%;margin: 0 auto;}
+.free-app h1,.free-monit h1{font-size:18px;font-weight:800;border-bottom:1px solid #ccc; margin:10px auto;padding:10px;width:70%; text-align:center;}
+.free-app ul li,.free-monit ul li{list-style:none;width:95%;}
+#jquerytuts .right{min-height:380px;}
+#jquerytuts .left{background:none !important;}
+	#jquerytuts .left{background-color:none repeat scroll 0 0 #EDEDED}
+	#jquerytuts .left p{font-size:14px; display:block; width:100%;}
+	.monit_mark{ background-image: url("/images/monit.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    float: left;
+    height: 154px;
+    position: relative;
+    top: -25px;
+    width: 50px;}
+#classics .right ul:hover,#classics .active  {
+background-image: url(../images/selected.png);
+background-repeat: no-repeat;
+background-position: 1px 0;
+background-size:100% 100%;
+width: 100%;
+height: 213px;
+cursor: pointer;
+}
+.free-app .right,.free-monit .right,.free-app .left,.free-monit .left{float:left;}
+#jquerytuts .right ul:hover,#jquerytuts .active{ background-image:url(/images/all-in-one.png);background-repeat: no-repeat;background-size: 100% 100%;height: 373px;width: 129px;}
+#jquerytuts .right ul{width:129px;}
+#jquerytuts .active li {margin-left: 6px !important;width: 96px;}

@@ -1,0 +1,50 @@
+<div id="middle">
+  <div class="banner">
+    <div class="banneroneforth">
+      <h1>In App Feedback from Mobile Users</h1>
+      <p>
+        Want to figure out why customers are leaving bad reviews? Do you want to capture them
+        before they leave it at App Store? Do you want to figure how people feel about your
+        product or get any other feedback on your mobile app as you build it? Embed our SDK once
+        and you can collect in app Feedback from Mobile Users easily at any given point.
+      </p>
+
+      <% if current_user.blank? %>
+        <a class="button-img" href="/signup">Create Campaign</a>
+      <% else %>
+        <a class="button-img" href="/member/campaigns/twitter">Create Campaign</a>
+      <% end %>
+    </div>
+    <div class="banneronethird">
+      <img src="https://s3.amazonaws.com/fbappshq-assets/datas/71046/large.png" />
+    </div>
+  </div>
+  <div class="content">
+    <div class="features-hig"><h2>Features Highlights</h2>
+      <div class="app-feature">
+        <ul>
+          <li>
+            <h5>Easy Integration</h5>
+            <p>Include our SDK once and then you can control feedback forms in your app from our site without ever having to bother engineering team. </p>
+          </li>
+          <li>
+            <h5>Audience Groups</h5>
+            <p>Create custom audience groups and show feedback form to a select group of users e.g. Users who have been to your app more than 5 times.</p>
+          </li>
+          <li>
+            <h5>Custom Forms</h5>
+            <p>You can change the data you collect in feedback form almost instantly by simply going to dashboard and clicking on few links. </p>
+          </li>
+          <li>
+            <h5>Export & Analyze</h5>
+            <p>
+              All queries will be routed to desired email address as well as you will have an option to export them at any time. You can also see in depth analytics on Feedback form usage.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>

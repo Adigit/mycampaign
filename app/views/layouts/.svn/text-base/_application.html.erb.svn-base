@@ -1,0 +1,73 @@
+<% if user_signed_in? || session["next_path"]%>
+  <%= render :partial => "/shared/layouts/header"%>
+  <%=yield%>
+<%else%>
+  <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+      <% title_tag = 'Apps to Engage and Grow your User base by UsersDelight'
+      meta_desc = 'All Apps to Engage and Grow your User base across Website, Mobile Apps and Twitter'
+      meta_key = 'Feedback, Notification and  Coupons'
+
+      if !@title_tag.blank?
+        title_tag = @title_tag
+      end
+      if !@meta_desc.blank?
+        meta_desc = @meta_desc
+      end
+      if !@meta_key.blank?
+        meta_key = @meta_key
+      end
+    %>
+      <title><%=title_tag%></title>
+      <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+      <meta name="Keywords" content="<%=meta_key%>" />
+      <meta name="Description" content="<%=meta_desc%>" />
+      <meta property="og:title" content="<%=title_tag%>" />
+      <meta property="og:type" content="website" />
+      <meta property="og:description" content="<%=meta_desc%>"/>
+      <script type="text/javascript" src="/javascripts/jquery.min.js?v=2.4"></script>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+      <%= stylesheet_link_tag    'home', media: 'all', 'data-turbolinks-track' => true %>
+      <%= csrf_meta_tags %>
+
+    <body class= "apps">
+      <div id="pagewidth">
+        <div id='main'>
+          <div class='menu'>
+            <ul>
+              <li><a href="/home/campaign"  id="menu2">PRODUCTS</a></li>
+              <li><a href="/home/how_it_works"  id="menu2">HOW IT WORKS</a></li>
+              <li class="price"><a href="/home/pricing" id="menu5"  class="highlight">PRICING</a></li>
+              <li><a href="#" id="menu4">BLOG</a></li>
+              <li>
+                <% if user_signed_in? %>
+                  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+                <li style="font-size: 10px;width: 10%;">Logged in as <strong><%= current_user.email %></strong>.</li>
+              <% else %>
+                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+                <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+              <% end %>
+            </ul>
+          </div> <!-- <div class='menu'> -->
+        </div>   <!--ending div_main-->
+
+        <%=yield%>
+        <div id="footer">
+          <div class="section">
+            <div class="oneForth" >
+              <h5>About us</h5>
+              <a href="/about/index" >Team</a>
+              <a href="/about/careers" >Careers</a>
+              <a href="/home/privacy" >Privacy</a>
+              <a href="/home/terms-and-conditions" >Terms of Service</a>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- <div id="pagewidth">  -->
+    </body>
+  </html>
+<%end%>

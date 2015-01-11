@@ -1,0 +1,40 @@
+<style>
+  .login {width:100%}
+  label {font-size:17px;font-weight: bold}
+  .signupform {width: 41%;padding:1%;}
+  #user_email,#user_username,#user_password,#user_password_confirmation {margin-bottom: 14px;}
+  input[name=commit] { background: #3f6eba; border-color: #3f6eba; color: white; padding: 11px 0px; width: 73%;}
+</style>
+<div class="signupform">
+  <h2 style="font-size: 24px;">Sign up for an UserDelight Account</h2>
+  <p style="font-size: 14px;margin-bottom: 11px;">Enter your details and we will create an account for you</p>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div><%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %></div>
+
+    <div><%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "off" %></div>
+
+    <div><%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+
+    <div><%= f.submit "Sign up" %></div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+</div>
+
+<div class="memberlogin">
+</div>
+<h1 style="float: left;border-bottom: 2px solid #D5D5D5;-webkit-transform: rotate(90deg);-moz-transform:rotate(90deg);transform:rotate(90deg);width: 32%;margin: -20% 0 0 29%;"></h1>
+<div class="sign_in_right_side" style="float: left;margin:-31% 0 0 46%;padding:5%;">
+  <img src="http://www.noupe.com/wp-content/uploads/2012/08/floating-feedback-contact-form.jpg" style="width: 58%;margin: -7% 0 0 0;position: relative;z-index: 5;float: left;"/>
+  <img src="http://www.mobilematey.com/wp-content/uploads/2012/03/iPhone-Notification.png" style="max-width: 35%;z-index: 5;margin: 35% 0 0 -7%;float: left;position: relative;-webkit-transform: rotate(-10deg);-moz-transform: rotate(-10deg);transform: rotate(-10deg);"/>
+  <img src="http://old.hellobar.com/assets/images/home-deck-use_case_example.png" style="width: 86%;margin: -75% 0 0 17%;position: relative;z-index: 5;float: left;"/>
+  <img src="http://files.tested.com/photos/2012/03/16/55-27200-android_ads_notifications_teaser.jpg" style="width: 56%;margin: -46% 0 0 45%;position: relative;z-index: 3;float: left;opacity: 0.85;-webkit-transform: rotate(5deg);"/>
+</div>
+
+

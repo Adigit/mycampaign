@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <% title_tag = 'Social Media Marketing Made Really Simple - SocialAppsHQ'
+    meta_desc = 'Use SocialAppsHQ\'s ❶ All-in-One Social Media Marketing Platform - Listening & Monitoring, viral apps, post planner and social ads'
+    meta_key = 'Listening & Monitoring, viral facebook apps, post planner and social ads'
+    if !request.blank? && request.url =~/product|help|tips|resource|compare|about/
+      if !@content.blank?
+        title_tag = @content.title_tag if !@content.title_tag.blank?
+        meta_desc = @content.meta_descriptions if !@content.meta_descriptions.blank?
+        meta_key  = @content.meta_keywords  if !@content.meta_keywords.blank?
+              end
+    end
+
+    title_tag = @title_tag if !@title_tag.blank?
+    meta_desc = @meta_description if !@meta_description.blank?
+    meta_key  = @meta_keyword if !@meta_keyword.blank?
+    share_image = @share_image if !@share_image.blank?
+
+  %>
+
+    <title><%=title_tag%></title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="Keywords" content="<%=meta_key%>" />
+    <meta name="Description" content="<%=meta_desc%>" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta property="og:title" content="<%=title_tag%>" />
+    
+    <meta property="og:type" content="website" />
+    
+  
+    <meta property="og:site_name" content="Shimply"/>
+    <meta property="fb:app_id" content="303415479798737"/>
+    <meta property="og:description" content="<%=meta_desc%>"/>
+    <link href='/stylesheets/main_new.css?v=5.8' rel='stylesheet' type='text/css' />
+    
+
+    <script type="text/javascript" src="/javascripts/jquery.min.js?v=3.0"></script>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon-precomposed" href="https://www.socialappshq.com/apple-touch-icon-precomposed.png" />
+
+    
+    <!--[if IE]> <link rel="stylesheet" type="text/css" href="/stylesheets/all-ie-only.css" />  <![endif]-->
+    <META name="y_key" content="38a1b910dd1ba304" />
+
+    
+   
+    <link href="/stylesheets/new_responsive.css?v=0.2" rel="stylesheet" type="text/css" media="all"/>
+  </head>
+
+  <body>
+   
+    <div id="pagwidth">
+      <!--Start of header Part-->
+      <header>
+        <div class="container">
+          <!--start top header-->
+          <div class="top-header">
+            <div class="row"> <a class="AlignLeft" href="#"><img src="/images/usersdelight.png"/></a>
+              <div class="AlignRight top-header-navigation">
+                
+                <ul id="nav">
+                  <li>Settings
+                    <!--drowpdown css-->
+                    <ul class="AlignRight">
+                      <!--
+                      <li><a href="/member/billing/index">Subscription Details</a></li>
+                      <li><a href="/member/billing/billing">Update Billing Information</a></li>
+                      <li><a href="/member/billing/plan">Update Plan</a></li>
+                      -->
+                      <li><a href="/member/profile/password">Password</a></li>
+                      <!--
+                      <li><a href="/member/user_profile">Edit Profile</a></li>
+                      <li><a href="/member/delegate">User Manager</a></li>
+                      -->
+                    </ul>
+                  </li>
+   
+                  <!--end of dropdown-->
+                </ul>
+                <%= link_to "Logout", destroy_user_session_path, :method => "delete", :class => 'navbar-link'  %></li>
+              </div>
+            </div>
+          </div>
+          <!--end of top header-->
+          <div class="container">
+            <div class="nav">
+              <ul>
+                  <li <%if request.url.include?('/member/campaigns/mobile')%>class="current"<%end%>><a href="<%=SITE_URL%>/member/campaigns/mobile">Mobile Campaigns</a></li>
+                  <li <%if request.url.include?('/member/campaigns/web') || request.url.include?('/member/campaigns/web')%>class="current"<%end%>><a href="<%=SITE_URL%>/member/campaigns/web">Website Campaigns</a></li>
+	      </ul>
+            </div>		
+          </div>
+          <!-- End of Nagivation-->
+        </div>
+      </header>
+      <!--end of Header Part-->
+      
+          <script type="text/javascript">
+            function show_tab_btn(div_id){
+    
+        if (div_id == 'tab_4' && jQuery.trim(jQuery("#tab_4").html())==''){
+          alert("Please click on Visitors/Likes/Leads to see your Campaign Analytic.");
+          return;
+        }
+        show_tab(div_id);
+      }
+
+      function show_tab(div_id){
+        if(div_id=='tab_1'){
+          jQuery( ".active" ).removeClass();
+          jQuery('#li_tab_1').addClass("active");
+          jQuery('#tab_1').show();
+          jQuery('#tab_2').hide();
+          jQuery('#tab_3').hide();
+          jQuery('#tab_4').hide();
+        }
+        if(div_id=='tab_2'){
+          jQuery( ".active" ).removeClass();
+          jQuery('#li_tab_2').addClass("active");
+          jQuery('#tab_1').hide();
+          jQuery('#tab_2').show();
+          jQuery('#tab_3').hide();
+          jQuery('#tab_4').hide();
+        }
+        if(div_id=='tab_3'){
+      
+          jQuery( ".active" ).removeClass();
+          jQuery('#li_tab_3').addClass("active");
+          jQuery('#tab_4').hide();
+          jQuery('#tab_3').show();
+          jQuery('#tab_2').hide();
+          jQuery('#tab_1').hide();
+        }
+        if(div_id=='tab_4')
+        {
+          jQuery( ".active" ).removeClass();
+          jQuery('#li_tab_4').addClass("active");
+          jQuery('#tab_4').show();
+          jQuery('#tab_3').hide();
+          jQuery('#tab_2').hide();
+          jQuery('#tab_1').hide();}
+      }
+    
+  
+
+          </script>
+          <style>
+            .dashboard .dashright {
+              width: 78%;
+              margin-top: 20px;
+              color: #616161;
+              display: inline-block;
+            }
+            .user-account-status{display:none;}
+            .menu-left ul.menu-user{display:none;}
+            .dashboard {width:98% }
+            .tabContainer{overflow: visible;}
+          </style>
+          <div class="container">
+            <div class="center">
+
+              <div class="tabBox">
+                <% if request.url.include?('/member/profile')%>
+                  <script type="text/javascript">
+                    jQuery(document).ready(function() {
+                    <% if request.url.include?('tab1')%>
+                          jQuery('#li_tab_1').addClass("active");
+                   <% elsif request.url.include?('tab2')%>
+                          jQuery('#li_tab_2').addClass("active");
+                          create_campaign();
+                          show_tab('tab_2');
+                    <% elsif request.url.include?('tab3')%>
+                          jQuery('#li_tab_3').addClass("active");
+                          show_tab('tab_3')
+                          show_leads();
+                    <% elsif request.url.include?('tab4')%>
+                          jQuery('#li_tab_4').addClass("active");
+                          show_tab_btn('tab_4');
+                    <% else%>
+                          jQuery('#li_tab_1').addClass("active");
+                    <%end%>
+                      });
+                  </script>
+                  <ul class="tabs AlignRight" style="margin-top:10px;">
+                    <li id="li_tab_1"><a href="#tab1" onclick="show_tab_btn('tab_1');">Summary</a></li>
+                    <li id="li_tab_2"><a href="#tab2" onclick="show_tab('tab_2');create_campaign();">Create Campaign</a></li>
+                    <li id="li_tab_3"><a href="#tab3" onclick="show_tab_btn('tab_3');show_leads();">Leads</a></li>
+                    <li id="li_tab_4"><a href="#tab4" onclick="show_tab_btn('tab_4');">Campaign Analytic</a></li>
+                  </ul>
+                <%end%>
+                <% if	request.url.include?('/products')%>
+                  <script type="text/javascript">
+                    jQuery(document).ready(function() {
+                      jQuery('#li_tab_2').addClass("active");
+                    });
+                  </script>
+                  <ul class="tabs AlignRight" style="margin-top:10px;">
+                    <li id="li_tab_1"><a href="/member/profile/?tab1" onclick="show_tab('tab_1');">Summary</a></li>
+                    <li id="li_tab_2"><a href="/member/profile/?tab2" onclick="show_tab('tab_2');create_campaign();">Create Campaign</a></li>
+                    <li id="li_tab_3"><a href="/member/profile/?tab3" onclick="show_tab('tab_3');show_leads();">Leads</a></li>
+                    <li id="li_tab_4"><a href="/member/profile/?tab4"  onclick="show_tab_btn('tab_4');">Campaign Analytic</a></li>
+                  </ul>
+                <%end%>
+             

@@ -1,0 +1,157 @@
+<div class="span-24">
+
+  <div id="footer"> 
+
+
+
+<?php // This theme is released free for use under creative commons licence. http://creativecommons.org/licenses/by/3.0/
+            // All links in the footer should remain intact. 
+            // These links are all family friendly and will not hurt your site in any way. 
+            // Warning! Your site may stop working if these links are edited or deleted  ?>
+
+
+   <center>
+<div class="about">Products
+<ul>
+    <li><a href="http://www.socialappshq.com/products" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Social Apps']);">Facebook Apps</a></li>
+    <li><a href="http://www.socialappshq.com/social-media-monitoring" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Monitoring']);">Social Media Monitoring</a></li>
+    <li><a href="http://www.socialappshq.com/social-planner" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Post Planner']);">Post Planner</a></li>
+    <li><a href="http://www.socialappshq.com/get-facebook-likes" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Social Ads']);">Social Ads</a></li>
+    <li><a href="https://widget.socialappshq.com/widget/landing" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Widgets']);">Social Media Plugins</a></li>
+    <li><a href="/integrations" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Social Integrations']);">Integrated Everywhere</a></li>
+    <li><a href="/signup?demo=1" onclick="_gaq.push(['_trackEvent', 'Demo Account', 'Home Page', 'Footer']);">Demo Account</a></li>
+  </ul>
+</div>
+<div class="about">About us
+<ul>
+    <li><a href="http://www.socialappshq.com/about/index" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Team']);">Team</a></li>
+    <li><a href="http://www.socialappshq.com/about/testimonials" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Testimonials']);">Testimonials</a></li>
+    <li><a href="http://www.socialappshq.com/about/partners" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Partner Program']);">Partner Program</a></li>
+    <li><a href="http://www.socialappshq.com/about/non_profit" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Non Profit']);">Non Profit</a></li>
+    <li><a href="http://www.socialappshq.com/about/careers" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Careers']);">Careers</a></li>
+    <li><a href="http://www.socialappshq.com/about/contact-us" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Contacts us']);">Contact us</a></li>
+    <li><a href="http://socialappshq.freshdesk.com/home" target="_blank" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Contacts us']);">Support</a></li>
+  </ul>
+
+</div>
+<div class="about">Resource
+<ul>
+    <li><a href="http://www.socialappshq.com/help/frequently-asked-questions" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'FAQ']);">FAQ's</a></li>
+    <li><a href="http://www.socialappshq.com/tips/derive-business-value-from-fans" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Social Media Tips']);">Social Media Tips</a></li>
+    <li><a href="http://www.socialappshq.com/resource/restaurant-marketing-on-facebook" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Resource Center']);">Resource Center</a></li>
+    <li><a href="http://www.socialappshq.com/help/case-studies" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Case Studies']);">Case Studies</a></li>
+    <li><a href="http://www.socialappshq.com/home/clients" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Our Clients']);">Our Clients</a></li>
+    <li><a href="http://www.socialappshq.com/social_media_marketing/" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Social Media Marketing Companies']);">Social Media Marketing Companies</a></li>
+  </ul>
+</div>
+<div class="about">Legal
+  <ul>
+    <li><a href="/home/privacy" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Privacy']);">Privacy</a></li>
+    <li><a href="/home/terms-and-conditions" onclick="_gaq.push(['_trackEvent', 'Home Page', 'Footer', 'Terms']);">Terms</a></li>
+  </ul>
+</div>
+<div class="about">Our Latest Blog
+<ul>
+<li><a href="http://blog.socialappshq.com/2013/06/10/social-media-monitoring-tools/" title="How Cops and Law Enforcement Agencies could benefit from Social Media Monitoring">How Cops and Law Enforcement Agencies could benefit from Social Media Monitoring</a></li>
+				<li><a href="http://blog.socialappshq.com/2013/06/04/case-study-navbharat-times-facebook-photo-contest/" title="Case Study: .Navbharat Times. Facebook Photo Contest">Case Study: .Navbharat Times. Facebook Photo Contest</a></li>
+				<li><a href="http://blog.socialappshq.com/2013/05/28/case-study-on-cidade-fm-photo-contest/" title="Case Study on .CIDADE FM. Photo Contest">Case Study on .CIDADE FM. Photo Contest</a></li>
+				<li><a href="http://blog.socialappshq.com/2013/05/21/makemytrip-yeh-jawaani-hai-deewani-photo-contest/" title="MakeMyTrip  . Yeh Jawaani Hai Deewani. Photo Contest">MakeMyTrip  . Yeh Jawaani Hai Deewani. Photo Contest</a></li>
+				<li><a href="http://blog.socialappshq.com/2013/05/14/case-study-nykaas-mothers-day-contest/" title="Case Study . Nykaa Mother.s Day Contest">Case Study . Nykaa Mother.s Day Contest</a></li>
+<li><span>Stay Updated</span><a target="_blank" href="https://plus.google.com/116757224500052557689/posts" class="social_icon_gpluse"></a><a target="_blank" href="http://www.facebook.com/socialappshq?fref=ts" class="social_icon_fb"></a><a target="_blank" class="social_icon_tw" href="https://twitter.com/SocialAppsHQ"></a><a target="_blank" class="social_icon_in" href="http://www.linkedin.com/company/2069838?trk=tyah"></a></li>
+</ul>
+</div> 
+
+</center>
+
+  </div>
+</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-23871350-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<?php // This theme is released free for use under the attached EULA license file.
+            // All links in the footer should remain intact. 
+            // These links are all safe and friendly and will not hurt your site in any way. 
+            // Warning! Your site may stop working if these links are edited or deleted  ?> 
+
+<?php
+	 wp_footer();
+	echo get_theme_option("footer")  . "\n";
+?>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	//Set Default State of each portfolio piece
+	$(".paging").show();
+	$(".paging a:first").addClass("active");
+		
+	//Get size of images, how many there are, then determin the size of the image reel.
+	var imageWidth = $(".window").width();
+	var imageSum = $(".image_reel img").size();
+	var imageReelWidth = imageWidth * imageSum;
+	
+	//Adjust the image reel to its new size
+	$(".image_reel").css({'width' : imageReelWidth});
+	
+	//Paging + Slider Function
+	rotate = function(){	
+		var triggerID = $active.attr("rel") - 1; //Get number of times to slide
+		var image_reelPosition = triggerID * imageWidth; //Determines the distance the image reel needs to slide
+
+		$(".paging a").removeClass('active'); //Remove all active class
+		$active.addClass('active'); //Add active class (the $active is declared in the rotateSwitch function)
+		
+		//Slider Animation
+		$(".image_reel").animate({ 
+			left: -image_reelPosition
+		}, 500 );
+		
+	}; 
+	
+	//Rotation + Timing Event
+	rotateSwitch = function(){		
+		play = setInterval(function(){ //Set timer - this will repeat itself every 3 seconds
+			$active = $('.paging a.active').next();
+			if ( $active.length === 0) { //If paging reaches the end...
+				$active = $('.paging a:first'); //go back to first
+			}
+			rotate(); //Trigger the paging and slider function
+		}, 7000); //Timer speed in milliseconds (3 seconds)
+	};
+	
+	rotateSwitch(); //Run function on launch
+	
+	//On Hover
+	$(".image_reel a").hover(function() {
+		clearInterval(play); //Stop the rotation
+	}, function() {
+		rotateSwitch(); //Resume rotation
+	});	
+	
+	//On Click
+	$(".paging a").click(function() {	
+		$active = $(this); //Activate the clicked paging
+		//Reset Timer
+		clearInterval(play); //Stop the rotation
+		rotate(); //Trigger rotation immediately
+		rotateSwitch(); // Resume rotation
+		return false; //Prevent browser jump to link anchor
+	});	
+	
+});
+</script>
+
+</body>
+</html>

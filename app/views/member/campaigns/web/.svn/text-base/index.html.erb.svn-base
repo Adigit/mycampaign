@@ -1,0 +1,190 @@
+<!-- Can't be removed -->
+<script src="/javascripts/stats/highstock.js"></script>
+<script src="/javascripts/stats/exporting.js"></script>
+
+<div class="middle">
+  <!--Start Breadcrumb-->
+  <div class="container">
+    <div class="center">
+
+    </div>
+  </div>
+  <!--End of Breadcrumb-->
+  <div class="container">
+    <div class="center">
+      <div class="tabBox">
+        <ul class="tabs AlignRight">
+          <% if !@websites.blank? && !@web_campaigns.blank?%>
+            <li id="li_tab_1"><a href="#tab1" onclick="show_tab('tab_1')" >Manage Campaigns</a></li>
+            <li id="li_tab_2"><a href="#tab2" onclick="show_tab('tab_2');">Create Campaign</a></li>
+            <li id="li_tab_3"><a href="#tab3" onclick="show_tab('tab_3');">Add Website</a></li>
+            <li id="li_tab_4"><a href="#tab4" onclick="show_tab('tab_4');">Insights</a></li>
+	    <li id="li_tab_5"><a href="#tab5" onclick="show_tab('tab_5');">Leads</a></li>
+          <% elsif  @websites.blank? %>
+            <li id="li_tab_1"><a href="#tab3" onclick="alert_msg('web');" >Manage Campaigns</a></li>
+            <li id="li_tab_2"><a href="#tab3" onclick="alert_msg('web');">Create Campaign</a></li>
+            <li id="li_tab_3"><a href="#tab3" onclick="show_tab('tab_3');">Add Website</a></li>
+            <li id="li_tab_4"><a href="#tab3" onclick="alert_msg('web');">Insights</a></li>
+	    <li id="li_tab_5"><a href="#tab5" onclick="alert_msg('web');">Leads</a></li>
+          <% elsif !@websites.blank? && @web_campaigns.blank?%>
+            <li id="li_tab_1"><a href="#tab2" onclick="alert_msg('campaign');" >Manage Campaigns</a></li>
+            <li id="li_tab_2"><a href="#tab2" onclick="show_tab('tab_2');">Create Campaign</a></li>
+            <li id="li_tab_3"><a href="#tab3" onclick="show_tab('tab_3');">Add Website</a></li>
+            <li id="li_tab_4"><a href="#tab2" onclick="alert_msg('campaign');">Insights</a></li>
+	    <li id="li_tab_5"><a href="#tab5" onclick="alert_msg('web');">Leads</a></li>
+          <% end %>
+        </ul>
+
+        <div class="tabContainer">
+          <div id="tab_1" class="tabContent tab1" style="display:none" >
+            <%= render :partial => "/member/campaigns/web/list" %>
+          </div>
+          <!--End of Tab 1-->
+
+          <!--Start of Tab 2-->
+          <div id="tab_2" class="tabContent tab2" style="display:none">
+            <%= render :partial => "/member/campaigns/web/edit" %>
+          </div>
+          <!--end of tab 2-->
+
+          <!--Start of Tab 3-->
+          <div id="tab_3" class="tabContent tab3" style="display:none">
+            <%= render :partial => "/member/campaigns/web/app" %>
+          </div>
+          <!--end of tab 3-->
+
+          <!--Start of Tab 4-->
+          <div id="tab_4" class="tabContent tab4" style="display:none">
+
+          </div>
+          <!--end of tab 4-->
+
+	 <!--Start of Tab 5 -->
+          <div id="tab_5" class="tabContent tab5" style="display:none">
+
+          </div>
+          <!--end of tab 5 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery("ul.tabs li:first").addClass("active").show();
+
+<% if @websites.blank?%>
+      jQuery("#li_tab_3").click();
+      show_tab('tab_3');
+<% elsif  !@websites.blank? && @web_campaigns.blank?%>
+      jQuery("#li_tab_2").click();
+      show_tab('tab_2');
+<% else%>
+      jQuery("#li_tab_1").click();
+      show_tab('tab_1');
+<% end %>
+  });
+
+function reset_tab_link(tab_id,tab_anchor){
+  var tab_title = "";
+  if (tab_anchor == 'tab1') {
+    tab_title = 'Manage Campaigns';
+  }
+  if (tab_anchor == 'tab2') {
+    tab_title = 'Create Campaign';
+  }
+  if (tab_anchor == 'tab3') {
+    tab_title = 'Add Website';
+  }
+  if (tab_anchor == 'tab4') {
+    tab_title = 'Insights';
+  }
+  var link = "<a href='#"+tab_anchor+"' onclick=\"show_tab('"+tab_id+"');\">"+tab_title+"</a>"
+  jQuery('#li_'+tab_id).html(link);
+}
+
+
+function refresh_tab(type){
+    jQuery.ajax({
+      url: "/member/campaigns/web/refresh",
+      data: 'id='+type,
+      dataType: "text",
+      cache: false,
+      type: "POST",
+      beforeSend: function(){
+        jQuery('#'+type).html('<img src="/images/loading.gif"  style="margin-left:600px;margin-top:200px;height:30px;width:30px;"/>');
+      },
+      success: function(response){
+        jQuery('#'+type).html(response);
+      }
+    });
+  }
+
+  function show_tab(div_id){
+    if(div_id=='tab_1'){
+      jQuery( ".active" ).removeClass();
+      jQuery('#li_tab_1').addClass("active");
+      jQuery('#tab_5').hide();
+      jQuery('#tab_1').show();
+      jQuery('#tab_2').hide();
+      jQuery('#tab_3').hide();
+      jQuery('#tab_4').hide();
+      refresh_tab(div_id);
+    }
+    if(div_id=='tab_2'){
+      jQuery( ".active" ).removeClass();
+      jQuery('#li_tab_2').addClass("active");
+      jQuery('#tab_5').hide();
+      jQuery('#tab_1').hide();
+      jQuery('#tab_2').show();
+      jQuery('#tab_3').hide();
+      jQuery('#tab_4').hide();
+      refresh_tab(div_id);
+    }
+    if(div_id=='tab_3'){
+
+      jQuery( ".active" ).removeClass();
+      jQuery('#li_tab_3').addClass("active");
+      jQuery('#tab_5').hide();
+      jQuery('#tab_3').show();
+      jQuery('#tab_2').hide();
+      jQuery('#tab_1').hide();
+      jQuery('#tab_4').hide();
+      refresh_tab(div_id);
+    }
+    if(div_id=='tab_4'){
+
+      jQuery( ".active" ).removeClass();
+      jQuery('#li_tab_4').addClass("active");
+      jQuery('#tab_5').hide();
+      jQuery('#tab_3').hide();
+      jQuery('#tab_2').hide();
+      jQuery('#tab_1').hide();
+      jQuery('#tab_4').show();
+      refresh_tab(div_id);
+    }
+    if(div_id=='tab_5'){
+
+      jQuery( ".active" ).removeClass();
+      jQuery('#li_tab_5').addClass("active");
+      jQuery('#tab_4').hide();
+      jQuery('#tab_3').hide();
+      jQuery('#tab_2').hide();
+      jQuery('#tab_1').hide();
+      jQuery('#tab_5').show();
+      refresh_tab(div_id);
+    }
+
+  }
+  function alert_msg(type)
+  {
+    if (type=='web') {
+      alert('You have not created any websites yet, please create a website first.');
+    } else {
+      alert('You have not created any campaigns yet, please create a campaign first to unlock all features.');
+    }
+
+  }
+
+</script>
+

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<% if user_signed_in? %>
+  <%= render :partial => "/shared/layouts/header"%>
+  <%=yield%>
+<%else%>
+  <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+      <% title_tag = 'Apps to Engage and Grow your User base by UsersDelight'
+      meta_desc = 'All Apps to Engage and Grow your User base across Website, Mobile Apps and Twitter'
+      meta_key = 'Feedback, Notification and  Coupons'
+    %>
+
+    <title><%=title_tag%></title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="Keywords" content="<%=meta_key%>" />
+    <meta name="Description" content="<%=meta_desc%>" />
+    <meta property="og:title" content="<%=title_tag%>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="<%=meta_desc%>"/>
+<script type="text/javascript" src="/javascripts/jquery.min.js?v=2.4"></script>
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%#= stylesheet_link_tag    'home', media: 'all', 'data-turbolinks-track' => true %>
+<!-- NEED TO BE VERIFIED, WHETHER IT WILL REMAIN OR NOT. IN CASE YES DOWNLOAD THIS TO OUR SITE. COMMENT WRITTEN BY ADITYA SRIVASTAVA-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
+
+  <%= csrf_meta_tags %>
+	<% if request.url.include?("/home/campaign")
+			body_class = "productbg"
+		elsif (request.url.include?('/users/sign_in') && session["next_path_credentials"]) ||  request.url.include?("/home/setup")
+                        body_class = "bg09"
+		elsif request.url.include?("/users") || request.url.include?("/home/privacy") || request.url.include?("/home/terms-and-conditions")
+			body_class = "apps"
+		elsif request.url.include?("/home/how_it_works")
+			body_class = "webappbg"
+		elsif request.url.include?("/home/pricing")
+			body_class = "home"
+		elsif request.url.include?("/intro")
+			body_class = "webappbg"
+		elsif
+			body_class = "index"
+		end
+	%>
+    <body class= "<%=body_class%>">
+          <div id="pagewidth">
+        <div id='main'>
+          <div class='menu'>
+            <ul>
+              <li><a href="/"  id="menu2"><img src="/images/usersdelight.png" style="border:0"/></a></li>
+              <li><a href="/home/campaign"  id="menu2">PRODUCTS</a></li>
+              <li><a href="/home/how_it_works"  id="menu2">HOW IT WORKS</a></li>
+              <li class="price"><a href="/home/pricing" id="menu5"  class="highlight">PRICING</a></li>
+              <li><a href="/blog" id="menu4">BLOG</a></li>
+              <li>
+                <% if user_signed_in? %>
+                  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+                <li style="font-size: 10px;width: 10%;">Logged in as <strong><%= current_user.email %></strong>.</li>
+              <% else %>
+                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+                <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+              <% end %>
+            </ul>
+          </div> <!-- <div class='menu'> -->
+        </div>   <!--ending div_main-->
+        <% if request.url.include?("/users") %>
+          <% if request.url.include?("/users/sign_up")%>
+            <% title = "Registration Form"%>
+          <%elsif request.url.include?("/users/sign_in")%>
+            <% if session["next_path_credentials"] %>
+              <% msg = "Password has been sent to your email. Login to configure"%>
+            <% else%>
+              <% title = "Membes Login Form"%>
+            <%end%>
+          <% elsif request.url.include?("/users/password/new")%>
+            <% title = "Forgot Password"%>
+          <% elsif request.url.include?("/users/edit")%>
+            <% title = "Edit User Profile Form"%>
+          <%end%>
+          <% if !title.blank?%>
+            <div class="imp"><h1><%=title%></h1></div>
+          <%elsif !msg.blank?%>
+            <div class="msg"><%= msg %></div>
+          <%end%>
+          <div class="login">
+            <%=yield%>
+          </div>
+        <%else%>
+          <%=yield%>
+        <%end%>
+        <div id="footer">
+          <div class="section">
+            <div class="oneForth" >
+              <h5>About us</h5>
+              <a href="/about/index" >Team</a>
+              <a href="/about/careers" >Careers</a>
+              <a href="/home/privacy" >Privacy</a>
+              <a href="/home/terms-and-conditions" >Terms of Service</a>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- <div id="pagewidth">  -->
+
+      <script>
+        function show_form_properly(){
+          var field = jQuery('#type').val();
+          if (field == 'wesite')
+          {
+            jQuery('#web_input').show();
+            jQuery('#web_small').show();
+            jQuery('#mob_input').hide();
+            jQuery('#mobile_small').hide();
+            jQuery('#web_input').attr('required', true);
+            jQuery('#mob_input').removeAttr('required');
+
+          }
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-51018669-1', 'usersdelight.com');
+        ga('send', 'pageview');
+
+      </script>
+    </body>
+  </html>
+<%end%>

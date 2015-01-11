@@ -1,0 +1,139 @@
+<style>
+.edit_name_link {display:none;}
+</style>
+<script>
+  $(document).ready(function() {
+      <% if session["next_path_credentials"]%>
+          configure_campaign('<%=session["next_path_credentials"]["id"]%>','<%=session["next_path_credentials"]["model_id"]%>','<%=session["next_path_credentials"]["model_name"]%>');
+          
+      <%end%>
+  });
+
+  function get_path_for_model(model_name) {
+    var model = "";
+    if (model_name == 'WebFeedback') {
+      model = 'feedback';
+    }
+    if (model_name == 'WebNotification') {
+      model = 'notification';
+    }
+    if (model_name == 'WebCoupon') {
+      model = 'coupon';
+    }
+    return model;
+  }
+
+  function get_campaign_url(model_name, campaign_id) {
+    jQuery('#link'+campaign_id).attr('href', "/web/"+get_path_for_model(model_name)+"?id="+campaign_id);
+  }
+
+  function configure_campaign(id, model_id, model_name) {
+
+    var  model = get_path_for_model(model_name)
+    var url = "/member/setup/web/"+model+"/edit?id="+model_id;
+    jQuery.ajax({
+      url: url,
+      data: "",
+      type: "POST",
+      dataType: 'text',
+      cache: false,
+      beforeSend: function(){
+        console.log("configure_campaign -----> before send action");
+        jQuery('#campaign-going_'+id).html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        console.log("configure_campaign -----> success action");
+        show_tab('div_2');
+        jQuery('.list-view-campaign').html(response_data);
+      },
+      error: function(response_data) {
+        jQuery('.pro_box').html(response_data);
+      }
+    });
+  }
+
+
+  function delete_campaign(id, model_id, model_name) {
+
+    var  model = get_path_for_model(model_name)
+
+    var url = "/member/setup/web/"+model+"/delete?id="+model_id;
+    jQuery.ajax({
+      url: url,
+      data: "",
+      type: "POST",
+      dataType: 'text',
+      cache: false,
+      beforeSend: function(){
+        jQuery('#campaign-going_'+id).html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        jQuery('#campaign-going_'+id).html(response_data);
+      },
+      error: function(response_data) {
+        jQuery('#campaign-going_'+id).html(response_data);
+      }
+    });
+  }
+
+
+
+</script>
+<style>
+.campaign-stats-report p {  padding:10px 0 0 !important; height: 20px !important;    }
+</style>
+
+<div class="list-view-campaign" id="list-of-campaigns">
+
+  <a href="#" class="campaign-configure-button" style=" color:white !important; text-decoration:none !important;float: right;margin-bottom: 0.8%;margin-right: 1%;" onclick="show_tab('tab_2');">
+    Create Campaign
+  </a>
+
+  <% if !@web_campaigns.blank? %>
+    <div class="list-campaign">
+      <ul>
+        <% @web_campaigns.each do |c|%>
+          <li>
+            <div id ="camp_row_<%=c.id%>">
+              <div class="campaign-name" >
+                <div class ="camp_name_<%=c.id%>">
+                  <p class="camp-title">
+                    <span class="page_name" id="camp_title_<%=c.id%>"><%= c.title %></span>
+                    <a class="edit_name_link" onclick='edit_camp_name("camp_name_<%=c.id%>","camp_name_edit_<%=c.id%>","save_<%=c.id%>","camp_name_new_<%=c.id%>");' href="javascript:void(0);">Edit</a>
+                  </p>
+                </div> <!--  <div class ="camp_name_<=page_id>_<=k>"> -->
+
+                <a id ="save_<%=c.id%>" onclick="update_camp_title('camp_name_new_<%=c.id%>',<%=c.id%>,'camp_title_<%=c.id%>','camp_name_<%=c.id%>','save_<%=c.id%>',1)" style="display:none;" href="javascript:void(0);">save</a>
+
+                <div id ="camp_name_edit_<%=c.id%>" style="display:none">
+                  <input class="cmp_edit_input" id ="camp_name_new_<%=c.id%>" value="<%=c.title%>"  onclick="update_camp_title('camp_name_new_<%=c.id%>',<%=c.id%>,'camp_title_<%=c.id%>','camp_name_<%=c.id%>','save_<%=c.id%>',0)"/>
+                </div>
+
+                <span class="campaign-going" id="campaign-going_<%=c.id%>" style="display:block;">
+                  <%=c.campaign_status%>
+                </span>
+
+              </div> <!-- <div class="campaign-name" >-->
+
+              <div class="campaign-stats-report">
+                <p>Views: <a href="#" onclick ="show_tab('tab_4');"><%=c.views%></a></p>
+                <p>Clicks: <a href="#tab6" onclick="show_tab('tab_4');"><%=c.clicks%></a></p>
+                <p>Leads: <a href ="#" onclick="show_tab('tab_5');"><%=c.leads%></a></p>
+              </div> <!-- <div class="campaign-stats-report"> -->
+
+              <div class="campaign-configure"><a href="#tab0" onclick="configure_campaign(<%=c.id%>, <%=c.model_id%>,'<%=c.model_name%>');">Start/Edit Campaign</a>
+                <div id ="config_<%=c.id%>" class="camp"></div>
+
+                <% if c.campaign_status == "Active" %>
+                  <a href="#tab0" onclick ="delete_campaign(<%=c.id%>, <%=c.model_id%>,'<%=c.model_name%>');return false;">Stop Campaign</a>
+                <% end %>
+
+              </div> <!--  <div class="campaign-configure">-->
+            </div> <!-- <div id ="camp_row_<=page_id>_<=k>"> -->
+          </li>
+        <%end%> <!-- data.each do |k,v| -->
+      </ul>
+    </div> <!-- <div class="list-campaign"> -->
+  <%end%> <!-- <div class="list-campaign"> -->
+  <div style="clear:both; padding:10px;"></div>
+</div><!-- <div class="list-campaign" -->

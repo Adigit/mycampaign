@@ -1,0 +1,101 @@
+<script type="text/javascript" src="/javascripts/jquery.min.js?v=3.0"></script>
+<script src="/javascripts/twitter/jquery.countdown.js" charset="utf-8"></script>
+
+<script type="text/javascript" charset="utf-8">
+
+jQuery(document).ready(function() {
+    var offset = (new Date()).getTimezoneOffset();
+    var timezones = {
+      '-12': 'Pacific/Kwajalein',
+      '-11': 'Pacific/Samoa',
+      '-10': 'Pacific/Honolulu',
+      '-9': 'America/Juneau',
+      '-8': 'America/Los_Angeles',
+      '-7': 'America/Denver',
+      '-6': 'America/Mexico_City',
+      '-5': 'America/New_York',
+      '-4': 'America/Caracas',
+      '-3.5': 'America/St_Johns',
+      '-3': 'America/Argentina/Buenos_Aires',
+      '-2': 'Atlantic/Azores',
+      '-1': 'Atlantic/Azores',
+      '0': 'Europe/London',
+      '1': 'Europe/Paris',
+      '2': 'Europe/Helsinki',
+      '3': 'Europe/Moscow',
+      '3.5': 'Asia/Tehran',
+      '4': 'Asia/Baku',
+      '4.5': 'Asia/Kabul',
+      '5': 'Asia/Karachi',
+      '5.5': 'Asia/Calcutta',
+      '6': 'Asia/Colombo',
+      '7': 'Asia/Bangkok',
+      '8': 'Asia/Singapore',
+      '9': 'Asia/Tokyo',
+      '9.5': 'Australia/Darwin',
+      '10': 'Pacific/Guam',
+      '11': 'Asia/Magadan',
+      '12': 'Asia/Kamchatka'
+    };
+
+    var offset_of_user = -offset/60;
+    var offset_from_table = <%=data.good_until_timezone%>;
+    var tippingDate = '<%=data.good_until_date.year%>/<%=data.good_until_date.month%>/<%=data.good_until_date.day%> <%=data.good_until_hour%>';
+
+    if (offset_of_user == offset_from_table) { // In case end user and admin time are of same timezone
+      jQuery('.tz').html('Offer Till: <%=data.good_until_date%> <%=data.good_until_hour%>');
+    } else { // if timezones are different
+	jQuery('.tz').html('Offer Till: <%=data.good_until_date%> <%=data.good_until_hour%> '+timezones[offset_from_table]);
+
+      // difference between two timezones
+      var diff_between_timezones = (offset_of_user - offset_from_table)*3600;
+
+<%
+campaign_time =  data.good_until_hour.to_i*60
+
+if data.good_until_hour.include?('PM')
+  campaign_time = data.good_until_hour.to_i*60 + 12*60
+end
+
+campaign_time = data.good_until_date.to_time.to_i + campaign_time*60
+
+%>
+
+      var campaign_time = <%=campaign_time %>;
+      var user_adjusted_time = (campaign_time + diff_between_timezones)*1000;
+
+      tippingDate_f = new Date(user_adjusted_time);
+      var hours = tippingDate_f.getUTCHours();
+      var hour_str = '';
+      if (hours>12) {
+        hours = hours -12;
+        hour_str = hours+':00 PM';
+      } else {
+        hour_str = hours+':00 AM';
+      }
+
+      tippingDate = tippingDate_f.getUTCFullYear()+'/'+(tippingDate_f.getUTCMonth()+1)+'/'+tippingDate_f.getUTCDate()+' '+hour_str;
+    }
+});
+</script>
+<style>
+.text-style {
+font-family: arial,corbel, verdana, sans-serif;
+color: black !important;
+}
+  .slider-header-offer{ font-size:26px; color:#000;}
+  .code-area-text{  font-size:10px; color:#333;}
+  .main-form{border-radius: 5px;margin: 0 auto;background-color: #FFFFFF;width: 98%;border: 5px solid rgba(0, 0, 0, 0.5);text-align:center;}
+</style>
+<div class="main-form text-style">
+<% if !data.blank?%>
+	<% if !message.blank? && message != 0 %><div style="background-color: rgb(255, 223, 223); margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 10px; font-size: 13px; color: black; width: 93%; "><%= message%></div><%end%>
+	<div class="slider-header-offer">Your Coupon Code</div>	
+	<label style="font-size:32px !important;font-weight:bold !important;text-align:center;"><%= data.coupon_code%></label>
+	<br/>
+	<div class="tz code-area-text" style="font-size:12px !important;font-weight:bold !important;"></div>
+
+<%else%>
+<h1>Sorry could not get coupon.</h1>
+<% end%>
+</div>

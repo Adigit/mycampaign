@@ -1,0 +1,62 @@
+<div id="middle">
+  <div class="banner">
+    <div class="banneroneforth">
+      <h1>In App Notifications to Mobile Users</h1>
+      <p>
+        Show notifications to relevant users instantly to increase conversions e.g. you 
+        can show a particular notification to users who come from a certain website or, who
+        have come to  our site multiple times. In depth Analytics available.
+      </p>
+
+      <% if current_user.blank? %>
+        <a class="button-img" href="/signup">Create Campaign</a>
+      <% else %>
+        <a class="button-img" href="/member/campaigns/twitter">Create Campaign</a>
+      <% end %>
+    </div>
+    <div class="banneronethird">
+      <img src="https://s3.amazonaws.com/fbappshq-assets/datas/71089/large.png" />
+    </div>
+  </div>
+  <div class="content">
+    <div class="features-hig"><h2>Features Highlights</h2>
+      <div class="app-feature">
+        <ul>
+          <li>
+            <h5>Easy Integration</h5>
+            <p>
+              Include our Android SDK once and then show custom notifications
+              in your app without ever having to bother engineering team.
+              This SDK allows you to run all types of mobile campaigns available through us.
+            </p>
+          </li>
+          <li>
+            <h5>Audience Groups</h5>
+            <p>
+              Create custom audience groups and then run targeted marketing
+              campaigns for them e.g. Users who have bought a product on your mobile
+              app can be a group and all users who have launched your app more than
+              10 times can be another group.
+            </p>
+          </li>
+          <li>
+            <h5>Launch Instantly</h5>
+            <p>
+              Launch campaigns with in seconds of including SDK in your app. It
+              takes a simple click to turn notifications on/off. Also, you can run multiple
+              notifications at the same time - one for each audience group.
+            </p>
+          </li>
+          <li>
+            <h5>Custom Styling</h5>
+            <p>You can change look and feel as well as content of notifications almost
+              instantly by simply going to dashboard and click on few links.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>

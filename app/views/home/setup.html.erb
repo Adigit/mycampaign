@@ -1,0 +1,38 @@
+<script type="text/javascript" src="/javascripts/jquery.zclip.js"></script>
+<script>
+  function go_to_configuration_page()
+  {
+	
+    var _widget_type = jQuery('#choose_to_go').val();
+    var _type = "<%= @response_hash["type"]%>";
+    var _user_id = "<%= @response_hash["user_id"]%>";
+    var _camp_id = "<%= @response_hash["campaign_id"]%>";
+    console.log(_camp_id+ ">>> " + _type + " >> " + _widget_type + ">>>> " + _user_id);
+    dataString = "type="+_type+"&user_id="+_user_id+"&camp_id="+_camp_id+"&widget_type="+_widget_type;
+    jQuery.ajax({
+      url: "/home/create_widget",
+      dataType: "json",
+      data: dataString,
+      type: "POST",
+      beforeSend: function(){
+        console.log(" >>> Before Send >>>");
+      },
+      success: function(response){
+        console.log("In success  = response =" +response);
+        console.log("In response s tryue");
+        top.location.href = "http://www.usersdelight.com/users/sign_in";
+      },
+      error: function(){
+        console.log(" >>>>> Error >>>>>");
+      }
+    });
+  }
+
+ 
+</script>
+<%= if @response_hash["type"] == "website" 
+  render :partial=>"home/web_setup"
+elsif @response_hash["type"] == "mobile"
+  render :partial=>"home/mobile_setup"
+end
+%>

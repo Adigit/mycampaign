@@ -1,0 +1,29 @@
+module DefaultWidgetDataSetup
+  def save_feedback_campaign(campaign)
+    type = campaign.model_name.constantize.new(:mobile_campaign_id => campaign.id,:user_id => current_user.id,
+    :header_message => "Survey", :main_message => "Please provide us your valuable inputs. It will just take 1-2 minutes.",
+      :first_button_text => "Participate", :second_button_text => "Not Now"
+    )
+    return type
+  end
+
+
+  def save_notification_campaign(campaign)
+    type = campaign.model_name.constantize.new(:is_active => 1, :user_id => current_user.id,
+      :mobile_campaign_id => campaign.id,:header_message => "Upgrade to New Version", :main_message => "New Version offers Voice Calls and lot more features",
+      :first_button_text => "Upgrade Now", :first_button_link => "http://play.google.com/",:second_button_text => "Not Now"
+    )
+    return type
+  end
+
+
+  def save_coupon_campaign(campaign)
+    type = campaign.model_name.constantize.new(:mobile_campaign_id => campaign.id,
+      :good_until_hour => "11:00 PM", :good_until_timezone => "8.0", :good_until_date => 30.days.from_now,
+      :header_message => "20% Off", :main_message => "Get 20% off on all our products. Offer valid till #{30.days.from_now}",
+      :first_button_text => "Claim", :second_button_text => "Skip",
+      :user_id => current_user.id)
+    return type
+  end
+
+end

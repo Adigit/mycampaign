@@ -1,0 +1,213 @@
+<style>
+  select {font-size: 24px;padding: 16px 17px;}
+  input[type="text"], input[type="email"] {font-size:23px;text-align:center;padding:18px 31px;}
+  .col1, .col2, .col3 {margin:40px 20px;display:inline-block;vertical-align:top}
+  .col2{width:315px}
+  .rc_icon{width:45px;height:36px;display:inline-block;background-image:url(/images/icons.png);background-repeat:no-repeat;vertical-align:top;background-position:-130px 0px}
+  .ei_icon{width:45px;height:36px;display:inline-block;background-image:url(/images/icons.png);background-repeat:no-repeat;vertical-align:top;background-position:-170px 0px}
+  .if_icon{width:45px;height:36px;display:inline-block;background-repeat:no-repeat;vertical-align:top;background-image:url(/images/icons.png);;background-position:-42px 0px}
+  .rtm_icon{width:45px;height:36px;display:inline-block;background-image:url(/images/icons.png);background-repeat:no-repeat;vertical-align:top;background-position:0px 0px}
+  .df_icon{width:41px;height:36px;display:inline-block;background-repeat:no-repeat;vertical-align:top;background-image:url(/images/icons.png);background-position:-211px 0px;margin-right:4px}
+  .uf_icon{width:45px;height:36px;display:inline-block;background-repeat:no-repeat;vertical-align:top;background-image:url(/images/icons.png);;background-position:-296px 0px}
+  .lu_icon{width:45px;height:36px;display:inline-block;background-repeat:no-repeat;vertical-align:top;background-image:url(/images/icons.png);;background-position:-85px 0px}
+  .rate_icon{width:45px;height:36px;display:inline-block;background-repeat:no-repeat;vertical-align:top;background-image:url(/images/icons.png);;background-position:-253px 0px}
+  .eng_icon{width:45px;height:36px;display:inline-block;background-repeat:no-repeat;vertical-align:top;background-image:url(/images/icons.png);;background-position:-343px 0px}
+  .up_icon{width:45px;height:36px;display:inline-block;background-repeat:no-repeat;vertical-align:top;background-image:url(/images/icons.png);;background-position:-385px 0px}
+
+  ul.es li p{display:inline-block;width:88%;line-height:1.3em;padding:0px 0 20px 0 !important}
+  ul.es li p a:hover{color:#474747 !important;}
+  .web_small, .mobile_small{float: left;width: 100%;}
+</style>
+<div class="row">
+  <div class="banner">
+    <h1>
+	Customer Engagement and Growth<br/>
+	Tools for your Website and Mobile App
+    </h1>
+
+    <div class="starter_form">
+      <form action="/home/setup" type="POST">
+        <div class="row" style="float:left;width:100%;text-align:center">
+          <div class="col1">
+            <select name="type" id="type" onchange="change_dropdown_on_home();">
+              <option value="mobile">Mobile</option>
+              <option value="website">Website</option>
+            </select>
+          </div>
+          <div class="col2">
+            <input type="text" placeholder="Enter Website URL" name="website" id="web_input" style="display:none"/>
+            <small id="web_small" style="display:none;float: left;" class="example">e.g. www.xyz.com</small>
+            <input type="text" placeholder="Enter Mobile App Name" name="mobile" id="mob_input" />
+            <small id="mobile_small" style="float: left;" class="example">e.g. WhatsApp</small>
+          </div>
+
+          <div class="col3">
+            <input type="email" placeholder="Enter Email" name="email" id="email" required="true"/>
+          </div>
+
+          <input type="submit" class="button" value=""/>
+          <% if session[:back]%>
+            <div style="margin-left:216px; width: 43%;border: 1px solid;margin-top: 1%;background-color: #FFF9D7;">You have already registered with us. Please <%= link_to "login to configure widget", "/users/sign_in"%>.</div>
+          <%end%>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+<<<<<<< .mine
+  
+=======
+>>>>>>> .r274
+  <div class="center" style="margin-top:70px;">
+    <div class="columns">
+      <div class="easy-row">
+        <h2>Ultimate Set of Engagement & Growth Tools</h2>
+        <div class="oneFifth esay_platform">
+          <div class="apps-icon"></div>
+          <h4> <a class="info" href="/web/feedback/intro">Feedback</a></h4>
+          <p>Integrate with your Website or Mobile App to collect user feedback to address their issues as well as identify growth opportunities.</p>
+        </div>
+
+        <div class="oneFifth esay_platform">
+          <span class="monitor-icon">&nbsp;</span>
+          <h4> <a class="info" href="/web/notification/intro">Notifications</a></h4>
+          <p>Show Notifications in your app or, as notification bar on your website to tell them about your latest product, features or, blog post</p>
+        </div>
+
+        <div class="oneFifth esay_platform">
+          <span class="planner-icon">&nbsp;</span>
+          <h4> <a class="info" href="/web/coupon/intro">Coupons</a></h4>
+          <p>Give coupons to your customers visiting your website or, mobile app to increase sales</p>
+        </div>
+
+        <div class="oneFifth esay_platform">
+          <span class="ads-icon">&nbsp;</span>
+          <h4>  <a class="info" href="/mobile/pushmessages/intro">Push Messages</a></h4>
+          <p>Send Push Messages to users who have installed your Mobile app and get them back to engage with your App</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="center">
+    <div class="easy-row">
+      <h2>Multiple Benefits</h2>
+    </div>
+    <div class="columns">
+      <div class="half">
+        <ul class="es">
+          <li><span class="uf_icon"></span><p><strong>Get User Feedback</strong><br/>Find out about issues your customers are having right away on web and mobile app. Get screenshots of web page as well.</p></li>
+          <li><span class="rtm_icon"></span><p><strong>Increase Sales</strong><br/>Give coupons to highly engaged customers at the right time to increase your conversion rates and sales.</p></li>
+          <li><span class="if_icon"></span><p><strong>Increase Visibility</strong><br/>Drive traffic to your new product or, blog entry by using notification bar. You can use in-app notifications on mobile as well. </p></li>
+        </ul>
+      </div>
+      <div class="half">
+        <ul class="es">
+          <li><span class="rate_icon"></span><p><strong>Get 5 star reviews for Mobile App</strong><br/>Ask your engaged users if they love your app. If they do, send them to app store to get their rating. Increase in rating by 1 star increases downloads by 30%.</p></li>
+          <li><span class="eng_icon"></span><p><strong>Engage Mobile App Users to increase sessions by 3x</strong><br/>Send targeted Push Messages to users who have installed your mobile app and re-engage them. A large gaming app sent timely messages to increase their page views by 3x.</p></li>
+          <li><span class="up_icon"></span><p><strong>Faster upgrade of Mobile App - 95% upgrade in 1st week</strong><br/>Get users to upgrade by using a combination of push message and in-app notifications. A communications app used it to get 95% of their users to upgrade within 1 week vs an average of 90% over 6 weeks.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="center">
+    <div class="easy-row">
+      <h2>Easy to Implement and Real-Time Metrics</h2>
+    </div>
+    <div class="columns">
+      <div class="half">
+        <ul class="es">
+          <li><span class="rc_icon"></span><p><strong>Resource Center</strong><br/> Learn about A/B Testing, Multivariate Testing, Usability Survey, Click Heat Maps, Navigation flow charts and more</p></li>
+          <li><span class="ei_icon"></span><p><strong>Easy Implementation</strong><br/>Easy to integrate JS/SDK that takes you just 5 minutes to setup. You will never have to make any changes again.</p></li>
+          <li><span class="if_icon"></span><p><strong>Custom Audience Groups</strong><br/>Create innovative custom audience groups based on user interactions within Website/Mobile app. </p></li>
+        </ul>
+      </div>
+      <div class="half">
+        <ul class="es">
+          <li><span class="rtm_icon"></span><p><strong>Real-Time Metrics</strong><br/>In Depth Dashboards to measure performance of each of your campaigns in real-time</p></li>
+          <li><span class="df_icon"></span><p><strong>Deep Filtering</strong><br/>Chose user segments based on their usage, location and several other parameters relevant to Mobile/Web usage.</p></li>
+          <li><span class="lu_icon"></span><p><strong>Live Updates</strong><br/>Switch campaigns on the fly as per conversion analytics, without having to update SDK again.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="center">
+    <div class="columns">
+      <div class="easy-row">
+        <h2>Useful for Everyone in Your Company</h2>
+
+        <div class="oneFifth esay_platform" style="min-height:310px">
+          <span class="developer">&nbsp;</span>
+          <h4>Developer</h4>
+          <p>Integration is seemless and you don't need to make any ongoing code changes. Marketing folks can now show targeted Survey/Feedback, Notification &amp; Coupons without having to bother you while you work on your core product development.</p>
+        </div>
+
+        <div class="oneFifth esay_platform" style="min-height:310px">
+          <div class="productmgr"></div>
+          <h4>Product Manager</h4>
+          <p>10x flexibility, speed and control in running various scenarios that you can think of - on the fly e.g. Give inactive mobile app users 10% off (who have not visited you app for more than 30 days) or, collect feedback from users who have been on your pricing page from a certain referral source.</p>
+        </div>
+
+        <div class="oneFifth esay_platform" style="min-height:310px">
+          <span class="marketingmgr">&nbsp;</span>
+          <h4>Marketing Manager</h4>
+          <p>Segment your customers and run specific offers e.g. ask users coming from social sites to share your content, tell them about new product launch/blog post using notifications or, send push messages to all your mobile app users in San Fracisco about the hot cab offer that lasts just today.</p>
+        </div>
+
+        <div class="oneFifth esay_platform" style="min-height:310px">
+          <span class="salesmgr">&nbsp;</span>
+          <h4>Sales Manager</h4>
+          <p>Users who engage with you are excellent leads. Run specific offers to convert them online e.g. users who have come to your website/mobile app 10 times and have not bought anything can be given a particular offer that lasts only 1 day.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+  jQuery('#mob_input').attr('required',true);
+  function show_form_properly(){
+    var field = jQuery('#type').val();
+    if (field == 'wesite')
+    {
+      jQuery('#web_input').show();
+      jQuery('#web_small').show();
+      jQuery('#mob_input').hide();
+      jQuery('#mobile_small').hide();
+      jQuery('#web_input').attr('required', true);
+      jQuery('#mob_input').removeAttr('required');
+
+    }
+  }
+
+  //$(window).onbeforeunload(function() {alert('hi');})
+</script>
+<script>
+  if (sessionStorage.getItem("MobileVisited")) {
+    sessionStorage.removeItem("MobileVisited");
+    jQuery('#web_input').hide();
+    jQuery('#web_small').hide();
+    jQuery('#mob_input').show();
+    jQuery('#mobile_small').show();
+    jQuery('#mob_input').attr('required', true);
+    jQuery('#web_input').removeAttr('required');
+    //          window.location.reload(true); // force refresh page1
+  }
+  else if (sessionStorage.getItem("WebsiteVisited")){
+    sessionStorage.removeItem("WebsiteVisited")
+    jQuery('#web_input').show();
+    jQuery('#web_small').show();
+    jQuery('#mob_input').hide();
+    jQuery('#mobile_small').hide();
+    jQuery('#web_input').attr('required', true);
+    jQuery('#mob_input').removeAttr('required');
+
+  }
+</script>
+
+

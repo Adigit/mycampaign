@@ -1,0 +1,129 @@
+<style>
+/*.create-campaign-left-row label, .create-campaign-left-row input {width: 15% !important;}*/
+.create-campaign-left-row select {width: 50% !important;}
+.create-ex {margin-left: 216px !important;}
+</style>
+<div class="list-view-campaign" id="edit-web-campaign">
+  <h1 style="width:20% !important; text-align:left">Create Campaign</h1>
+  <div class="details">
+    <i>Currently in Beta</i>
+  </div>
+
+  <a href="<%=SITE_URL%>/home/pricing" class="campaign-configure-button" style="margin-left:18% !important; color:white !important; margin-bottom:1.5%;" >Update Plan</a>
+
+  <div  style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+  <div class="create-campaign-left">
+    <form action="#" method="post" id="web_campaign_new">
+
+      <div class="create-campaign-left-row">
+        <label style="width:20% !important;">Campaign Name</label>
+        <input id="campaign_title" name="campaign[title]" type="text" style="width:48.8% !important;" placeholder="Campaign Title">
+        <small class="create-ex create_campaign_note">e.g. Feedback on UI.</small>
+      </div>
+
+      <div class="create-campaign-left-row">
+        <label style="width:20% !important;">Select Website</label>
+        <select id="select_website_id" name="campaign[website_id]">
+          <% if !@websites.blank?
+          @websites.each { |web|
+          %>
+          <option value="<%=web.id%>"><%=web.name%></option>
+          <% }
+          end
+         %>
+        </select>
+        <small class="create-ex create_campaign_note">e.g. Select one of the websites you will be running this on.</small>
+      </div>
+
+      <div class="create-campaign-left-row">
+        <label style="width:20% !important;">Select Type of Campaign</label>
+        <select id="select_type" name="campaign[model_name]">
+        <option value="WebFeedback">Feedback</option>
+          <option value="WebNotification">Notification</option>
+          <option value="WebCoupon">Coupon</option>
+        </select>
+      </div>
+
+      <a href="#" class="campaign-configure-button"  style="clear:both;margin-left:22% !important; color: white !important; text-decoration: none !important;"onclick="configure_web_app(); return false;">Create Campaign</a>
+      <div class="pro_box" style="margin-left:40%; margin-top:-3%;display:none;border:none"></div>
+      <div id="msg_box" style="display:none"></div>
+    </form>
+  </div>
+  <div class="create-campaign-right">
+    <h5>Help</h5>
+    <i>Feedback</i>
+    <p>
+      Get Feedback from your customers and resolve their queries. You can use our form designer to collect desired data as well as control where to show this using audience targeting. You will also see in depth analytics on user behavior related to Feedback tab.
+    </p>
+    <i>Notification Campaign</i>
+    <p>Simply enter the details and you will be able to create a visually appealing notification to be shown to all your users or, a selection there of.
+      It will be shown on top of your website and can be used to drive traffic to your latest blog, new product, service announcement and lot more.
+    </p>
+    <i>Coupon Campaign</i>
+    <p>Give out coupons to users coming to your website with an objective of increasing conversion rates and revenue per customer e.g. give a coupon - 20% off for next 24 hours to users who have not bought anything even after visiting your website over 20 times.</p>
+    <i>Currently in Beta</i>
+    <p>Web Campaigns are currently in beta and are available completely free to everyone</p>
+  </div>
+  <div style="clear:both; padding:10px;"></div>
+</div>
+
+<script>
+
+  function set_up_campaigns(url) {
+    jQuery.ajax({
+      url: url,
+      data: "",
+      type: "POST",
+      dataType: 'text',
+      cache: false,
+      beforeSend: function(){
+        jQuery('.pro_box').show();
+        jQuery('.pro_box').html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+          jQuery('#edit-web-campaign').html(response_data);
+      },
+      error: function(response_data) {
+        jQuery('.pro_box').html(response_data);
+      }
+    });
+  }
+
+
+  function configure_web_app()
+  {
+    if (jQuery("#campaign_title").val( ) == "")
+    {
+      alert ('Please Specify Campaign Title.');
+      return ;
+    }
+
+    dataString = jQuery('#web_campaign_new').serialize();
+    jQuery.ajax({
+      url: "/member/campaigns/web/create",
+      data: dataString,
+      type: "POST",
+      dataType: 'jsonp',
+      cache: false,
+      beforeSend: function(){
+        jQuery('.pro_box').show();
+        jQuery('.pro_box').html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        if (response_data.status == 'Error') {
+          jQuery('.pro_box').hide();
+          alert(response_data.message);
+        } else {
+          set_up_campaigns(response_data.url);
+          jQuery('.pro_box').html(response_data.message);
+          reset_tab_link('tab_1', 'tab1');
+          reset_tab_link('tab_4', 'tab4');
+        };
+      },
+      error: function(response_data) {
+        jQuery('.pro_box').html(response_data.message);
+      }
+    });   
+  }
+
+</script>

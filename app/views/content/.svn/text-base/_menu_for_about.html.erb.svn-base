@@ -1,0 +1,9 @@
+<div class="conleft">
+<div id="list-container">
+  <ul id="tips-list">
+    <li id="tab"><a href="/about/index">Team</a></li>
+    <li id="tab"><a href="/about/careers">Careers</a></li>
+    <li id="tab"><a href="/about/contact_us">Contact us</a></li>
+  </ul>
+</div>
+</div>

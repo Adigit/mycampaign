@@ -1,0 +1,47 @@
+<script type="text/javascript" src="/javascripts/jquery.min.js?v=2.4"></script>
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery(".form_submit_button").click(function() {
+	jQuery('.loading').show();
+      jQuery('.loading').html('<img src=\"/images/socialapps/loading.gif\"/>');
+      if(jQuery('#input_form').validate({messages: {
+          keyword: {
+            required: "Ce champ est obligatoire"
+          }
+        }}).form() == false){
+	jQuery('.loading').hide();
+        jQuery('#response_status').html("All required fields in Your Form are not provided. Please check!");
+      }
+    });
+  });
+
+</script>
+<script type ="text/javascript">
+    function f(){
+      jQuery('#response_status').show();
+   pickemail();
+    }
+    function pickemail(){
+     var e = jQuery("#email").val();
+      jQuery("#user_email").val(e);
+    }
+
+  </script>
+
+<link rel="stylesheet" type="text/css" media="all" href="http://www.optimimo.com/stylesheets/style.css" />
+<style>
+	p{}
+	.main-form{border-radius: 5px;margin: 0 auto;background-color: #FFFFFF;width: 94%;border: 5px solid rgba(0, 0, 0, 0.5);}
+	.form_label{color: rgb(24, 21, 21);font-size: 16px;}
+	.top { margin-top:-12px !important}
+	.required{margin-top: -18;margin-left: 0;border: 1px solid #cccccc;font: normal 0.835em / 1.5em Arial, Helvetica, sans-serif;padding: 3px 5px;display: block;width: 100%;border-radius: 4px;}
+	.submit-button {background-image: url("https://s3.amazonaws.com/fbappshq-assets/datas/8483/large.png");background-repeat: no-repeat; background-size: 100% 100%; display: inline-block;border: 1px solid white; color: white;font: normal 100% / 1.5em Arial, sans-serif;padding: 1.0% 2.0%;cursor: pointer; margin-left:10px;}
+	
+</style>
+<form id="input_form" class="main-form" action="<%=SITE_URL%>/mobile/feedback/record_data_in_form_fields_entries" method="post">
+  <%= render :partial  => 'input_form', :locals => {:data => @campaign, :model_name => @campaign.class.to_s, :model_id => @campaign.id}%>
+  <div id="response_status" style="font-size:20px;background-color: #FFDFDF;margin: 5px 0px 5px 10px;font-size: 13px;color: black;width:93%;"></div>
+  <div class="loading"  style="margin: 5px 0px 5px 10px; display:none;"></div>
+  <input id="btnSubmit" type="submit" value="Signup" class="form_submit_button submit-button" onclick="f();" />
+
+</form>

@@ -1,0 +1,41 @@
+<style>
+  label {font-size:17px;font-weight: bold}
+  #user_email {margin-bottom: 14px;}
+  #user_remember_me {width:auto;}
+  input[name=commit] { background: #3f6eba; border-color: #3f6eba; color: white; padding: 11px 0px; width: 73%;}
+  .login {width:100%;}
+  .sign_in{width: 41%;padding:1%;}
+<% if session["next_path_credentials"]%>
+   .sign_in{ width:125% !important;  }
+   .login {width:38% !important;margin-bottom:25%}
+<%end%>
+</style>
+<div class="sign_in" >
+  <h2 style="width: 100%;">Sign in with your UserDelight Account</h2>
+  <p style="margin-bottom: 14px;">Welcome back! we are happy to see you again !</p>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div><%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %></div>
+
+    <div><%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "off" %></div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <% end -%>
+
+    <div><%= f.submit "SIGN IN" %></div>
+  <% end %>
+	<%if !session["next_path_credentials"]%>
+  <%= render "devise/shared/links" %>
+	<%end%>
+</div>
+<% if !session["next_path_credentials"]%>
+<h1 style="float: left;border-bottom: 2px solid #D5D5D5;-webkit-transform: rotate(90deg);-moz-transform:rotate(90deg);transform:rotate(90deg);width: 26%;margin: -15% 0 0 34%;"></h1>
+<div class="sign_in_right_side" style="float: left;margin: -30% 0 0 45%;padding:5%;">
+  <img src="http://www.mobilematey.com/wp-content/uploads/2012/03/iPhone-Notification.png" style="max-width: 35%;z-index: 1;position: relative;-webkit-transform: rotate(0deg);"/>
+  <img src="http://old.hellobar.com/assets/images/home-deck-use_case_example.png" style="width: 101%;margin: -25% 0 0 0;-webkit-transform: rotate(-10deg);"/>
+  <img src="http://s3.amazonaws.com/smartsupport/media/155/57194/medium/add_a_card.png?1387577498" style="margin: -36% 0 0 75%;width: 24%;z-index: 2222;position: relative;"/>
+</div>
+<%end%>

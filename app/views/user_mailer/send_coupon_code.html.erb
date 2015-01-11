@@ -1,0 +1,5 @@
+ <p>Here's your coupon code : <%= @coupon_code %>.</p>
+    <p>It is valid upto : <%= @end_date %> <%= @end_time%>.</p>
+ <% if !@coupon_link.blank?%>
+    <p>To redeem this coupon click on this link : <%= @coupon_link %> .</p>
+   <%end%>

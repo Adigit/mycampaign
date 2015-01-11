@@ -1,0 +1,14 @@
+<div id="middle">
+  <div class="imp" style="height:150px !important;">
+    <h1><%=@content.title%></h1>
+  </div>
+  <div class="inmid">
+    <%#=render :partial =>"shared/layouts/breadcrumbs", :locals => {:crumbs => eval(@content.breadcrumb)} %>
+     </div>
+      <div class="bottom-half-3">
+        <%=render :partial =>"content/menu_for_about" %>
+        <div class="conright" style="margin:3% auto !important;">
+          <%=@content.body.html_safe%>
+      </div>
+    </div>
+</div>

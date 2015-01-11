@@ -1,0 +1,257 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+<% len = 0%>
+    var html_string_final = "";
+<% title = first_name = last_name = dob = phone = address = city = state = postal_code = company = gender = country = 0%>
+<% if !@form_fields.blank? %>
+  <% @form_fields.each do |f|%>
+    <% if f.display_order != -1%>
+      <%if f.field_type.blank? %>
+        <% if f.field_name == 'title'%>
+          <%title =1 %>
+              selection('Title',1);
+        <% elsif f.field_name == 'gender'%>
+          <% gender =1%>
+              selection('Gender',4);
+        <% elsif f.field_name == 'dob'%>
+          <% dob=1%>
+              selection('Date Of Birth',5);
+        <% elsif f.field_name == 'phone'%>
+          <%phone=1%>
+              selection('Phone',8);
+        <% elsif f.field_name == 'email' %>
+              selection('Email',7);
+        <% elsif f.field_name == 'address'%>
+          <% logger.debug "address"%>
+          <%address=1%>
+              selection('Address',9);
+        <% elsif f.field_name == 'city'%>
+          <%city=1%>
+              selection('City',10);
+        <% elsif f.field_name == 'state'%>
+          <%state=1%>
+              selection('State',11);
+        <% elsif f.field_name == 'country'%>
+          <%country =1	%>
+              selection('Country',12);
+        <% elsif f.field_name == 'postal_code'%>
+          <%postal_code =1%>
+              selection('Postal Code',13);
+        <% elsif f.field_name == 'company'%>
+          <% company  =1%>
+              selection('Company',14);
+        <%end%>
+        <% len = len + 1%>
+      <%else%>
+        <% len = len + 1%>
+        <% if f.field_type == 'like'%>
+          <% fname = f.field_name.split('|')[0]%>
+        <%else%>
+          <%  fname = f.field_name %>
+        <%end%>
+        <%= render :partial => "member/setup/mobile/feedback/custom_li", :locals =>{:field_id =>f.id , :field_name => fname, :field_type => f.field_type, :required => f.required_field, :show => f.show_on_details_page, :l =>len }%>
+        <% if f.field_type == 'radio' || f.field_type == 'like'%>
+              show_field_options('<%=f.id%>');
+        <% end%>
+      <% end%>
+    <% end %>
+  <%end%>
+<% else %>
+      selection('Email',7);
+<%end%>
+  });
+
+  $(function () {
+    $("#sortable").sortable();
+    $("#sortable").disableSelection();
+  });
+
+  function selection(val,len) {
+    var id = 'li_id_'+len;
+    var myElem = document.getElementById(id);
+    if (myElem == null) {
+      if (val == 'Email'){
+        $('#sortable').append('<li id ="'+ id +'" class="ui-state-default" > <span style="width:85%; display:inline-block;" class="field">' + val + '</span></li>');
+      }
+      else{
+        $('#sortable').append('<li id ="'+ id +'" class="ui-state-default" > <span style="width:85%; display:inline-block;" class="field">' + val + '</span><a onclick="delentry('+len+')">delete</a></li>');}
+    } else {
+      $("#" + id).remove();
+    }
+  }
+
+  function add_custom_field() {
+    var l = $("ul#sortable li").length + 1;
+    var id = 'cus_'+l;
+    while(jQuery("#"+id).length != 0){
+      l = l +1;
+      id = 'cus_'+l;
+    }
+    $('#sortable').append('<li id ="'+ id+'" style="float:left;"class="ui-state-default"><span class="field_name"><label class="cus_label">Field Name </label> <input class="custom" style="width: 76.5%; font-weight: normal; margin: 5px 0px 0px;" id="custom_field_'+l+'" type="text" placeholder="Field Name" name="custom[field_name_'+l+']"/></span><span style=" width: 55%; float: left;"><label style=" width: 49%; ">Field Type</label> <select name="custom[field_type_'+l+']" style="padding:4px; font-size:12px;margin-left:0;" id="field_type_'+l+'" onchange="show_field_options('+ l +');" ><option value="text" >Textbox</option><option value="textarea" >Message</option>    <option value="radio" >Radio</option> </select></span><span style=" width: 42%; clear: none; float: left;"><label style=" width: 34%; " class="cus_label">Required </label><input style="margin:0 5px;margin-top: 4%;margin-left:0;" type="radio" name="custom[required_'+ l +	']" value=1>Yes</input> <input style="margin:0 5px;margin-top: 4%;margin-left: 10%;" type="radio" name="custom[required_'+l+']" value=0>No</input></span><span id="likes_url_'+l+'"></span><span id ="divTxt_'+l+'"><input type="hidden" id="id_'+l+'" value="1"></span><span class="inp_row" id="add_ans_'+l+'" style="display:none;" ><img src="//s3.amazonaws.com/fbappshq-assets/datas/7639/large.png" style="margin-top:15px;cursor:pointer;margin-bottom:5px;" onclick="addFormField('+l+'); return false;"></span> <a style="float: left;padding-top: 1.8%;margin-left:0;color:#3F6EBA" onclick="del_cus_entry('+ l+');">Delete</a></li>');
+  }
+  function add_likes_url(id){
+    jQuery("#likes_url_"+id).show();
+    jQuery("#likes_url_"+id).append('<input style="clear:both;" placeholder="Enter URL" type="text" size="20" name="like_url[url_'+id+']" id=url_'+id+'">');
+  }
+  function add_likes_url_with_value(id,val){
+    jQuery("#likes_url_"+id).show();
+    jQuery("#likes_url_"+id).append('<input style="clear:both;" placeholder="Enter URL" type="text" size="20" name="like_url[url_'+id+']" value = "'+ val+'" id=url_'+id+'">');
+  }
+  function addFormField(field_id)
+  {
+    var id = document.getElementById("id_"+field_id).value;
+    jQuery("#divTxt_"+field_id).show();
+    jQuery("#divTxt_"+field_id).append("<div style='clear:both;' class='chkbox' id='row_"+field_id+"_" + id + "'><input type='text' size='20' name='answer[option_text_"+field_id+"_" + id + "]' id='txt_"+field_id+"_" + id + "'>&nbsp;&nbsp<a href='#' onclick='del_options("+field_id+","+id+"); return false;'>Remove</a></div>");
+    id = parseInt(id) +1;
+    document.getElementById("id_"+field_id).value = id;
+  }
+  function del_options(field_id,id){
+    jQuery("#row_"+field_id+"_"+id).remove();
+  }
+  function addfield() {
+    var l = $("ul li").length + 1;
+    var id = 'id_'+l;
+    $('#sortable').append('<li id ="'+ id+'"class="ui-state-default"  onclick= "showindex('+id+')"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Custom Field <span class="del" onclick="delentry('+ l+');">delete</span></li>');
+  }
+
+  function delentry(l) {
+    $("#li_id_"+l).remove();
+    $("#ch_"+l).attr('checked',false);
+  }
+
+  function del_cus_entry(l) {
+    $("#cus_"+l).remove();
+  }
+  function addFormFieldWithValues(field_id,value)
+  {
+    var id = document.getElementById("id_"+field_id).value;
+    jQuery("#divTxt_"+field_id).show();
+    jQuery("#divTxt_"+field_id).append("<div style='clear:both;' class='chkbox' id='row_"+field_id+"_" + id + "'><input type='text' size='20' name='answer[option_text_"+field_id+"_" + id + "]' id='txt_"+field_id+"_" + id + "' value = '"+ value+"'>&nbsp;&nbsp<a href='#' onclick='del_options("+field_id+","+id+"); return false;'>Remove</a></div>");
+    //			$('#txt_'+field_id+'_'+id).val(value);
+    id = parseInt(id) +1;
+    document.getElementById("id_"+field_id).value = id;
+  }
+
+  function show_field_options(divID)
+  {;
+    field = jQuery("#field_type_"+divID).attr('value');
+    if (jQuery('#add_ans_'+divID).length > 0){
+      jQuery('#add_ans_'+divID).hide();
+      jQuery("#divTxt_"+divID).hide();
+    }
+    if  (jQuery("#likes_url_"+divID).length > 0){
+      jQuery("#likes_url_"+divID).hide();
+    }
+    if(field=='radio')
+    {
+      jQuery('#add_ans_'+divID).show();
+      jQuery("#divTxt_"+divID).show();
+      if (jQuery("#divTxt_"+divID).height() == 0){
+<% if !@radio_option.blank? %>
+  <% @radio_option.each do |k,v|%>
+            if (divID == '<%= k%>'){
+    <% v.each do |i|%>
+                addFormFieldWithValues(divID,'<%=i%>');
+    <% end %>}
+  <% end%>
+<% end%>}
+        }
+        else if (field == 'like'){
+          jQuery("#likes_url_"+divID).show();
+          if (jQuery("#likes_url_"+divID).height() == 0){
+<% if !@like_urls.blank? %>
+  <% @like_urls.each do |k,v|%>
+                if (divID =='<%=k%>'){
+                  add_likes_url_with_value(divID,'<%=v%>');
+                }
+                else{
+                  add_likes_url(divID);
+                }
+  <%end%>
+<%else%>
+              add_likes_url(divID);
+<%end%>}
+          }
+
+        }
+
+        function showindex(id){
+          var divID = 'id_'+id;
+          var listItem = document.getElementById(divID);
+        }
+
+        function compute_ordering(){
+          var ul = document.getElementById("sortable");
+          var items = ul.getElementsByTagName("li");
+          var str1 ="";
+          var str2 ="";
+          for (var i = 0; i < items.length; ++i) {
+            var listItem = document.getElementById(items[i].id);
+            var ind = $( "ul#sortable li" ).index(listItem);
+            var f1 = $("#"+items[i].id+ " span.field").text();
+            if (f1 == "" || f1 == null){
+              var f2 = $("#"+items[i].id+" input.custom").val();
+              str1 += f2 +'=>'+ ind +'/';}
+            else{
+              str2 += f1 +'=>'+ ind +'/';
+            }
+          }
+          console.log(str1);
+          console.log(str2);
+          document.getElementById('predefined_field_order').value = str2;
+          document.getElementById('custom_field_order').value = str1;
+        }
+
+
+</script>
+<style>
+  .cus_label{ width:32%; float:left; font-size:12px;padding-top:8px; }
+  #sortable {
+    list-style-type: none;
+    margin: 1%;
+    padding: 0;
+    width: 97%;
+  }
+  #sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    font-size:14px;
+  }
+  #sortable li span {
+    position: relative;
+  }
+  .abc {
+    width:100%;
+    display:block;
+    clear:both;
+  }
+  .cus_del,.del{
+    width:15%;float:left;clear:both;
+  }
+  .del {clear:none !important;}
+  .field_name{ width:96%; float:left;clear:both; }
+  .cus_label{ width: 20%;
+              float: left;
+              padding-top: 8px }
+  </style>
+
+  <div style="width: 99%; display:inline-block; vertical-align:top; margin: 1%; float: left;">
+		<div style="display:none">
+			<input type="checkbox" checked name="form_fields[email]" value="1">Email</input>
+		</div>
+  <div style="float:left;width:100%">
+    <a href="#" onclick="add_custom_field(); return false;" >
+      <button type="button" class="button_for_custom_entry" >Add Custom Field</button>
+    </a>
+  </div>
+</div>
+
+<div style="width: 99%; display:inline-block;margin: 1%; float :left;">
+  <ul id="sortable" style=" width: 97%; display:inline-block; margin: 1%;"></ul>
+</div>
+<input type="hidden"  id ="predefined_field_order" name="fields_sequence[predefined]" value=""/>
+<input type="hidden"  id ="custom_field_order" name="fields_sequence[custom]" value=""/>
+<input type="hidden" name="post[id]" value=""></input>
+<input type="hidden" name="post[model_id]" value="<%=data.id%>"></input>
+<input type="hidden" name="post[model_name]" value="<%=data.class.to_s%>"></input>
+

@@ -1,0 +1,31 @@
+<%if !@data["name"].blank?%>
+  <p>         Name : <%= @data["name"] %></p>
+<%end%>
+<%if !@data["email"].blank?%>
+  <p style="text-decoration:none !important;">        Email : <%= @data["email"] %></p>
+<%end%>
+<%if !@data["mobile"].blank?%>
+  <p>Mobile Number : <%= @data["mobile"] %></p>
+<%end%>
+<%if !@data["category"].blank?%>
+  <p>     Category : <%= @data["category"] %></p>
+<%end%>
+<%if !@data["rating"].blank?%>
+  <p>       Rating : <%= @data["rating"] %></p>
+<%end%>
+<%if !@data["message"].blank?%>
+  <p>      Message : <%= @data["message"] %></p>
+<%end%>
+<%if !@data["image_src"].blank?%>
+  <p> Screenshot <%= @data["image_src"] %></p>
+<%end%>
+<%if !@data["call_from_path"].blank?%>
+  <p>   Website path where user gave this feedback : <%= @data["call_from_path"] %></p>
+<%end%>
+<p>Browser Details :</p>
+<span>Browser Name  : <%= @data["browser_name"] %></span><br/>
+<span>Full Version  : <%= @data["full_version"] %></span><br/>
+<span>Major Version : <%= @data["major_version"] %></span><br/>
+<span>App Name      : <%= @data["app_name"] %></span><br/>
+<span>User Agent    : <%= @data["user_agent"] %></span><br/>
+

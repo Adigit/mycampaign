@@ -1,0 +1,54 @@
+
+ <style>
+.margin {margin :1%; float:left;}
+</style>
+<div class= "margin" id="views_graph"></div>
+<div class= "margin" id="clicks_graph"></div>
+<script type="text/javascript">
+$.getJSON("/member/campaigns/web/plot_graph?type=views&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#views_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: " Views "
+      },
+      subtitle: {
+        text: 'Source: UsersDelight.com'
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : ' Views',
+                                data : data,
+                                tooltip: {
+                                        valueDecimals: 0
+                                },
+                        }]
+                });
+        });
+
+$.getJSON("/member/campaigns/web/plot_graph?type=clicks&camp_id=<%=@camp_id%>&callback=?", function(data) {
+         $('#clicks_graph').highcharts('StockChart', {
+                        rangeSelector : {
+                                selected : 1
+                        },
+      title: {
+        text: " Clicks"
+      },
+      subtitle: {
+        text: 'Source: UsersDelight.com',
+      },
+      credits: { enabled: false },
+                        series : [{
+                                name : ' Clicks',
+                                data : data,
+                                tooltip: {
+valueDecimals: 0
+                                }
+                        }]
+                });
+        });
+
+
+</script>
+

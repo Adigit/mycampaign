@@ -1,0 +1,36 @@
+<style>
+#data_table tr:nth-child(odd) {
+background: #F1F1F1;
+padding: 5px;
+}
+#data_table {
+border: 1px solid #CCC;
+width: 100%;
+}
+</style>
+<p style="margin:0;padding:0"><a class="mls uiButton"  style="float:left" href="/member/export/mailing_list_csv?camp_id=<%=@camp_id%>&camp_type=mobile" role="button"><span class="uiButtonText" > Export To File</span></a></p>
+<table cellspacing="5" cellpadding="5" id="data_table">
+  <tr>
+    <% if !@field_hash.blank? %>
+	<th>Date</th>
+      <th >Entry Id</th>
+      <% @field_hash.each do |k,v| %>
+        <th ><%= v %></th>
+      <% end %>
+    <%end%>
+  </tr>
+<%
+  if !@export_data.blank?
+    @export_data.each do |id,val| %>
+      <tr>
+	<th style="font-weight: normal !important;">   <%= val[1].to_date.to_s %> </th>
+        <th style="font-weight: normal !important;">   <%= id %> </th>
+        <% @field_hash.each do |k,v|%>
+          <th style="font-weight: normal !important;"> <%= val[0]["#{k}"] %> </th>
+        <%end%>
+    </tr>
+  <% end
+end
+%>
+</table>
+

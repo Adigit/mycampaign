@@ -1,0 +1,451 @@
+<script src="/javascripts/organictabs.jquery.js?v=2.0" type="text/javascript"></script>
+<link href="/stylesheets/tab.css?v=0.1" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+  jQuery(function() {
+
+    // Calling the plugin
+    jQuery("#example-one").organicTabs();
+    jQuery("#example-two").organicTabs({
+      "speed": 100      
+    });
+
+  });
+  function fb_pricing_login(id) {
+    FB.login(function(response) {
+      if (response.authResponse) {
+        _gaq.push(['_trackEvent', 'Pricing Page', 'Not Registered Yet', id]);
+      }
+      else {
+      }
+    }, {scope:'email,manage_pages,publish_stream'});
+  }
+  function removeHighlight() {jQuery('ul.active').removeClass('active');};
+
+  function highlightDefault(){
+    jQuery('#selected_plan').addClass('active').fadeIn('slow');
+  }
+
+  function select_plan(plan_id) {
+    alert('We have a launch offer :-) Everything is free right now');
+  }
+</script>
+
+<div id="middle">
+
+  <div id="top-half">
+    <div style="height:100px;width:100%; display:block;">
+      <center>
+        <h1>Launch Promotion - Everything is Free </h1>
+        <h2 style="margin-top:1px">Pricing Plan will be applied starting 1st August 2014. Till then, Enjoy!</h2>
+      </center> </div>
+    <div id="example-one">
+      <ul class="nav">
+        <li class="nav-one"><a href="#featured" class="current" onclick="jQuery('#selected_plan').addClass('active');">Website Widget</a></li>
+        <li class="nav-two"><a href="#core" onclick="jQuery('#selected_plan').addClass('active');">Mobile</a></li>
+        <li class="nav-three"><a href="#jquerytuts" onclick="jQuery('#selected_plan').addClass('active');">All in one</a></li>        
+      </ul>
+      <div class="list-wrap">
+        <!--Start pricing app-->
+        <div id="featured">
+          <!--left part-->
+          <div class="left">
+            <ul>
+              <li><span>Pricing per month</span></li>
+              <li>
+                <a class="tooltip" href="#" style="border-bottom: none !important; padding: 0px;">Page Views<div class="circle">?</div>
+                  <span class="classic">
+                    Total number of page views your site receives.
+                  </span>
+                </a>
+              </li>
+              <li>White Label</li>
+            </ul>
+          </div>
+          <!--end of left part-->
+          <!--right part--->
+          <div style="display:inline-block; width:795px; background-color:#f7f7f7; " onmouseout="highlightDefault();">
+            <div class="right">
+              <ul onmouseover="removeHighlight();" onclick="select_plan(37)" >
+                <li><span>Free</span></li>
+                <li><b>100,000</b></li>
+                <li>No</li>
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(61)">
+                <li><span>$14</span></li>
+                <li><b>250,000</b></li>
+                <li>No</li>
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(62)">
+                <!--<li><strong>Business </strong></li>-->
+                <li><span>$29</span></li>
+                <li><b>500,000</b></li>
+                <li>No</li>
+              </ul>
+              <ul class="active" onclick="select_plan(63)" id="selected_plan">
+                <!--   <li><strong>Business +</strong></li>-->
+                <li><span>$49</span></li>
+                <li><b>1,000,000</b></li>
+                <li>No</li>
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(64)">
+                <!--- <li><strong>Agency</strong></li>-->
+                <li><span>$129</span></li>
+                <li><b>5,000,000</b></li>
+                <li>Yes</li>
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(65)">
+                <!--- <li><strong>Agency+</strong></li>-->
+                <li><span>$299</span></li>
+                <li><b>15,000,000</b></li>
+                <li>Yes</li>
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(66)">
+                <!-- <li><strong>Enterprise</strong></li>-->
+                <li><span>Email</span></li>
+                <li><b>Unlimited</b></li>
+                <li>Yes</li>
+              </ul>
+            </div>
+            <div class="other-discrip">
+              <h1>Common Features</h1>
+              <ul>
+                <li>Unlimited Websites</li>
+                <li>Unlimited Notifications</li>
+                <li>Unlimited Feedback Emails</li>
+                <li>Unlimited Coupon Redemptions</li>
+                <li>Real-Time Analytics</li>
+                <li>Behavioral Targeting</li>
+                <li>Contextual Targeting</li>
+                <li>Multi Language Support</li>
+                <li>Optimized for Mobile and Tablets</li>
+                <li>Custom Entry Forms</li>
+                <li>Stellar Support</li>
+                <li>WYSYWIG Editor</li>
+              </ul>
+            </div>
+          </div>
+          <!--end of right part-->
+
+        </div>
+        <!--end pricing app-->
+
+        <!--Start pricing monit-->
+        <div id="core" class="hide">
+          <div class="left">
+            <ul>
+              <!--<li> Pricing plan name</li><-->
+              <li><span>Pricing Per Month</span></li>
+              <li>
+                <a class="tooltip" href="#" style="border-bottom: none !important; padding: 0px;">App Installs<div class="circle">?</div>
+                  <span class="classic">
+                    Number of devices with your apps installed. If you are using third party Analytic software like Google Analytic, it should be close to installs shown there.
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="tooltip" href="#" style="border-bottom: none !important; padding: 0px;">Push Messages<div class="circle">?</div>
+                  <span class="classic">
+                    Number of push messages that you send per month
+                  </span>
+                </a>
+              </li>
+              <li>Number of Apps</li>
+              <li>White Label</li>
+            </ul>
+          </div>
+          <!--end of left part-->
+          <!--right part-->
+          <div style="display:inline-block; width:798px; background-color:#f7f7f7; ">
+            <div class="right">
+              <ul onmouseover="removeHighlight();" onclick="select_plan(91)">
+                <li><span>Free</span></li>
+                <li><b>100,000</b></li>
+                <li>1,000,000</li>
+                <li>Unlimited</li>
+                <li>No</li>
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(92)">
+                <li><span>$49</span></li>
+                <li><b>500,000</b></li>
+                <li>5,000,000</li>
+                <li>Unlimited</li>
+                <li>No</li>
+              </ul>
+              <ul class="active" id="selected_plan" onmouseover="removeHighlight();"  onclick="select_plan(93)">
+                <li><span>$99</span></li>
+                <li><b>1,000,000</b></li>
+                <li>10,000,000</li>
+                <li>Unlimited</li>
+                <li>No</li>
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(94)">
+                <li><span>$499</span></li>
+                <li><b>5,000,000</b></li>
+                <li>50,000,000</li>
+                <li>Unlimited</li>
+                <li>Yes</li>                
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(95)">
+                <li><span>$999</span></li>
+                <li><b>10,000,000</b></li>
+                <li>100,000,000</li>
+                <li>Unlimited</li>
+                <li>Yes</li>                
+              </ul>
+              <ul onmouseover="removeHighlight();" onclick="select_plan(96)">
+                <li><span>Email</span></li>
+                <li><b>Unlimited</b> </li>
+                <li>Unlimited</li>
+                <li>Unlimited</li>
+                <li>Yes</li>                
+              </ul>
+            </div>
+            <div class="other-discrip">
+              <h1>Common Features</h1>
+              <ul>
+                <li>Unlimited Apps</li>
+                <li>Unlimited In App Notifications</li>
+                <li>Unlimited In App Coupons</li>
+                <li>Unlimited In App Surveys</li>
+                <li>Custom Survey Forms</li>
+                <li>Unlimited Data Collection</li>
+                <li>Push Message Scheduling</li>
+                <li>Real-Time Analytics</li>
+                <li>Behavioral Targeting</li>
+                <li>Contextual Targeting</li>
+                <li>Multi Language Support</li>
+                <li>Stellar Support</li>
+                <li>WYSYWIG Editor</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!--end pricing monit-->
+
+        <!--Start pricing all in one-->
+        <div id="jquerytuts" class="hide">
+          <div class="left">
+            <ul style="background:#EDEDED; margin-bottom:5px;">
+              <li>Plan</li>
+              <li><span style="padding-bottom:5px;">Pricing Per Month</span></li>
+            </ul>
+            <div class="app_p">
+              <div class="mark"></div>
+              <ul>
+                <li>
+                  <a class="tooltip" href="#" style="border-bottom: none !important; padding: 0px;">Page Views<div class="circle">?</div>
+                    <span class="classic">
+                      Total number of page views your site receives.
+                    </span>
+                  </a>
+                </li>
+                <li>White label</li>
+              </ul>
+            </div>
+            <div class="monit_p">
+              <div class="monit_mark"></div>
+              <ul>
+                <li>App Installs</li>
+                <li>Push Messages</li>
+              </ul>
+            </div>
+          </div>
+          <!--end of left part-->
+          <!--right part--->
+          <div style="display:inline-block; width:798px; background-color:#f7f7f7; ">
+            <div class="right">
+              <ul onmouseover="removeHighlight();"  onclick="select_plan(121)">
+                <li><strong>Business</strong></li>
+                <li><span>$64</span></li>
+                <li style="border:none">&nbsp;</li>
+                <li>250,000</li>
+                <li>No</li>
+                <li style="border: medium none; height: 88px;">&nbsp;</li>
+                <li>500,000</li>
+                <li>5,000,000</li>
+              </ul>
+              <ul onmouseover="removeHighlight();"  onclick="select_plan(122)">
+                <li><strong>Business+ </strong></li>
+                <li><span>$124</span></li>
+                <li style="border:none">&nbsp;</li>
+                <li>250,000</li>
+                <li>Yes</li>
+                <li style="border: medium none; height: 88px;">&nbsp;</li>
+                <li>1,000,000</li>
+                <li>10,000,000</li>
+              </ul>
+              <ul class="active" id="selected_plan" onmouseover="removeHighlight();"  onclick="select_plan(123)">
+                <li><strong>Business++ </strong></li>
+                <li><span>$554</span></li>
+                <li style="border: medium none;">&nbsp;</li>
+                <li>1,000,000</li>
+                <li>Yes</li>
+                <li style="border: medium none; height: 88px;">&nbsp;</li>
+                <li>5,000,000</li>
+                <li>50,000,000</li>
+              </ul>
+              <ul onmouseover="removeHighlight();"  onclick="select_plan(124)">
+                <li><strong>Business+++ </strong></li>
+                <li><span>$1094</span></li>
+                <li style="border: medium none;">&nbsp;</li>
+                <li>5,000,000</li>
+                <li>Yes</li>
+                <li style="border: medium none; height: 88px;">&nbsp;</li>
+                <li>10,000,000</li>
+                <li>100,000,000</li>
+              </ul>
+            </div>
+            <div class="other-discrip">
+              <div style="clear:both; display:block">
+                <h1>Common Features for Mobile</h1>
+                <ul>
+                  <li>Unlimited Apps</li>
+                  <li>Unlimtied In App Notifications</li>
+                  <li>Unlimtied In App Coupons</li>
+                  <li>Unlimtied In App Surveys</li>
+                  <li>Custom Survey Forms</li>
+                  <li>Unlimtied Data Collection</li>
+                  <li>Real-Time Analytics</li>
+                  <li>Behavioral Targeting</li>
+                  <li>Contextual Targeting</li>
+                  <li>Multi Language Support</li>
+                  <li>Stellar Support</li>
+                  <li>WYSYWIG Editor</li>
+                </ul>
+              </div>
+              <div style="clear:both; display:block">
+                <h1>Common Features for Website Widgets</h1>
+                <ul>
+                  <li>Unlimited Websites</li>
+                  <li>Unlimited Notifications</li>
+                  <li>Unlimited Feedback Emails</li>
+                  <li>Unlimited Coupon Redemptions</li>
+                  <li>Real-Time Analytics</li>
+                  <li>Behavioral Targeting</li>
+                  <li>Contextual Targeting</li>
+                  <li>Multi Language Support</li>
+                  <li>Optimized for Mobile and Tablets</li>
+                  <li>Custom Entry Forms</li>
+                  <li>Stellar Support</li>
+                  <li>WYSYWIG Editor</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end of  pricing all in one-->
+
+        <!--start of free pricing--->
+        <div id="classics" class="hide">
+          <div class="free-app">
+            <h1>Facebook App</h1>
+            <ul>
+              <li>Use any of our <b>Free Apps</b> (Welcome, Top Fans, Multi-Videos Tab, Tweets Tab, Google+ Tab, Instagram Tab) on any of your page for free forever.</li>
+            </ul>
+            <div style="clear:both;height:40px;">&nbsp;</div>
+          </div>
+          <div class="free-monit">
+            <h1>Social Media Monitoring</h1>
+            <ul>
+              <li>Monitor<b> 1 search profile</b> (combination of keyword and social accounts like FB page, Twitter handle) and <b>1,000 mentions</b> per month for free forever.</li>
+            </ul>
+            <div style="clear:both;height:21px;">&nbsp;</div>
+          </div>
+          <div class="free-app">
+            <h1>Website Campaigns</h1>
+            <ul>
+              <li>Engage and grow your userbase using any of our campaigns (Notifitcation, Feedback, Coupon) on your websites for free.</li>
+            </ul>
+            <div style="clear:both;height:40px;">&nbsp;</div>
+          </div>
+          <div class="free-monit">
+            <h1>Mobile Campaigns</h1>
+            <ul>
+              <li>Drive downloads, collect feedback and push targeted messages using any of our campaigns (Notifitcation, Feedback, Coupon) in your Mobile Apps for free.</li>
+            </ul>
+            <div style="clear:both;height:21px;">&nbsp;</div>
+          </div>
+
+
+          <div style="clear:both;height:20px;">&nbsp;</div>
+          <a href="#" id="sign-up-01" onclick="select_plan('free');return false;"></a>
+        </div>
+        <!--end of free pricing-->
+      </div>
+      <!-- END List Wrap -->
+
+    </div> <!-- END of example-one-->
+
+    <div id="frequently-asked-question">
+      <div id="frequently-asked-question-heading">
+		Frequently Asked Questions
+      </div>
+      <div id="question-left">
+        <que>Is my data secure?<br></que>
+        <ans>We host all of your images and text in a highly managed secure environment. Are we immune to all threats? Hardly. We do our best to keep all data secure.</ans>
+        <que><br>Are there any Long Term Contracts?<br></que>
+        <ans>There are no contracts. Our services can be paid for on a month to month basis or in 6/12 month blocks.</ans>
+        <que><br>Can I change plans at anytime?<br></que>
+        <ans>Changing plans is really simple. You can upgrade or downgrade your plan at any time by going to the "Update plan" link. If you are upgrading to a higher plan, you will be prorated difference for that month. In case of a downgrade, remaining prorated credit will be applied to your next payment. However, there will be no refunds.</ans>
+        <que><br>Can I have a refund?<br></que>
+        <ans>Nope - we do not refund full or prorated amounts. We already provide you with a free account to make sure you know what you are paying for. </ans>
+        <que><br>Which payment methods do you accept?<br></que>
+        <ans>We accept all major credit cards including American Express.</ans>
+        <que><br>I don't see a phone number, can I call you?<br></que>
+        <ans>We don't have expensive call centers, so we can pass these savings on to you. If you need to get in touch with us, feel free to email us at support@usersdelight.com</ans>
+        <que><br>Invoicing isn't an option - why?<br></que>
+        <ans>Usersdelight is an online prepaid subscription service, so all services are paid for in advance and before use. Because of this,
+          we can't support purchase orders or send an invoice requesting payment. However, we do send statements to your billing email each
+          time your card is charged. The statement functions as an invoice, but all successful charges are marked as paid.</ans>
+        <que><br>How do I cancel?<br></que>
+        <ans>
+          You can cancel at any time by logging into your account and using the cancel 
+          link (on Subscription Details page under Setting link on top right). If you can't
+          login to your account, we can help.
+        </ans>
+
+      </div>
+
+      <div id="question-right">
+        <que>What do you mean by Page Views?<br></que>
+        <ans>It is the number of page views that your website receives. Our customers
+          prefer this as they can understand and estimate their cost better.
+        </ans>
+
+        <que><br>Are there any hidden fees? What if I want to cancel?<br></que>
+        <ans>
+          Nope. You pay exactly what you signed up for. You will be billed each month for your
+          current subscription. We don't charge for extra features or services. If you should decide
+          you want to cancel or downgrade, just log into to your account and make the appropriate
+          changes. We won't argue with you about it or try to upsell you.
+        </ans>
+        <que><br>This is a recurring subscription?<br></que>
+        <ans>
+          Yep, you will be billed the amount of your current subscription each month until
+          you tell us otherwise. As we mentioned above, you can cancel or downgrade at any time,
+          no hassle.
+        </ans>
+        <que><br>What happens when I cross the limit of my plan?<br></que>
+        <ans>
+          When you go above your given limit, we will send you an email
+          letting you know that revised charges that will apply to your account. You will not
+          experience any interruption in service unless you
+          choose to terminate your account.
+        </ans>
+        <que><br>Will my pricing change if you change your pricing plans in future?<br></que>
+        <ans>Nope - unless you really want to. All old paid accounts are grandfathered 
+          in and do not need to upgrade or pay more to continue using the service.
+        </ans>
+        <que><br>Do you have a reseller or, partner program?<br></que>
+
+        <ans>Not right now</ans>
+        <que><br>Do you have some special offers for Non-profits?<br></que>
+        <ans>Ofcourse, please email us at support AT usersdelight.com to ask for the offer.</ans>
+        <que><br>Where can I review the terms of service and privacy policy?<br></que>
+        <ans>Here are our <a href="/home/terms-and-conditions">Terms of Service</a> and <a href="/home/privacy">Privacy Policy.</a></ans>
+        <que><br>What if I need help?<br></que>
+        <ans>Please email us at support AT usersdelight DOT com. We try our best to answer every query within 1 business day.</ans>
+      </div>
+    </div>
+  </div> <!-- END of div id="middle" -->
+

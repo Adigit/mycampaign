@@ -1,0 +1,132 @@
+<div id = "edit_mobile_campaign">
+  <div class="details" style = "width: 60% !important" >
+	<h1 style="width:50% !important; text-align:left; margin-left:-3%; font-size: 30px;">Create Campaign</h1>
+    <!-- <i>Currently in Beta</i>-->
+  </div>
+  <div class="details" style="display:none">
+    <p class="payment-plans" style="width:40% !important;">Plan: <%if !@payment_plan.blank? %><%=@payment_plan.name %><%else%>Free<%end%></p>
+    <p class="payment-plan-fans-quota">Quota: <%if !@payment_plan.blank? %><%=@payment_plan.fan_limit%><%else%>0<%end%> Likes </p>
+    <p class ="payment-plan-fans-remains">Used:<%if !@used_fans.blank? %> <%=@used_fans%> Likes<%elsif @no_remaining_fans == 1%>Quota has been finished<%else%> 0 Likes<%end%></p>
+  </div>
+
+  <a href="<%=SITE_URL%>/home/pricing" class="campaign-configure-button" style="margin-left:18% !important; color:white !important; margin-bottom:1.5%;" >Update Plan</a>
+
+  <div  style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+  <div class="create-campaign-left">
+    <form action="#" method="post" id="web_campaign_new">
+
+      <div class="create-campaign-left-row">
+        <label>Campaign Name</label>
+        <input id="campaign_title" name="campaign[title]" type="text" style="width:48.8% !important;" placeholder="Campaign Title">
+        <small class="create-ex create_campaign_note">e.g. Feedback on UI.</small>
+      </div>
+
+      <div class="create-campaign-left-row">
+        <label>Select An App</label>
+        <select id="select_app_id" name="campaign[mobile_app_id]" style=" width: 50% !important; ">
+          <% if !@apps.blank?
+            @apps.each { |app|
+            %>
+              <option value="<%=app.id%>"><%=app.name%></option>
+            <% }
+          end
+        %>
+        </select>
+        <small class="create-ex create_campaign_note">e.g. Select one of the Mobile Apps you will be running this on.</small>
+      </div>
+
+      <div class="create-campaign-left-row">
+        <label>Select Type of Campaign</label>
+        <select id="select_type" name="campaign[model_name]" style=" width: 50% !important; ">
+          <option value="MobileFeedback">Feedback</option>
+          <option value="MobileNotification">Notification</option>
+          <option value="MobileCoupon">Coupon</option>
+			<option value="MobilePushNotification">Push Notification</option>
+        </select>
+      </div>
+
+      <a href="#" class="campaign-configure-button"  style="clear:both;margin-left:17% !important; color: white !important; text-decoration: none !important;"onclick="configure_web_app(); return false;">Create Campaign</a>
+      <div class="pro_box" style="margin-left:40%; margin-top:-3%;display:none;border:none"></div>
+      <div id="msg_box" style="display:none"></div>
+    </form>
+  </div>
+  <div class="create-campaign-right">
+    <h5>Help</h5>
+    <i>Feedback</i>
+    <p>
+      Want to figure out why customers are leaving bad reviews? Do you want to capture them before they leave it at App Store? Do you want to figure how people feel about your product or get any other feedback on your mobile app as you build it? Embed our SDK once and you can collect in app Feedback from Mobile Users easily at any given point.
+    </p>
+    <i>Notification Campaign</i>
+    <p>Show notifications to relevant users instantly to increase conversions e.g. you can show a particular notification to users who come from a certain website or, who have come to our site multiple times. In depth Analytics available.
+    </p>
+    <i>Coupon Campaign</i>
+    <p>Give coupons to your mobile app users intelligently to increase conversion and average order size. Show them to only a section of users where it makes most sense. Use dashboard to track user adoption in depth.</p>
+    <i>Currently in Beta</i>
+    <p>Mobile Campaigns are currently in beta and are available completely free to everyone</p>
+  </div>
+  <div style="clear:both; padding:10px;"></div>
+</div>
+
+<script>
+
+  function set_up_campaigns(url) {
+    jQuery.ajax({
+      url: url,
+      data: "",
+      type: "POST",
+      dataType: 'text',
+      cache: false,
+      beforeSend: function(){
+        jQuery('.pro_box').show();
+        jQuery('.pro_box').html('<img src=\"/images/socialapps/loading.gif\"/>');
+      },
+      success: function (response_data) {
+	console.log("set_up_campaigns >>> success >>>");
+        //jQuery('#edit-web-campaign').html(response_data);
+	jQuery('#edit_mobile_campaign').html(response_data);
+      },
+      error: function(response_data) {
+        jQuery('.pro_box').html(response_data);
+      }
+    });
+  }
+
+
+  function configure_web_app()
+  {
+    if (jQuery("#campaign_title").val( ) == "")
+    {
+      alert ('Please Specify Campaign Title.');
+      return ;
+    }
+
+    dataString = jQuery('#web_campaign_new').serialize();
+    jQuery.ajax({
+      url: "/member/campaigns/mobile/create",
+      data: dataString,
+      type: "POST",
+      dataType: 'jsonp',
+      cache: false,
+      beforeSend: function(){
+        jQuery('.pro_box').show();
+        jQuery('.pro_box').html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        if (response_data.status == 'Error') {
+          jQuery('.pro_box').hide();
+          alert(response_data.message);
+        } else {
+	console.log("Success");
+          set_up_campaigns(response_data.url);
+          jQuery('.pro_box').html(response_data.message);
+          reset_tab_link('tab_1', 'tab1');
+          reset_tab_link('tab_4', 'tab4');
+        };
+      },
+      error: function(response_data) {
+        jQuery('.pro_box').html(response_data.message);
+      }
+    });   
+  }
+
+</script>

@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+    <title>Admin Console - UsersDelight</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="Keywords" content="engagement tools, growth hacking, usersdelight, navigation bar, feedback tool, coupon popup" />
+    <meta name="Description" content="Grow Traffic &amp; Engagement on Website &amp; Mobile Apps using UsersDelight" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta property="og:title" content="Admin Console - UsersDelight" />    
+    <meta property="og:type" content="website" />      
+    <meta property="og:site_name" content="UsersDelight"/>
+    <meta property="fb:app_id" content="303415479798737"/>
+    <meta property="og:description" content="Grow Traffic &amp; Engagement on Website &amp; Mobile Apps using UsersDelight"/>
+    <link href='/stylesheets/main_new.css?v=5.8' rel='stylesheet' type='text/css' />   
+    <script type="text/javascript" src="/javascripts/jquery.min.js?v=3.0"></script>
+    <script data-turbolinks-track="true" src="/javascripts/application.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon-precomposed" href="https://www.socialappshq.com/apple-touch-icon-precomposed.png" />
+
+    <link href="/stylesheets/new_responsive.css?v=0.2" rel="stylesheet" type="text/css" media="all"/>
+    <script>
+        alert('Signed in successfully.');
+    </script>
+  </head>
+
+  <body>
+
+    <div id="pagwidth">
+      <!--Start of header Part-->
+      <header>
+        <div class="container">
+          <!--start top header-->
+          <div class="top-header">
+            <div class="row"> <a class="AlignLeft" href="#"><img src="/images/usersdelight.png"/></a>
+              <div class="AlignRight top-header-navigation">
+                <ul id="nav">                  
+                  <li><a>Settings</a>
+                    <ul>
+                      <li><a href="/member/billing/index">Subscription Details</a></li>
+                      <li><a href="/member/billing/billing">Update Billing Information</a></li>
+                      <li><a href="/member/billing/plan">Update Plan</a></li>
+                      <li><a href="/users/edit">Change your password</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/home/pricing">Pricing</a></li>
+                  <li><a class="navbar-link" data-method="delete" href="/users/sign_out" rel="nofollow">Logout</a></li>
+                </ul>
+                
+              </div>
+            </div>
+          </div>
+          <!--end of top header-->
+          <div class="container">
+            <div class="nav">
+              <ul>
+                <li class="current"><a href="<%= SITE_URL%>/member/campaigns/mobile">Mobile Campaigns</a></li>
+                <li ><a href="<%= SITE_URL%>/member/campaigns/web">Website Campaigns</a></li>
+              </ul>
+            </div>		
+          </div>
+          <!-- End of Nagivation-->
+        </div>
+      </header>
+      <!--end of Header Part-->
+
+      <script type="text/javascript">
+        function show_tab_btn(div_id){
+    
+          if (div_id == 'tab_4' && jQuery.trim(jQuery("#tab_4").html())==''){
+            alert("Please click on Visitors/Likes/Leads to see your Campaign Analytic.");
+            return;
+          }
+          show_tab(div_id);
+        }
+
+        function show_tab(div_id){
+          if(div_id=='tab_1'){
+            jQuery( ".active" ).removeClass();
+            jQuery('#li_tab_1').addClass("active");
+            jQuery('#tab_1').show();
+            jQuery('#tab_2').hide();
+            jQuery('#tab_3').hide();
+            jQuery('#tab_4').hide();
+          }
+          if(div_id=='tab_2'){
+            jQuery( ".active" ).removeClass();
+            jQuery('#li_tab_2').addClass("active");
+            jQuery('#tab_1').hide();
+            jQuery('#tab_2').show();
+            jQuery('#tab_3').hide();
+            jQuery('#tab_4').hide();
+          }
+          if(div_id=='tab_3'){
+      
+            jQuery( ".active" ).removeClass();
+            jQuery('#li_tab_3').addClass("active");
+            jQuery('#tab_4').hide();
+            jQuery('#tab_3').show();
+            jQuery('#tab_2').hide();
+            jQuery('#tab_1').hide();
+          }
+          if(div_id=='tab_4')
+          {
+            jQuery( ".active" ).removeClass();
+            jQuery('#li_tab_4').addClass("active");
+            jQuery('#tab_4').show();
+            jQuery('#tab_3').hide();
+            jQuery('#tab_2').hide();
+            jQuery('#tab_1').hide();}
+        }
+    
+  
+
+      </script>
+      <style>
+        .dashboard .dashright {
+          width: 78%;
+          margin-top: 20px;
+          color: #616161;
+          display: inline-block;
+        }
+        .user-account-status{display:none;}
+        .menu-left ul.menu-user{display:none;}
+        .dashboard {width:98% }
+        .tabContainer{overflow: visible;}
+      </style>
+      <div class="container">
+        <div class="center">
+
+          <div class="tabBox">

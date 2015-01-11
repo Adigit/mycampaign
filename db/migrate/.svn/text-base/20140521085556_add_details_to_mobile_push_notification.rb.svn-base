@@ -1,0 +1,6 @@
+class AddDetailsToMobilePushNotification < ActiveRecord::Migration
+  def change
+    add_column :mobile_push_notifications, :date, :date
+    add_column :mobile_push_notifications, :time, :time
+  end
+end

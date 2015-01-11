@@ -1,0 +1,459 @@
+<style>
+  label {font-weight:bold !important; }
+  #mobile_coupon_new input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="file"], select, textarea {margin:0 5px;width:90% !important;font-weight:normal;}
+  #mobile_coupon_new .create-ex{margin-left:0 !important}
+  #mobile_coupon_new label{width:99% !important}
+  toggle, .toggleq {padding: 0 !important;}
+  .create-campaign-left-row label {font-weight: bold !important;}
+  .create-campaign-left-row select {width: 94% !important;}
+  .arr_up {margin-top:-5px;}
+  #preview{width: 99%;height: 818px;margin: 30px 0 0 1px;}
+  #mobile_coupon_new .preview_link{float:left;width:auto;margin-right:40px;font-weight:bold;font-size:14px;}
+  #mobile_coupon_new h5 {margin-left:10px}
+  .preview-container-main {background: #e2e2e2 !important;}
+  .create-ex create_campaign_note {width: 94% !important;}
+</style>
+<!--<link rel="stylesheet" media="screen" type="text/css" href="/javascripts/datepicker/css/datepicker.css" />
+<script type="text/javascript" src="/javascripts/datepicker/js/datepicker.js"></script>-->
+<h1 style="width:100% !important; text-align:left">Setup <%=@mobile_campaign.title%></h1>
+<div style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+<div class="create-campaign-left" style="width:28% !important;border-radius: 5px;border: 1px solid #808080;overflow: hidden;min-height: 880px;margin-top: 25px;padding-bottom:2.5%;">
+  <form action="#" method="post" id="mobile_coupon_new">
+    <input id="campaign_id" name="campaign[id]" type="hidden" value="<%=params[:id]%>" />
+    <ul>
+      <li>
+        <div onclick="custom_accordion('tab_cont','cus_users','coupon','share','gen');" class="tools" >
+          <span class="col-circle">1</span>
+          <span class="tools_tab_name">Coupon Popup Settings</span>
+          <span style="float:right" class="arr_up" id="gen">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="tab_cont">
+            <div class="create-campaign-left-row">
+              <label>Header Message</label>
+              <input id="campaign_header_message" name="campaign[header_message]" type="text" placeholder="Header Message" value="<%=@campaign.header_message%>"/>
+              <small class="create-ex create_campaign_note">e.g. 20% Off</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Main Message</label>
+              <input id="campaign_main_message" name="campaign[main_message]" type="text" placeholder="Main Message" value="<%=@campaign.main_message%>"/>
+              <small class="create-ex create_campaign_note">e.g. Offer good till 25th December.</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>First Button</label>
+              <input id="campaign_first_button_text" name="campaign[first_button_text]" type="text" placeholder="Upgrade Now" value="<%=@campaign.first_button_text%>"/>
+              <small class="create-ex create_campaign_note">e.g. Participate. User will be taken to a form to submit his/her details as per your questions</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Second Button</label>
+              <input id="campaign_second_button_text" name="campaign[second_button_text]" type="text" placeholder="Close" value="<%=@campaign.second_button_text%>"/>
+              <small class="create-ex create_campaign_note">e.g. Later, Not Now. This button always closes the notification popup</small>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('coupon','cus_users', 'tab_cont', 'share','head');" class="tools" >
+          <span class="col-circle">2</span>
+          <span class="tools_tab_name">Coupon Details</span><span id="head" style="float:right" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="coupon">
+            <div class="create-campaign-left-row">
+              <label>Coupon Code</label>
+              <input id="campaign_second_button_text_coupon" name="campaign[coupon_code]" type="text" placeholder="F20Off" value="<%=@campaign.coupon_code%>"/>
+              <small class="create-ex create_campaign_note">e.g. F20Off</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Offer Good Till Date</label>
+              <input type="text" name="campaign[good_until_date]" value="<%=@campaign.good_until_date%>" class="inputDate" id="inputDate"/>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>End Time for Offer</label>
+              <select id="select_type" name="campaign[good_until_hour]">
+                <option value="1:00 AM" <%if(@campaign.good_until_hour == "1:00 AM")%>selected="true"<%end%>>1:00 AM</option>
+                <option value="2:00 AM" <%if(@campaign.good_until_hour == "2:00 AM")%>selected="true"<%end%>>2:00 AM</option>
+                <option value="3:00 AM" <%if(@campaign.good_until_hour == "3:00 AM")%>selected="true"<%end%>>3:00 AM</option>
+                <option value="4:00 AM" <%if(@campaign.good_until_hour == "4:00 AM")%>selected="true"<%end%>>4:00 AM</option>
+                <option value="5:00 AM" <%if(@campaign.good_until_hour == "5:00 AM")%>selected="true"<%end%>>5:00 AM</option>
+                <option value="6:00 AM" <%if(@campaign.good_until_hour == "6:00 AM")%>selected="true"<%end%>>6:00 AM</option>
+                <option value="7:00 AM" <%if(@campaign.good_until_hour == "7:00 AM")%>selected="true"<%end%>>7:00 AM</option>
+                <option value="8:00 AM" <%if(@campaign.good_until_hour == "8:00 AM")%>selected="true"<%end%>>8:00 AM</option>
+                <option value="9:00 AM" <%if(@campaign.good_until_hour == "9:00 AM")%>selected="true"<%end%>>9:00 AM</option>
+                <option value="10:00 AM" <%if(@campaign.good_until_hour == "10:00 AM")%>selected="true"<%end%>>10:00 AM</option>
+                <option value="11:00 AM" <%if(@campaign.good_until_hour == "11:00 AM")%>selected="true"<%end%>>11:00 AM</option>
+                <option value="12:00 AM" <%if(@campaign.good_until_hour == "12:00 AM")%>selected="true"<%end%>>Midnight</option>
+                <option value="1:00 PM" <%if(@campaign.good_until_hour == "1:00 PM")%>selected="true"<%end%>>1:00 AM</option>
+                <option value="2:00 PM" <%if(@campaign.good_until_hour == "2:00 PM")%>selected="true"<%end%>>2:00 AM</option>
+                <option value="3:00 PM" <%if(@campaign.good_until_hour == "3:00 PM")%>selected="true"<%end%>>3:00 AM</option>
+                <option value="4:00 PM" <%if(@campaign.good_until_hour == "4:00 PM")%>selected="true"<%end%>>4:00 AM</option>
+                <option value="5:00 PM" <%if(@campaign.good_until_hour == "5:00 PM")%>selected="true"<%end%>>5:00 AM</option>
+                <option value="6:00 PM" <%if(@campaign.good_until_hour == "6:00 PM")%>selected="true"<%end%>>6:00 AM</option>
+                <option value="7:00 PM" <%if(@campaign.good_until_hour == "7:00 PM")%>selected="true"<%end%>>7:00 AM</option>
+                <option value="8:00 PM" <%if(@campaign.good_until_hour == "8:00 PM")%>selected="true"<%end%>>8:00 AM</option>
+                <option value="9:00 PM" <%if(@campaign.good_until_hour == "9:00 PM")%>selected="true"<%end%>>9:00 AM</option>
+                <option value="10:00 PM" <%if(@campaign.good_until_hour == "10:00 PM")%>selected="true"<%end%>>10:00 AM</option>
+                <option value="11:00 PM" <%if(@campaign.good_until_hour == "11:00 PM")%>selected="true"<%end%>>11:00 AM</option>
+                <option value="12:00 PM" <%if(@campaign.good_until_hour == "12:00 PM")%>selected="true"<%end%>>Noon</option>
+              </select>
+            </div>
+
+
+            <%
+            utc_offset = nil
+            if !@campaign.blank? && !@campaign.good_until_timezone.blank?
+              utc_offset = @campaign.good_until_timezone.to_f
+            end%>
+
+            <div class="create-campaign-left-row">
+              <label>Time zone</label>
+
+              <select name="campaign[good_until_timezone]" id="campaign_good_until_timezone">
+                <option value="0.1" <%if(utc_offset == 0.1)%>selected="true"<%end%>>Select Your Timezone</option>
+                <option value="-12.0" <%if(utc_offset == -12.0)%>selected="true"<%end%>>(GMT -12:00) Eniwetok, Kwajalein</option>
+                <option value="-11.0" <%if(utc_offset == -11.0)%>selected="true"<%end%>>(GMT -11:00) Midway Island, Samoa</option>
+                <option value="-10.0" <%if(utc_offset == -10.0)%>selected="true"<%end%>>(GMT -10:00) Hawaii</option>
+                <option value="-9.0" <%if(utc_offset == -9.0)%>selected="true"<%end%>>(GMT -9:00) Alaska</option>
+                <option value="-8.0" <%if(utc_offset == -8.0)%>selected="true"<%end%>>(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+                <option value="-7.0" <%if(utc_offset == -7.0)%>selected="true"<%end%>>(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+                <option value="-6.0" <%if(utc_offset == -6.0)%>selected="true"<%end%>>(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+                <option value="-5.0" <%if(utc_offset == -5.0)%>selected="true"<%end%>>(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                <option value="-4.0" <%if(utc_offset == -4.0)%>selected="true"<%end%>>(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+                <option value="-3.5" <%if(utc_offset == -3.5)%>selected="true"<%end%>>(GMT -3:30) Newfoundland</option>
+                <option value="-3.0" <%if(utc_offset == -3.0)%>selected="true"<%end%>>(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+                <option value="-2.0" <%if(utc_offset == -2.0)%>selected="true"<%end%>>(GMT -2:00) Mid-Atlantic</option>
+                <option value="-1.0" <%if(utc_offset == -1.0)%>selected="true"<%end%>>(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+                <option value="0.0" <%if(utc_offset == 0.0)%>selected="true"<%end%>>(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                <option value="1.0" <%if(utc_offset == 1.0)%>selected="true"<%end%>>(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+                <option value="2.0" <%if(utc_offset == 2.0)%>selected="true"<%end%>>(GMT +2:00) Kaliningrad, South Africa</option>
+                <option value="3.0" <%if(utc_offset == 3.0)%>selected="true"<%end%>>(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+                <option value="3.5" <%if(utc_offset == 3.5)%>selected="true"<%end%>>(GMT +3:30) Tehran</option>
+                <option value="4.0" <%if(utc_offset == 4.0)%>selected="true"<%end%>>(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+                <option value="4.5" <%if(utc_offset == 4.5)%>selected="true"<%end%>>(GMT +4:30) Kabul</option>
+                <option value="5.0" <%if(utc_offset == 5.0)%>selected="true"<%end%>>(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                <option value="5.5" <%if(utc_offset == 5.5)%>selected="true"<%end%>>(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+                <option value="5.75" <%if(utc_offset == 5.75)%>selected="true"<%end%>>(GMT +5:45) Kathmandu</option>
+                <option value="6.0" <%if(utc_offset == 6.0)%>selected="true"<%end%>>(GMT +6:00) Almaty, Dhaka, Colombo</option>
+                <option value="7.0" <%if(utc_offset == 7.0)%>selected="true"<%end%>>(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+                <option value="8.0" <%if(utc_offset == 8.0)%>selected="true"<%end%>>(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+                <option value="9.0" <%if(utc_offset == 9.0)%>selected="true"<%end%>>(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+                <option value="9.5" <%if(utc_offset == 9.5)%>selected="true"<%end%>>(GMT +9:30) Adelaide, Darwin</option>
+                <option value="10.0" <%if(utc_offset == 10.0)%>selected="true"<%end%>>(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+                <option value="11.0" <%if(utc_offset == 11.0)%>selected="true"<%end%>>(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+                <option value="12.0" <%if(utc_offset == 12.0)%>selected="true"<%end%>>(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('share','cus_users','tab_cont','coupon','ban');" class="tools" >
+          <span class="col-circle">3</span>
+          <span class="tools_tab_name">Configure fields to collect</span> <span id="ban" style="float:right" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq"style="display:none">
+          <div class="row" id="share">
+            <%=render :partial => "member/setup/mobile/feedback/custom_form_designer", :locals => {:data => @campaign}%>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('cus_users','share','tab_cont','coupon','slash');" class="tools" >
+          <span class="col-circle">4</span>
+          <span class="tools_tab_name">Audience Targeting </span>
+          <span style="float:right" class="arr_up" id="slash">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="cus_users">
+            <div class="create-campaign-left-row">
+              <%= render :partial => 'member/setup/mobile/user_filter'%>
+            </div>
+          </div>
+        </div>
+
+        <!--
+                <div onclick="custom_accordion('cus_users','share','tab_cont','coupon','slash');" class="tools" >
+                  <span class="col-circle">4</span>
+                  <span class="tools_tab_name">Show Coupon Only To Following Users</span> <span id="slash" style="float:right" class="arr_up">&#8594;</span>
+                </div>
+                <div class="toggleq"style="display:none">
+                  <div class="row" id="cus_users">
+                    <h5></h5>
+                    <div class="create-campaign-left-row">
+					<div style="width:20%; float:left; margin-top:7%" >
+					<select id="android_version_support_condition" name="campaign[version_support_condition]" style="width:93% !important;">
+				<option value="=" <#% if @campaign.version_support_condition == "="%>selected="selected"<#% end%> > = </option>
+                          <option value=">" <#% if @campaign.version_support_condition == ">"%>selected="selected"<#% end%>> > </option>
+                          <option value="<" <#% if @campaign.version_support_condition == "<"%>selected="selected"<#% end%>> < </option>
+                          <option value=">=" <#% if @campaign.version_support_condition == ">="%>selected="selected"<#% end%>> >= </option>
+                          <option value="<=" <#% if @campaign.version_support_condition == "<="%>selected="selected"<#% end%>> <= </option>
+					</select>
+					</div>
+					<div style = "width :74%; float:left; margin-left:3%">
+                      <label>Version Code</label>
+                      <input id="campaign_app_version_code" name="campaign[app_version_code]" type="text" placeholder="1" value="<#%=@campaign.app_version_code%>"/>
+                      <small class="create-ex create_campaign_note">If left blank, all version codes will be included in test. You may input multiple entries using comma as a separator.</small>
+					</div>
+                    </div>
+
+				<div class="create-campaign-left-row" style="float:left;">
+					<div style="width:20%; float;left; margin-top:7%;">
+						<select id="app_launch_condition" name="campaign[app_launch_condition]" style="width:93% !important;">
+							<option value="=" <#% if @campaign.app_launch_condition == "="%>selected="selected"<#% end%> > = </option>
+                          <option value=">" <#% if @campaign.app_launch_condition == ">"%>selected="selected"<#% end%>> > </option>
+                          <option value="<" <#% if @campaign.app_launch_condition == "<"%>selected="selected"<#% end%>> < </option>
+                          <option value=">=" <#% if @campaign.app_launch_condition == ">="%>selected="selected"<#% end%>> >= </option>
+                          <option value="<=" <#% if @campaign.app_launch_condition == "<="%>selected="selected"<#% end%>> <= </option>
+						</select>
+					</div>
+					<div style = "width :74%; float:right; margin-top:-15%">
+						<label style="margin-left:-2%">App Launch Count</label>
+						<input style="margin-left:-2%" id="app_launches_counter" name="campaign[app_launches_counter]" type="text" placeholder="App Launch Count" value="<#%=@campaign.app_launches_counter%>"/>
+					</div>
+				</div>
+                    <div class="create-campaign-left-row">
+                      <label>Percentage of Users</label>
+                      <input id="campaign_user_percentage" name="campaign[user_percentage]" type="text" placeholder="100" value="<#%=@campaign.user_percentage%>"/>
+                      <small class="create-ex create_campaign_note">Input anything from 0-100.</small>
+                    </div>
+
+                    <div class="create-campaign-left-row">
+                      <label>Name of App Activity</label>
+                      <input id="campaign_activity" name="campaign[activity]" type="text" placeholder="MainActivity" value="<#%=@campaign.activity%>"/>
+                      <small class="create-ex create_campaign_note">If left blank, user will be shown this popup on first screen itself</small>
+                    </div>
+
+                    <div class="create-campaign-left-row">
+                      <label>Wireless Connection</label>
+                      <select id="select_internet_connection_type" name="campaign[internet_connection_type]" style="width:93% !important;">
+                        <option value="all" <#%if @campaign.internet_connection_type=="all"%>selected="true" <#%end%>>All mobile users</option>
+                        <option value="wifi" <#%if @campaign.internet_connection_type=="wifi"%>selected="true" <#%end%>>Wi-Fi Only</option>
+                      </select>
+
+                      <small class="create-ex create_campaign_note">If left blank, user will be shown this popup on first screen itself</small>
+                    </div>
+                  </div>
+                </div>
+        -->
+
+        <a href="#" class="campaign-configure-button"
+           style="float:left;margin-left:1% !important; color: white !important; text-decoration: none !important;width:98% !important"
+           onclick="configure_mobile_coupon('preview'); return false;">Save Configuration</a>
+
+        <div class="pro_box" style="display:none;border:none; width: 89% !important; color :green !important; margin-left: 6%;margin-top:65%"></div>
+      </li>
+    </ul>
+  </form>
+</div>
+<style>
+  .bg {
+    background-image: url(http://beta.socialappshq.com:8087/images/socialapps/mobile_panel.png);
+    width: 30%;
+    height: 525px;
+    background-repeat: no-repeat;
+    float: left;
+    margin-left: 3%;
+    margin-top:5%
+  }</style>
+<div class="app-preview" style="height:880px;margin-top:25px;">
+  <h3 style="font-family: Arial;margin:5px;font-size:18px;color:#244386 !important;border-bottom: 1px solid #ccc;width: 98%;padding: 7px 2px !important;">Preview</h3>
+  <div class="preview-container-main" style="height:820px;">
+    <div class="bg">
+      <div class="coupon_popup" style=" width: 76%;background: white ;border: 5px solid #555;height: auto;clear: none;margin-top:67%; margin-left: 8%; float: left;border-radius: 3px;">
+        <p id="header_mssg" style="border-bottom: 3px solid rgb(42, 195, 207);margin-left: 3px;font-size: 24px; color: rgb(23, 208, 224);margin-left: 0%;">Flat 80% Off</p>
+        <p id="main_mssg" style="font-size: 12px; color:black; margin: 1% 2%;"></p><br/>
+        <div class="action_btns" style="border-top: 1px solid rgb(29, 28, 28);height: 50px;">
+          <a href="#" id="custom_btn" style="text-decoration: none;font-size: 13px;padding: 5% 10% 5% 10%;color: black;background: white; float: left; width: 27%;"></a>
+          <a href="#" id="closebtn" style="text-decoration: none; font-size: 13px; border-left: 1px solid #000; padding: 5% 10%  10%; color: black; background: white;float: left;width: 32%;"></a>
+        </div>
+      </div>
+    </div>
+    <div class="bg">
+      <iframe src="<%=SITE_URL%>/mobile/coupon?id=<%=@campaign.mobile_campaign_id%>" id="preview" style="width:82% !important; margin-top: 31% !important; margin-left: 6% !important; height:62% !important"/>
+    </div>
+    <div class = "bg">
+      <div class="coupon_display" style=" width: 77%;background: white;border: 5px solid #555;border-radius: 4px;float:right;margin-top: 32%;font-size:  12px !important;margin-right: 12%;">
+        <p style="text-align: center;padding: 5px;font-size: 26px;">Your Coupon Code</p>
+        <p id="ccode" style="text-align: center;font-weight: bold;font-size: 32px;">BIG 80</p>
+        <span class="validity_lbl" style="padding: 0px;margin: 14px 3px -18px 4px!important;font-size: 10px;font-weight: bold;">Offer Till:</span>
+        <span class="validity" style="padding: 0px; margin: 14px 3px -18px 1px!important; font-size: 10px; font-weight: bold;">2014-05-02 11:00PM Asia/Singapore</span>
+      </div>
+    </div>
+    <div style="width:100%">
+      <div style="float:left; width:25%; margin-left:12%">In-app Popup</div>
+      <div style="float:left; width:25%; margin-left:8%;">User Input Form</div>
+      <div style="float:left; margin-left:7%">Coupon Details</div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function custom_accordion(id_1, id_2, id_3,id_4,id_5){
+    jQuery('#ban').html('&#8594;');
+    jQuery('.toggleq').css({'display':'block'});
+    jQuery('#head').html('&#8594;');
+    jQuery('#slash').html('&#8594;');
+    jQuery('#gen').html('&#8594;');
+    jQuery('#'+id_5).html('&#8595;');
+    jQuery('#' + id_1).slideDown();
+    jQuery('#' + id_2).slideUp();
+    jQuery('#' + id_3).slideUp();
+    jQuery('#' + id_4).slideUp();
+  }
+
+  //coupon text
+  $('#campaign_second_button_text_coupon').keyup(function(){
+    $('#ccode').html($('#campaign_second_button_text_coupon').val());
+  });
+
+  //popup title
+  $('#campaign_header_message').keyup(function(){
+    $('#header_mssg').html($('#campaign_header_message').val());
+  });
+
+  //popup Message
+  $('#campaign_main_message').keyup(function(){
+    $('#main_mssg').html($('#campaign_main_message').val());
+  });
+
+  //campaign_first_button_text
+  $('#campaign_first_button_text').keyup(function(){
+    $('#custom_btn').html($('#campaign_first_button_text').val());
+  });
+
+  //campaign_second_button_text
+  $('#campaign_second_button_text').keyup(function(){
+    $('#closebtn').html($('#campaign_second_button_text').val());
+  });
+
+  $('#campaign_good_until_timezone').change(function () {
+    console.log("while changing campaign_good_until_timezone");
+    var _date = $('#inputDate').val();
+    var _time = $('#select_type').val();
+    var _timezone = $('#campaign_good_until_timezone').val();
+    console.log('offer valid = '+ _date + ' '+ _time+' '+_timezone);
+    $('.validity').html(_date+ ' '+ _time+' '+_timezone);
+  });
+
+  $('#select_type').change(function () {
+    console.log("while changing select_type");
+    var _date = $('#inputDate').val();
+    var _time = $('#select_type').val();
+    var _timezone = $('#campaign_good_until_timezone').val();
+    console.log('offer valid = '+ _date + ' '+ _time+' '+_timezone);
+    $('.validity').html(_date+ ' '+ _time+' GMT + '+_timezone);
+  });
+
+  $('#inputDate').click(function() {
+    $("#inputDate").datepicker()
+  });
+
+  $('#inputDate').change(function () {
+    console.log("while changing inputdate ID");
+    var _date = $('#inputDate').val();
+    var _time = $('#select_type').val();
+    var _timezone = $('#campaign_good_until_timezone').val();
+    console.log('offer valid = '+ _date + ' '+ _time+' '+_timezone);
+    $('.validity').html(_date+ ' '+ _time+' GMT + '+_timezone);
+  });
+  function show_row(div_id) {
+    jQuery('#'+div_id).toggle();
+  }
+
+  function save_filters_data()
+  {
+    if ( $('.custom-filters li').length != 0 )
+    {
+      //Getting the last <li> element of ul
+      var _last_li_id = $('.add-more').prev().attr('id');
+      var _length_of_li_elements = _last_li_id.split("-")[2];
+      var array_of_filters = new Array; //String which is to be save in db and contains list of all filters.
+      for(var i=0;i<=_length_of_li_elements;i++)
+      {
+        if ($('#filter-row-'+i).length > 0)
+        {
+          var array_of_values = new Array;
+          array_of_values[0] = $('#select-filter-'+i).val();
+          array_of_values[1] = $('#select-qual-'+i).children(":selected").val();
+
+          if ($('#input_method_'+i).length > 0)
+          {
+            array_of_values[2] = $('#input_method_'+i).children(":selected").val();
+          }
+          else if ($('#inp_'+i).length > 0)
+          {
+            array_of_values[2] = $('#inp_'+i).val();
+          }
+
+          console.log("arr_of_values = "+array_of_values);
+          if (array_of_values[0] != '' && array_of_values[1] != '' && array_of_values[2] != '')
+          {
+            array_of_filters.push(array_of_values);
+          }
+        }
+      }
+      console.log("array_of_filters  = " + array_of_filters);
+      //Finally the data formed would be as :
+      return array_of_filters;
+      // [[filter_option_val,qual_option_val,input_val],[filter_option_val,qual_option_val,input_val],...]
+    }
+  }
+
+
+    function configure_mobile_coupon(mode)
+    {
+      if ((jQuery("#campaign_header_message").val( ) == "") || (jQuery("#campaign_main_message").val( ) == "") || (jQuery("#campaign_first_button_text").val( ) == "") || (jQuery("#campaign_second_button_text").val( ) == ""))
+      {
+        alert ('Please specify all input fields');
+        return ;
+      }
+      compute_ordering();
+
+      dataString = jQuery('#mobile_coupon_new').serialize();
+      var _custom_filters = save_filters_data();
+      dataString += "&filters="+JSON.stringify(_custom_filters);
+      jQuery.ajax({
+        url: "/member/setup/mobile/coupon/create_or_update",
+        data: dataString,
+        type: "POST",
+        dataType: 'jsonp',
+        cache: false,
+        beforeSend: function(){
+          jQuery('.pro_box').show();
+          jQuery('.pro_box').html('<img src=\"/images/socialapps/loading.gif\"/>');
+        },
+        success: function (response_data) {
+          jQuery('.pro_box').hide();
+          if (response_data.status == 'Error') {
+            alert(response_data.message);
+          } else {
+            jQuery('.pro_box').show();
+            jQuery('#preview').attr("src", response_data.url);
+            jQuery('.pro_box').html("Your configuration is successfully saved.");
+          };
+        },
+        error: function(response_data) {
+          jQuery('.pro_box').html(response_data.message);
+        }
+      });
+    }
+
+    $(document).ready(function () {
+      $('#header_mssg').html('<%= @campaign.header_message %>');
+      $('#ccode').html('<%= @campaign.coupon_code %>');
+      $('#main_mssg').html('<%= @campaign.main_message %>');
+      $('#custom_btn').html('<%= @campaign.first_button_text %>');
+      $('#closebtn').html('<%= @campaign.second_button_text %>');
+<%if @campaign.header_message %>
+        $('.validity').html('<%= @campaign.good_until_date %>'+ ' '+'<%= @campaign.good_until_hour %>'+' '+'<%= @campaign.good_until_timezone %>');
+<%end%>
+
+    });
+
+
+
+</script>
+

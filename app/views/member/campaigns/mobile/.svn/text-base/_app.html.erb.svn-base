@@ -1,0 +1,197 @@
+<style>
+.image-box {background-color: #F1F1F1;border: 1px solid #CCC;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;display: inline-block;margin: 5px;padding: 5px;vertical-align: middle;width: 46%;}
+  #list_head {background: #3F6EBA;color: white;padding: 2px 1px;}
+  .app_list{width:76%;float:left;margin-top:-13%;}
+  .app_list .row{width:100%;float:left;border-bottom:1px solid #ccc;margin-bottom:10px}
+  .app_list li.name{width:25%;float:left; font-size:14px; margin-left:6px;}
+  .app_list li.domain{width:15%;float:left; font-size:14px; font-weight:bold;}
+  .app_list li.key{width:50%;float:left; font-size:14px;}
+  #view_js_btn {font-size: 11px;color: white;background: #3F6EBA;padding: 2px 4px;border: 1px solid #3F6EBA;border-radius: 2px;margin-bottom: 1% ;float: right;font-weight: bold;text-decoration: none;}
+  .close_js_btn {display: block;font-size: 12px;border: 1px solid #CCC;width: 34px;padding: 2px 4px;margin-top:2.5% ; float: left;text-decoration: none;background: #8F8F8F;color: white;font-weight: bold;}
+</style>
+<div class="list-view-campaign" id="edit-app-campaign">
+  <h1 style="width:25% !important; text-align:left">Add Your Mobile App</h1>
+  <div class="details" style="width:35%">
+    <i>Currently in Beta</i>
+  </div>
+  <div class="details" style="display:none">
+    <p class="payment-plans" style="width:40% !important;">Plan: <%if !@payment_plan.blank? %><%=@payment_plan.name %><%else%>Free<%end%></p>
+    <p class="payment-plan-fans-quota">Quota: <%if !@payment_plan.blank? %><%=@payment_plan.fan_limit%><%else%>0<%end%> Likes </p>
+    <p class ="payment-plan-fans-remains">Used:<%if !@used_fans.blank? %> <%=@used_fans%> Likes<%elsif @no_remaining_fans == 1%>Quota has been finished<%else%> 0 Likes<%end%></p>
+  </div>
+
+  <a href="<%=SITE_URL%>/home/pricing" class="campaign-configure-button" style="margin-left:18% !important; color:white !important; margin-bottom:1.5%;" >Update Plan</a>
+
+  <div  style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+  <div class="create-campaign-left">
+    <form action="#" method="post" id="website_add">
+
+      <div class="create-campaign-left-row">
+        <label>Name of App</label>
+        <input id="campaign_web_name" name="campaign[name]" type="text" style="width:48.8% !important;" placeholder="Name of App"/>
+        <small class="create-ex create_campaign_note">e.g. WhatsApp</small>
+      </div>
+
+      <div class="create-campaign-left-row">
+        <label>Select Platform</label>
+        <select id="campaign_platform" name="campaign[platform]" style=" width: 50% !important; ">
+          <option value="Android">Android</option>
+        </select>
+        <small class="create-ex create_campaign_note">e.g. Android/iOS - Currently, Android support is available only</small>
+      </div>
+
+      <a href="#" class="campaign-configure-button"  style="clear:both;float:left;margin-left:17% !important; color: white !important; text-decoration: none !important;"onclick="configure_website(); return false;">Add App</a>
+      <div class="pro_app_box" style="margin-left:40%; margin-top:3%;display:none;border:none"></div>
+      <div id="code_box" style="display:none;border: 1px solid #cccccc;width: 52%;background-color: #cccccc;float: left;margin-left: 17% !important;margin-top: 1%;padding: 10px;" >
+        YOUR SDK CODE INSTRUCTIONS GO HERE
+      </div>
+    </form>
+  </div>
+  <div class="app_list">
+    <% if !@apps.blank? %>
+      <h1 style="width:20% !important; text-align:left; font-size:26px;">Your Apps</h1>
+      <div  style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+      <ul>
+        <div id = "list_head" class="row">
+          <li class="name"><strong>Name</strong></li>
+          <li class="domain"><strong>Platform</strong></li>
+          <li class="key"><strong>Key</strong></li>
+        </div>
+        <% i = 0
+        @apps.each {|app|
+        %>
+          <div class="row">
+            <li class = "name" id="name_<%=i%>"><%=app.name%></li>
+            <li class="domain"><%=app.platform%></li>
+            <li class = "key" id="key_<%=i%>"><%=app.key%></li>
+            <li><a id="view_js_btn" onclick="view_code(<%=i%>,<%=app.id%>);return false;">Configuration</a></li>
+          </div>
+          <%
+          i += 1
+        }
+      %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="create-campaign-right">
+    <h5>Help</h5>
+    <i>Adding Your Mobile App</i>
+    <p>Simply enter the details and you will get instructions to integrate Android SDK in your Mobile App. Embed that SDK once
+      and you are all set.
+      <br/><br/>
+      This will allow you to run multiple campaigns at anytime through SocialAppsHQ. You can turn them on/off and have detailed analytics on campaigns.
+    </p>
+    <i>What to do next?</i>
+    <p>Click on 'Create Campaign' above and you will be able to start campaigns to engage and grow your user base.</p>
+    <i>Currently in Beta</i>
+    <p>Mobile Campaigns are currently in beta and are available completely free to everyone</p>
+  </div>
+  <div style="clear:both; padding:10px;"></div>
+</div>
+<div style="width:50%;">
+  <a class="close_js_btn" onclick="close_div();return false;" style="display:none">Close</a>
+  <div  id="custom_js_head" style="color: rgb(63, 110, 186); font-size: 30px; text-align: center; display: none; "></div>
+</div>
+<div class="custom_source_code" style="display:none;border: 1px solid #CCC;width: 50%">
+  <div class="image-box" onclick="top.location.href='<%=SITE_URL%>/OptimimoFeedback.jar'" style="cursor: pointer;">
+    <div class="image-area">
+      <center><img style="width:50%;" src="https://s3.amazonaws.com/fbappshq-assets/datas/62243/large.png"/><center>
+          </div>
+          <center><a href="<%=SITE_URL%>/SocialappsHQ.jar">Download Android SDK</a></center>
+          </div>
+          <div class="image-box" onclick="show_tab('tab_6')" style="cursor: pointer;">
+            <div class="image-area">
+              <center><img style="width:50%;" src="https://s3.amazonaws.com/fbappshq-assets/datas/62244/large.png"/></center>
+            </div>
+            <center><a href="#" onclick="show_tab('tab_6')">Integration Guide</a></center>
+          </div>
+          </div>
+
+          <script>
+
+            function view_code(index, app_id){
+              jQuery(".custom_source_code").css("display", "block");
+              jQuery(".close_js_btn").css("display", "block");
+              jQuery("#custom_js_head").css("display", "block");
+              jQuery("#custom_js_head").html(jQuery("#name_"+index).html());
+            }
+
+            function close_div(){
+              jQuery(".close_js_btn").css("display", "none");
+              jQuery(".custom_source_code").css("display", "none");
+              jQuery("#custom_js_head").css("display", "none");
+            }
+
+            function setup_website_list(apps) {
+              console.log("Calling setup_website_list ->"+apps);
+              if (apps==null) {
+                return "";
+              }
+              var app_list = "<ul> <div id='list_head' class='row'><li class='name'><strong>Name</strong></li><li class='domain'><strong>Platform</strong></li><li class='key'><strong>Key</strong></li></div>";
+              var html_str = "";
+              var api_key_for_recently_installed_app = ""
+              var count = apps.length;
+              for(var i = 0; i< count; i++) {
+                if (apps[i] != null) {
+                  console.log(apps[i]);
+                  app_list = app_list+"<div class='row'><li class = 'name' id='name_"+i+"'>"+apps[i]["mobile_app"]["name"]+"</li><li class='domain'>"+apps[i]["mobile_app"]["platform"]+"</li><li class='key'>"+apps[i]["mobile_app"]["key"]+"</li><li><a id='view_js_btn' onclick='view_code("+i+","+i+");return false;'>Configuration</a></li></div>";
+                  html_str = html_str+"<option value=\""+apps[i]["mobile_app"]["id"]+"\">"+apps[i]["mobile_app"]["name"]+"</option>";
+
+                  if (i==count-1) {
+                    api_key_for_recently_installed_app = apps[i]["mobile_app"]["key"];
+                  }
+                }
+              }
+              app_list = app_list+"</ul>";
+              console.log("string formed ->"+app_list);
+              jQuery('.app_list').html(app_list);
+              jQuery('#select_website_id').html(html_str);
+              reset_tab_link('tab_2', 'tab2'); // resets link of create campaigns
+
+              jQuery('#code_box').show();
+              jQuery('#code_box').html("YOUR SDK CODE GOES HERE. API KEY = "+api_key_for_recently_installed_app);
+            }
+
+            var result = "";
+            function configure_website()
+            {
+              if ((jQuery("#campaign_web_name").val( ) == "") || (jQuery("#campaign_web_domain").val( ) == ""))
+              {
+                alert ('Please input all required fields.');
+                return ;
+              }
+
+              dataString = jQuery('#website_add').serialize();
+              jQuery.ajax({
+                url: "/member/campaigns/mobile/app_create",
+                data: dataString,
+                type: "POST",
+                dataType: 'jsonp',
+                cache: false,
+                beforeSend: function(){
+                  jQuery('.pro_app_box').show();
+                  jQuery('.pro_app_box').html('<img src=\"/images/loading.gif\"/>');
+                },
+                success: function (response_data) {
+                  if (response_data.status == 'Error') {
+                    alert(response_data.message);
+                  } else {
+                    result = response_data.app_list;
+                    setup_website_list(response_data.app_list);
+                    $('#custom_js_head').html($('#campaign_web_name').val());
+                    jQuery(".custom_source_code").css("display", "block");
+                    jQuery(".close_js_btn").css("display", "block");
+                    jQuery("#custom_js_head").css("display", "block");
+
+                    jQuery('.pro_app_box').html(response_data.message);
+
+
+                  };
+                },
+                error: function(response_data) {
+                  jQuery('.pro_app_box').html(response_data.message);
+                }
+              });
+            }
+
+          </script>

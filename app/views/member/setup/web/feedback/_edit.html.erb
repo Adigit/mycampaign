@@ -1,0 +1,1036 @@
+<script type="text/javascript" src="/javascripts/colorpicker.js?v=5.3.6"></script>
+<% session["next_path_credentials"] = nil if session["next_path_credentials"]%>
+<style>
+  input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="file"], select, textarea {margin:0 5px;width:90% !important;font-weight:normal;}
+  .create-ex{margin-left:0 !important}
+  label{width:99% !important}
+  #preview{width:99%;height:900px}
+  .preview_link{float:left;width:auto;margin-right:40px;font-weight:bold;font-size:14px;}
+  .create-campaign-left-row label, .create-campaign-left-row input {width:auto !important;}
+  .preview-container-main {height: 1000px;margin: 0 auto;background-color: #dbdbdb;max-width: 990px;padding: 5px;width: 98%;display: block;clear: both;}
+  .toggleq {padding:0px !important;}
+  #background_color, #border_color, #text_color,#form_background_color, #form_border_color, #form_text_color,#title_background_color, #title_text_color,#action_background_color,#action_text_color {text-align: right;}
+  #colorSelector1, #colorSelector2, #colorSelector3,#colorSelector4, #colorSelector5, #colorSelector6 ,#colorSelector7, #colorSelector8 , #colorSelector9 , #colorSelector10 {margin-top: -4px;}
+  .btn_label {font-weight:normal !important;margin-left:-5px;font-size:13px !important;}
+  .create-campaign-left-row label {font-weight: bold !important;}
+  .app-preview {display: inline-block;margin-top:25px;width: 72% !important;border: 1px solid #ccc;vertical-align: top;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;}
+  .enter {margin:3px 0 3px 6px !important;float:left;}
+  .field_label {margin: 5px 0 0 7px;float:left;}
+  a:hover {color:white;}
+  #typemessage {margin-top: 7px; float: left; width: 100% !important;}
+  .f_form {border: 4px solid;width: 85%;min-height: 200px;float: left !important;background: green;height: auto;padding: 0px;}
+  .f_post_title,.f_title {font-size: 15px;padding: 8px 4px;margin: 0px;background:white;text-align: center;margin-bottom: 15px;}
+  #select_category {margin: 4px 0 0 6px;float: left;width: 93% !important;}
+  #message {width: 90% !important;margin-left: 7px;}
+  ._tab {width: 9% !important;margin-left:0.1% !important;border:4px solid;height: 200px !important;float: left !important;}
+  ._tab_text { -webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);-o-transform : rotate(-90deg);transform:rotate(-90deg); width: 150px; text-align: center; float: left; margin: 82px 0 0 -62px; font-size: 20px; }
+  .radio-buttons {float: left;margin-left: 10px;}
+  .thanks_mssg {padding:12px;text-align: center;font-size: 19px;}
+  .pwd-logo {float: right !important;width: 74px !important;height: 16px !important;}
+  .action_btns {float: left;margin:20px 0px 10px 13px;text-decoration: none !important;cursor:pointer;border:0px solid #3f6eba;background: #3f6eba;color: white;border-radius:3px;padding: 5px 45px;}
+  .input_method_schemes {margin:1px 0 0 9px !important;}
+  .custom-filters-li {margin-top:5px;}
+  .remove_btn {float:left;margin-top:-37px;}
+  .filters {margin-left:-5px;}
+  .theme { border: 1px solid;width: 43%;padding: 21px;clear: both;margin-top: 15%;float: left;font-size:10px;text-decoration: none !important;color:black;}
+  .theme:hover {color:black;}
+</style>
+
+<h1 style="width:100% !important; text-align:left">Setup <%=@web_campaign.title%></h1>
+<div style="border-bottom:1px solid #ccc; width:98%; margin-top:-1%;"></div>
+<div class="create-campaign-left"  style="width:26.5% !important;border-radius: 5px;border: 1px solid #808080;overflow: hidden;height: 1350px;margin-top: 25px;">
+  <form action="#" method="post" id="web_campaign_feedback">
+    <input id="campaign_id" name="campaign[id]" type="hidden" value="<%=params[:id]%>"/>
+    <input name="campaign[show_credits]" type="hidden" value="0"/>
+    <input name="campaign[tab_text_drop_shadow]" type="hidden" value="0"/>
+    <!--<input name="campaign[open_on_click_of_element]" type="hidden" value="0"/>-->
+    <input type="hidden" name="campaign[get_name]" value="0" />
+    <input type="hidden" name="campaign[get_mobile]" value="0" />
+    <input type="hidden" name="campaign[get_category]" value="0" />
+    <input type="hidden" name="campaign[get_message]" value="0" />
+    <input type="hidden" name="campaign[get_rating]" value="0" />
+    <input type="hidden" name="campaign[get_screenshot]" value="0" />
+    <ul class="expand">
+      <li>
+        <div onclick="custom_accordion('tab_cont','custom_filter','form_cont','post_sub','gen');" class="tools" >
+          <span class="col-circle">1</span>
+          <span class="tools_tab_name">Configure Tab</span>
+          <span style="float:right" class="arr_up" id="gen">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="tab_cont">
+            <div class="create-campaign-left-row">
+              <label style="width:90% !important;">Name of Tab :</label>
+              <input class="tab_name" maxlength="15" id="tab_text" name="campaign[tab_text]" type="text" placeholder="Name of Tab" value="<%=@campaign.tab_text%>"/>
+              <small class="create-ex create_campaign_note handle_note">e.g. Feedback</small>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Color of Tab Text :</label>
+              <div id="customWidget">
+                <div  id="colorSelector1">
+                  <div style="background-color: <%= @campaign.text_color%>;"></div>
+                </div>
+                <input id="text_color" name="campaign[text_color]" type="text" placeholder="Text Color" value="<%=@campaign.text_color%>"/>
+                <small class="create-ex create_campaign_note">e.g. FFFFFF</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Background Color of Tab :</label>
+              <div id="customWidget">
+                <div  id="colorSelector2">
+                  <div style="background-color: <%= @campaign.background_color%>;"></div>
+                </div>
+                <input id="background_color" name="campaign[background_color]" type="text" placeholder="Background Color" value="<%=@campaign.background_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Border Color of Tab :</label>
+              <div id="customWidget">
+                <div  id="colorSelector3">
+                  <div style="background-color: <%= @campaign.border_color%>;"></div>
+                </div>
+                <input id="border_color" name="campaign[border_color]" type="text" placeholder="Border Color" value="<%=@campaign.border_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Background Color of Title Box :</label>
+              <div id="customWidget">
+                <div  id="colorSelector4">
+                  <div style="background-color: <%= @campaign.title_background_color%>;"></div>
+                </div>
+                <input id="title_background_color" name="campaign[title_background_color]" type="text" placeholder="Title Background Color" value="<%=@campaign.title_background_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Text Color of Title Box :</label>
+              <div id="customWidget">
+                <div  id="colorSelector5">
+                  <div style="background-color: <%= @campaign.title_text_color%>;"></div>
+                </div>
+                <input id="title_text_color" name="campaign[title_text_color]" type="text" placeholder="Title Text Color" value="<%=@campaign.title_text_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Border Color of Form :</label>
+              <div id="customWidget">
+                <div  id="colorSelector6">
+                  <div style="background-color: <%= @campaign.form_border_color%>;"></div>
+                </div>
+                <input id="form_border_color" name="campaign[form_border_color]" type="text" placeholder="Coupon Border Color" value="<%=@campaign.form_border_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Background Color of Form :</label>
+              <div id="customWidget">
+                <div  id="colorSelector7">
+                  <div style="background-color: <%= @campaign.form_background_color%>;"></div>
+                </div>
+                <input id="form_background_color" name="campaign[form_background_color]" type="text" placeholder="Coupon Background Color" value="<%=@campaign.form_background_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Text Color of Form :</label>
+              <div id="customWidget">
+                <div  id="colorSelector8">
+                  <div style="background-color: <%= @campaign.form_text_color%>;"></div>
+                </div>
+                <input id="form_text_color" name="campaign[form_text_color]" type="text" placeholder="Coupon Text Color" value="<%=@campaign.form_text_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label style="width:90% !important;">Background Color of Action buttons :</label>
+              <div id="customWidget">
+                <div  id="colorSelector9">
+                  <div style="background-color: <%= @campaign.action_background_color%>;"></div>
+                </div>
+                <input id="action_background_color" name="campaign[action_background_color]" type="text" placeholder="Button Background Color" value="<%=@campaign.action_background_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label style="width:90% !important;">Text Color of Action buttons :</label>
+              <div id="customWidget">
+                <div  id="colorSelector10">
+                  <div style="background-color: <%= @campaign.action_text_color%>;"></div>
+                </div>
+                <input id="action_text_color" name="campaign[action_text_color]" type="text" placeholder="Button Text Color" value="<%=@campaign.action_text_color%>" />
+                <small class="create-ex create_campaign_note">e.g. CCCCCC</small>
+              </div>
+            </div>
+
+
+            <div class="create-campaign-left-row">
+              <label>Show Drop Shadow on Tab Text :</label>
+              <input type="checkbox" id="drop_shadow" name="campaign[tab_text_drop_shadow]" value="1" <%if @campaign.tab_text_drop_shadow==1%>checked<%end%> /><label class="btn_label">Yes</label><br/>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Tab Alignment :</label>
+              <input type="radio" name="campaign[tab_alignment]" value="0" <%if @campaign.tab_alignment==0%>checked<%end%> /><label class="btn_label"> Left</label>
+              <input type="radio" name="campaign[tab_alignment]" value="1" <%if @campaign.tab_alignment==1%>checked<%end%> /><label class="btn_label"> Right</label>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('form_cont','custom_filter','tab_cont','post_sub','head');" class="tools" >
+          <span class="col-circle">2</span>
+          <span class="tools_tab_name">Configure Form Content</span>
+          <span style="float:right" class="arr_up" id="head">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="form_cont">
+            <div class="create-campaign-left-row">
+              <label style=" width: 90% !important; ">Form Title :</label>
+              <input style=" width: 90% !important; " maxlength="40" class="tab_name" id="form_title" name="campaign[form_title]" type="text" placeholder="Feedback Form Title" value="<%=@campaign.form_title%>"/>
+              <small class="create-ex create_campaign_note handle_note">e.g. Your feedback is valuable for us.</small>
+            </div>
+
+            <div class="feedback" style=" width: 97%; float: left; margin: 8px 0px 0px 11px; ">
+              <label style=" border: 1px solid #ccc; padding: 5px 121px 5px 5px;background: #ccc; ">Feedback Form Content :</label>
+              <div class="feedback_element" style=" margin-top: 10px; ">
+                <input type="checkbox" id="name_enable" name="campaign[get_name]" value="1" <%if @campaign.get_name == 1%>checked<%end%> /><label class="btn_label">Ask for Name</label><br/>
+                <input type="checkbox" id="mobile_enable" name="campaign[get_mobile]" value="1" <%if @campaign.get_mobile == 1%>checked<%end%> /><label class="btn_label">Ask for mobile number</label><br/>
+                <input type="checkbox" id="category_enable" name="campaign[get_category]" value="1" <%if @campaign.get_category == 1%>checked<%end%> /><label class="btn_label">Ask to select the feedback category</label><br/>
+                <input type="checkbox" id="message_enable" name="campaign[get_message]" value="1" <%if @campaign.get_message == 1%>checked<%end%> /><label class="btn_label">Ask to leave a message</label><br/>
+                <input type="checkbox" id="rating_enable" name="campaign[get_rating]" value="1" <%if @campaign.get_rating == 1%>checked<%end%> /><label class="btn_label">Ask to give rating</label><br/>
+                <input type="checkbox" id="screenshot_enable" name="campaign[get_screenshot]" value="1" <%if @campaign.get_screenshot == 1%>checked<%end%> /><label class="btn_label">Ask to attach a screenshot</label><br/> 
+              </div>
+            </div>
+
+            <div class="create-campaign-left-row">
+              <label>Allow "UsersDelight" logo</label>
+              <input type="checkbox" name="campaign[show_credits]" value="1" onclick="return false" <%if @campaign.show_credits==1%>checked<%end%>/><label class="btn_label">Yes</label><br/>
+              <small class="create-ex create_campaign_note">
+                Only paid users can hide UsersDelight logo.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('post_sub','custom_filter','tab_cont','form_cont','ban');" class="tools" >
+          <span class="col-circle">3</span>
+          <span class="tools_tab_name">Configure Post submission Content</span> <span id="ban" style="float:right" class="arr_up">&#8594;</span>
+        </div>
+        <div class="toggleq"style="display:none">
+          <div class="row" id="post_sub">
+            <div class="create-campaign-left-row">
+              <label>Thank You Message</label>
+              <textarea id="thank_you_message" name="campaign[thank_you_message]" type="text" style="height: 100px;"><%=@campaign.thank_you_message%></textarea>
+            </div>
+            <div class="create-campaign-left-row">
+              <label style=" width: 90% !important; ">Send to Email Address :</label>
+              <input style=" width: 90% !important; " class="send_to_email" id="email_address" name="campaign[send_to_email]" type="text" placeholder="abc@companyname.com" value="<%=@campaign.send_to_email%>"/>
+              <small class="create-ex create_campaign_note handle_note">Email Address to get feedback details of individuals.</small>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="custom_accordion('custom_filter','tab_cont','form_cont','post_sub','res');" class="tools" >
+          <span class="col-circle">4</span>
+          <span class="tools_tab_name">Audience Targeting </span>
+          <span style="float:right" class="arr_up" id="res">&#8594;</span>
+        </div>
+        <div class="toggleq" style="display:none">
+          <div class="row" id="custom_filter">
+            <div class="create-campaign-left-row">
+              <%=render :partial => "member/setup/web/user_filter"%>
+            </div>
+          </div>
+        </div>
+
+
+        <a href="#" class="campaign-configure-button" style="float:left;margin-left:1% !important; color: white !important; text-decoration: none !important;width:98% !important"
+           onclick="configure_web_app_offer('launch'); return false;">Launch Campaign</a>
+        <div id="response_messg" style=" margin: 17px 0px 0px 10px; float: left; color: green; "></div>
+      </li>
+    </ul>
+  </form>
+</div>
+
+<div class="app-preview" style="height:1350px;width:66% !important;">
+  <h3 style="font-family: Arial;margin:5px;font-size:18px;color:#244386 !important;border-bottom: 2px solid;width: 98%;">Preview</h3>
+  <div class="preview-container-main" style="height:1250px;">
+    <div class="preview_section" style="padding: 13px;">
+      <span style="width: 38%;float: left;margin-left: 139px;">Feedback Form</span>
+      <span style="margin-left: 139px;">Post Submission</span>
+    </div>
+    <div class="feedback_form" style="width: 46%;height: auto;float: left;">
+      <div class="_tab">
+        <p class="_tab_text"></p>
+      </div>
+      <div class="f_form">
+        <div class="f_title"></div>
+        <div class="feedbck_field" id="firstname">
+          <p for="first_name" class="field_label" style="margin: 5px 0 0 5px;">Name<span class="mandatory">*</span></p>
+          <input class="enter" type="text" maxlength="255" value="" id="first_name" name="firstname" required=""/>
+          <input type="hidden" name="email" value="id"/>
+        </div>
+        <div class="feedbck_field" id="mobilenum">
+          <p for="mob_num" class="field_label">Mobile Number</p><br/>
+          <input class="enter" type="text" maxlength="255" value="" id="mob_num" name="mobile_number" required=""/>
+          <input type="hidden" name="email" value="id"/>
+        </div>
+        <div class="feedbck_field" id="emailfield" >
+          <p for="email_id" class="field_label">Email id<span class="mandatory">*</span></p>
+          <input class="enter" type="text" maxlength="255" value="" id="email_id" name="Email_id"/>
+          <input type="hidden" name="email" value="id"/>
+        </div>
+        <div class="feedbck_field" id="category">
+          <p for="select_category" class="field_label">Category<span class="mandatory">*</span></p>
+          <select id="select_category">
+            <option value="General" selected="selected" id="gen">General Feedback</option>
+            <option value="Improve" id="im">Improve Website</option>
+            <option value="Ideas" id="idea">Ideas for us</option>
+            <option value="UI" id="uint">User Interface/Usability related issue</option>
+          </select>
+        </div>
+
+        <div class="feedbck_field" id="screenshot" style=" float: left; margin: 9px 0 -4px 10px;">
+          <input type="checkbox" id="screenshot_check" val="1" style="float: left; "/>
+          <label style="font-size: 12px !important; float: left; margin: -21px 0 0 26px;">Attach a screenshot</label>
+        </div>
+
+        <div class="feedbck_field" id="typemessage">
+          <p for="message" class="field_label">Message<span class="mandatory">*</span></p>
+          <textarea name="textar" id="message" class="area" required=""></textarea><br/>
+        </div>
+        <div class="feedbck_field" id="rate_radio_btns">
+          <p for="rate" class="field_label" style="width:83%;margin: 8px 0 0 7px;float: left;">How would you rate your overall Experience?</p>
+          <span class="radio-buttons" style="float: left;margin: 0px 7px 0 8px;">
+            <input type="radio" name="feed" id="radio-1" checked="checked" value="love it"/>
+            <span class="rad_btn_lbl" style=" font-size: 15px;">Love it</span>
+          </span>
+          <span class="radio-buttons">
+            <input type="radio" id="radio-2" name="feed" value="good"/>
+            <span class="rad_btn_lbl" style=" font-size: 15px;">Good</span>
+          </span>
+          <span class="radio-buttons">
+            <input type="radio" id="radio-3" name="feed" value="Average"/>
+            <span class="rad_btn_lbl" style=" font-size: 15px;">Average</span>
+          </span>
+          <span class="radio-buttons">
+            <input type="radio" id="radio-4" name="feed" value="bad"/>
+            <span class="rad_btn_lbl" style=" font-size: 15px;">Bad</span>
+          </span>
+        </div>
+        <br/>
+        <a class="action_btns" href="#">submit</a>
+        <a href="#" class="action_btns">cancel</a>
+        <div style="clear:both;"></div>
+        <img class="pwd-logo" src="/images/usersdelight.png"/>
+      </div>
+    </div>
+    <div class="feedback_form" style="width: 46%;height: auto;float: left;margin-left: 50px;">
+      <div class="_tab">
+        <p class="_tab_text"></p>
+      </div>
+      <div class="f_form" style="background-color: rgb(217, 217, 235); background-position: initial initial; background-repeat: initial initial;">
+        <div class="f_post_title">We've got your feedback.</div>
+        <div class="thanks_mssg"></div>
+        <img class="pwd-logo" src="/images/usersdelight.png" style="margin-top:62px !important;"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="width: 6%;vertical-align: top;height: 800px;display: inline-block;margin-top:4%;">
+  <a href="#" id="pumpkin" class="theme" onclick="change_theme('pumpkin');return false;" style="background: #eb593c;">Get it!</a>
+  <a href="#" id="yellow" class="theme" onclick="change_theme('yellow');return false;" style="background: yellow;">Get it!</a>
+  <a href="#" id="midnight_blue" class="theme" onclick="change_theme('midnight_blue');return false;" style="background: #2c3e50;">Get it!</a>
+  <a href="#" id="emerald" class="theme" onclick="change_theme('emerald');return false;" style="background: rgb(138, 248, 138);">Get it!</a>
+  <a href="#" id="sunflower" class="theme" onclick="change_theme('sunflower');return false;" style="background: #f1c40f;">Get it!</a>
+  <a href="#" id="silver" class="theme" onclick="change_theme('silver');return false;" style="background: #bdc3c7;">Get it!</a>
+  <a href="#" id="sky" class="theme" onclick="change_theme('sky');return false;" style="background: #def1ff">Get it!</a>
+  <a href="#" id="green" class="theme" onclick="change_theme('green');return false;" style="background: #569625;">Get it!</a>
+  <a href="#" id="peter_river" class="theme" onclick="change_theme('peter_river');return false;" style="background: #3498DB">Get it!</a>
+  <a href="#" id="orange" class="theme" onclick="change_theme('orange');return false;" style="background: #F39C12;">Get it!</a>
+</div>
+
+<script>
+
+  function change_theme(value)
+  {
+    if (value == 'pumpkin')
+    {
+      var tab_bg_cl = 'eb593c';
+      var tab_bd_cl = 'eb593c';
+      var tab_txt_cl = 'fff';
+      var title_bg_cl = "eb593c";
+      var title_txt_cl = "fff";
+      var form_bd_cl = "eb593c";
+      var form_txt_cl = "000";
+      var form_bg_cl = "ffeae3";
+      var action_bg_cl = "eb593c";
+      var action_txt_cl = "fff";
+    }
+    else if (value == 'yellow')
+    {
+      var tab_bg_cl = 'ff0';
+      var tab_bd_cl = '000';
+      var tab_txt_cl = '000';
+      var title_bg_cl = "ff0";
+      var title_txt_cl = "000";
+      var form_bd_cl = "000";
+      var form_txt_cl = "000";
+      var form_bg_cl = "f6fcc2";
+      var action_bg_cl = "ff0";
+      var action_txt_cl = "000";
+    }
+    else if (value == 'peter_river')
+    {
+      var tab_bg_cl = '3498DB';
+      var tab_bd_cl = '3498DB';
+      var tab_txt_cl = 'fff';
+      var title_bg_cl = "3498DB";
+      var title_txt_cl = "fff";
+      var form_bd_cl = "3498DB";
+      var form_txt_cl = "000";
+      var form_bg_cl = "dce4f5";
+      var action_bg_cl = "3498DB";
+      var action_txt_cl = "000";
+    }
+    else if (value == 'orange')
+    {
+      var tab_bg_cl = 'F39C12';
+      var tab_bd_cl = 'F39C12';
+      var tab_txt_cl = 'fff';
+      var title_bg_cl = "F39C12";
+      var title_txt_cl = "fff";
+      var form_bd_cl = "F39C12";
+      var form_txt_cl = "000";
+      var form_bg_cl = "f2efe1";
+      var action_bg_cl = "F39C12";
+      var action_txt_cl = "fff";
+    }
+    else if (value == 'midnight_blue')
+    {
+      var tab_bg_cl = '2c3e50';
+      var tab_bd_cl = '2c3e50';
+      var tab_txt_cl = 'fff';
+      var title_bg_cl = "2c3e50";
+      var title_txt_cl = "fff";
+      var form_bd_cl = "2c3e50";
+      var form_txt_cl = "fff";
+      var form_bg_cl = "5a7082";
+      var action_bg_cl = "2c3e50";
+      var action_txt_cl = "fff";
+    }
+    else if (value == 'emerald')
+    {
+      var tab_bg_cl = '73F573';
+      var tab_bd_cl = '000';
+      var tab_txt_cl = '000';
+      var title_bg_cl = "73F573";
+      var title_txt_cl = "000";
+      var form_bd_cl = "000";
+      var form_txt_cl = "000";
+      var form_bg_cl = "d6ffcf";
+      var action_bg_cl = "73F573";
+      var action_txt_cl = "000";
+    }
+    else if (value == 'sunflower')
+    {
+      var tab_bg_cl = 'f1c40f';
+      var tab_bd_cl = 'f1c40f';
+      var tab_txt_cl = 'fff';
+      var title_bg_cl = "f1c40f";
+      var title_txt_cl = "fff";
+      var form_bd_cl = "f1c40f";
+      var form_txt_cl = "000";
+      var form_bg_cl = "f2efe1";
+      var action_bg_cl = "f1c40f";
+      var action_txt_cl = "fff";
+    }
+    else if (value == 'silver')
+    {
+      var tab_bg_cl = 'bdc3c7';
+      var tab_bd_cl = '595959';
+      var tab_txt_cl = '595959';
+      var title_bg_cl = "bdc3c7";
+      var title_txt_cl = "595959";
+      var form_bd_cl = "595959";
+      var form_txt_cl = "000";
+      var form_bg_cl = "fcfcfc";
+      var action_bg_cl = "bdc3c7";
+      var action_txt_cl = "595959";
+    }
+    else if (value == 'green')
+    {
+      var tab_bg_cl = '569625';
+      var tab_bd_cl = '569625';
+      var tab_txt_cl = 'fff';
+      var title_bg_cl = "569625";
+      var title_txt_cl = "fff";
+      var form_bd_cl = "569625";
+      var form_txt_cl = "000";
+      var form_bg_cl = "e0f5d5";
+      var action_bg_cl = "569625";
+      var action_txt_cl = "fff";
+    }
+    else if (value == 'sky')
+    {
+      var tab_bg_cl = '4db3b0';
+      var tab_bd_cl = '4db3b0';
+      var tab_txt_cl = 'fff';
+      var title_bg_cl = "4db3b0";
+      var title_txt_cl = "fff";
+      var form_bd_cl = "4db3b0";
+      var form_txt_cl = "000";
+      var form_bg_cl = "def1ff";
+      var action_bg_cl = "def1ff";
+      var action_txt_cl = "fff";
+    }
+    jQuery('._tab').css({'background-color':"#"+tab_bg_cl});
+    jQuery('._tab').css({'border-color':"#"+tab_bd_cl});
+    jQuery('._tab_text').css({'color':"#"+tab_txt_cl});
+    jQuery('.f_title,.f_post_title').css({'background-color':"#"+title_bg_cl});
+    jQuery('.f_title,.f_post_title').css({'color':"#"+title_txt_cl});
+    jQuery('.f_form').css({'background-color':"#"+form_bg_cl});
+    jQuery('.f_form').css({'border-color':"#"+form_bd_cl});
+    jQuery('.field_label,.rad_btn_lbl,.thanks_mssg').css({'color':"#"+form_txt_cl});
+    jQuery('#screenshot_btn, .action_btns').css({'background-color':"#"+action_bg_cl});
+    jQuery('#screenshot_btn, .action_btns').css({'color':"#"+action_txt_cl});
+
+    jQuery('#text_color').val(tab_bd_cl);
+    jQuery('#colorSelector1 div').css({'background-color':"#"+tab_txt_cl});
+    jQuery('#background_color').val(tab_bg_cl);
+    jQuery('#colorSelector2 div').css({'background-color':"#"+tab_bg_cl});
+    jQuery('#border_color').val(tab_bd_cl);
+    jQuery('#colorSelector3 div').css({'background-color':"#"+tab_bd_cl});
+    jQuery('#title_background_color').val(title_bg_cl);
+    jQuery('#colorSelector4 div').css({'background-color':"#"+title_bg_cl});
+    jQuery('#title_text_color').val(title_txt_cl);
+    jQuery('#colorSelector5 div').css({'background-color':"#"+title_txt_cl});
+    jQuery('#form_border_color').val(form_bd_cl);
+    jQuery('#colorSelector6 div').css({'background-color':"#"+form_bd_cl});
+    jQuery('#form_background_color').val(form_bg_cl);
+    jQuery('#colorSelector7 div').css({'background-color':"#"+form_bg_cl});
+    jQuery('#form_text_color').val(form_txt_cl);
+    jQuery('#colorSelector8 div').css({'background-color':"#"+form_txt_cl});
+    jQuery('#action_background_color').val(form_txt_cl);
+    jQuery('#colorSelector9 div').css({'background-color':"#"+action_bg_cl});
+    jQuery('#action_text_color').val(form_txt_cl);
+    jQuery('#colorSelector10 div').css({'background-color':"#"+action_txt_cl});
+  }
+
+
+  $(document).ready(function(){
+    $('._tab_text').html('<%= @campaign.tab_text%>');
+    $('.f_title').html('<%= @campaign.form_title%>');
+    $('.thanks_mssg').html('<%= @campaign.thank_you_message%>');
+<%if !@campaign.form_text_color.blank?%>
+      $('.field_label,.rad_btn_lbl,.thanks_mssg').css({'color':'#'+'<%= @campaign.form_text_color%>'});
+      $('#colorSelector8 div').css({'background-color':'#'+'<%= @campaign.form_text_color%>'});
+      jQuery('#form_text_color').val('<%= @campaign.form_text_color%>');
+  <%if !@campaign.form_background_color.blank?%>
+        $('.f_form').css({'background':'#'+'<%= @campaign.form_background_color%>'});
+        $('#colorSelector7 div').css({'background-color':'#'+'<%= @campaign.form_background_color%>'});
+        jQuery('#form_background_color').val('<%= @campaign.form_background_color%>');
+  <%end%>
+  <%if !@campaign.form_border_color.blank?%>
+        $('.f_form').css({'border-color':'#'+'<%= @campaign.form_border_color%>'});
+        $('#colorSelector6 div').css({'background-color':'#'+'<%= @campaign.form_border_color%>'});
+        jQuery('#form_border_color').val('<%= @campaign.form_border_color%>');
+  <%end%>
+  <%if !@campaign.title_text_color.blank?%>
+        $('.f_title,.f_post_title').css({'color':'#'+'<%= @campaign.title_text_color%>'});
+        $('#colorSelector5 div').css({'background-color':'#'+'<%= @campaign.title_text_color%>'});
+        jQuery('#title_text_color').val('<%= @campaign.title_text_color%>');
+  <%end%>
+  <%if !@campaign.title_background_color.blank?%>
+        jQuery('#title_background_color').val('<%= @campaign.title_background_color%>');
+        $('.f_title,.f_post_title').css({'background':'#'+'<%= @campaign.title_background_color%>'});
+        $('#colorSelector4 div').css({'background-color':'#'+'<%= @campaign.title_background_color%>'});
+  <%end%>
+  <%if !@campaign.border_color.blank?%>
+        jQuery('#border_color').val('<%= @campaign.border_color%>');
+        $('._tab').css({'border-color':'#'+'<%= @campaign.border_color%>'});
+        $('#colorSelector3 div').css({'background-color':'#'+'<%= @campaign.border_color%>'});
+  <%end%>
+  <%if !@campaign.background_color.blank?%>
+        jQuery('#background_color').val('<%= @campaign.background_color%>');
+        $('._tab').css({'background':'#'+'<%= @campaign.background_color%>'});
+        $('#colorSelector2 div').css({'background-color':'#'+'<%= @campaign.background_color%>'});
+  <%end%>
+  <%if !@campaign.text_color.blank?%>
+        jQuery('#text_color').val('<%= @campaign.text_color%>');
+        $('._tab_text').css({'color':'#'+'<%= @campaign.text_color%>'});
+        $('#colorSelector1 div').css({'background-color':'#'+'<%= @campaign.text_color%>'});
+  <%end%>
+  <%if !@campaign.action_background_color.blank?%>
+        jQuery('#action_background_color').val('<%= @campaign.action_background_color%>');
+        $('#screenshot_btn, .action_btns').css({'background':'#'+'<%= @campaign.action_background_color%>'});
+        $('#colorSelector9 div').css({'background-color':'#'+'<%= @campaign.action_background_color%>'});
+  <%end%>
+  <%if !@campaign.action_text_color.blank?%>
+        jQuery('#action_text_color').val('<%= @campaign.action_text_color%>');
+        $('#screenshot_btn, .action_btns').css({'color':'#'+'<%= @campaign.action_text_color%>'});
+        $('#colorSelector10 div').css({'background-color':'#'+'<%= @campaign.action_text_color%>'});
+  <%end%>
+  <%if @campaign.get_rating == 0%>
+        $('#rate_radio_btns').css({'display':'none'});
+  <%end%>
+  <%if @campaign.get_message == 0%>
+        $('#typemessage').css({'display':'none'});
+  <%end%>
+  <%if @campaign.get_category == 0%>
+        $('#category').css({'display':'none'});
+  <%end%>
+  <%if @campaign.get_name == 0%>
+        $('#firstname').css({'display':'none'});
+  <%end%>
+  <%if @campaign.get_screenshot == 0%>
+        $('#screenshot').css({'display':'none'});
+  <%end%>
+  <%if @campaign.get_mobile == 0%>
+        $('#mobilenum').css({'display':'none'});
+  <%end%>
+  <%if @campaign.tab_text_drop_shadow == 1%>
+        $('._tab_text').css({'text-shadow':'1px 2px'});// checked
+  <%end%>
+      custom_accordion('form_cont','custom_filter','tab_cont','post_sub','head');
+<%end%>
+
+  });
+
+  function custom_accordion(id_1, id_2, id_3,id_4,id_5){
+    jQuery('#ban').html('&#8594;');
+    jQuery('.toggleq').css({'display':'block'});
+    jQuery('#head').html('&#8594;');
+    jQuery('#gen').html('&#8594;');
+    jQuery('#res').html('&#8594;');
+    jQuery('#'+id_5).html('&#8595;');
+    jQuery('#' + id_1).slideDown();
+    jQuery('#' + id_2).slideUp();
+    jQuery('#' + id_3).slideUp();
+    jQuery('#' + id_4).slideUp();
+  }
+
+
+  //Tab name
+  $('#tab_text').keyup(function(){
+    $('._tab_text').html($('#tab_text').val());
+  });
+
+  //Feedback Title
+  $('#form_title').keyup(function(){
+    $('.f_title').html($('#form_title').val());
+  });
+
+  //Thanks Response Message
+  $('#thank_you_message').keyup(function(){
+    $('.thanks_mssg').html($('#thank_you_message').val());
+  });
+
+  $('#name_enable').change(function(){
+    var _val = $("#name_enable").is(":checked");
+    if (_val == 0)
+    {console.log("value is zero");
+      $('#firstname').css({'display':'none'});
+    }
+    else
+    {console.log("value is zero");
+      $('#firstname').css({'display':'block'});
+    }
+  });
+
+  $('#category_enable').change(function(){
+    var _val = $("#category_enable").is(":checked");
+    if (_val == 0)
+      $('#category').css({'display':'none'});
+    else
+      $('#category').css({'display':'block'});
+  });
+
+  $('#message_enable').change(function(){
+    var _val = $("#message_enable").is(":checked");
+    if (_val == 0)
+      $('#typemessage').css({'display':'none'});
+    else
+      $('#typemessage').css({'display':'block'});
+  });
+
+  $('#rating_enable').change(function(){
+    var _val = $("#rating_enable").is(":checked");
+    if (_val == 0)
+      $('#rate_radio_btns').css({'display':'none'});
+    else
+      $('#rate_radio_btns').css({'display':'block'});
+  });
+
+  $('#mobile_enable').change(function(){
+    var _val = $("#mobile_enable").is(":checked")
+    if (_val == 0)
+      $('#mobilenum').css({'display':'none'});
+    else
+      $('#mobilenum').css({'display':'block'});
+  });
+
+  $('#screenshot_enable').change(function(){
+    var _val = $("#screenshot_enable").is(":checked");
+    if (_val == 0)
+      $('#screenshot').css({'display':'none'});
+    else
+      $('#screenshot').css({'display':'block'});
+  });
+   
+  function show_row(div_id) {
+    jQuery('#'+div_id).toggle();
+  }
+
+  //this function is used to get the value of all filters applicable and make it in array of arrays form(for saving purpose) ...
+  function save_filters_data()
+  {
+    var array_of_values = new Array;
+    if ( $('.custom-filters li').length > 1 )
+    {
+      //Getting the last <li> element of ul
+      var _last_li_id = $('.add-more').prev().attr('id');
+      if (_last_li_id != "undefined"){
+        var _length_of_li_elements = _last_li_id.split("-")[2];
+        var array_of_filters = new Array; //String which is to be save in db and contains list of all filters.
+        for(var i=0;i<=_length_of_li_elements;i++)
+        {
+          if (($('#filter-row-'+i).is(':empty')) == false)
+          {
+            array_of_values[0] = $('#select-filter-'+i).val();
+            array_of_values[1] = $('#select-qual-'+i).children(":selected").val();
+            if (array_of_values[0] == "Day of the month" || array_of_values[0] == "Month of the year" || array_of_values[0] == "Hour of the day"||array_of_values[0] == "Minute of the hour" )
+            {
+              var start_and_end_camp_values = [];
+              start_and_end_camp_values[0] = $('#inp_'+i+'_0').val();
+              start_and_end_camp_values[1] = $('#inp_'+i+'_1').val();
+              array_of_values[2] = start_and_end_camp_values;
+            }
+            else{
+              if ($('#input_method_'+i).length > 0)
+              {
+                array_of_values[2] = $('#input_method_'+i).children(":selected").val();
+              }
+              else if ($('#inp_'+i).length > 0)
+              {
+                array_of_values[2] = $('#inp_'+i).val();
+              }
+            }
+            //console.log("arr_of_values = "+array_of_values);
+            if (array_of_values[0] != '' && array_of_values[1] != '' && array_of_values[2] != '')
+            {
+              array_of_filters.push(array_of_values);
+            }
+          }
+        }
+      }
+      console.log("array_of_filters  = " + array_of_filters);
+      //Finally the data formed would be as :
+      // [[filter_option_val,qual_option_val,input_val],[filter_option_val,qual_option_val,input_val],...]
+    }
+    return array_of_filters;
+  };
+
+  function configure_web_app_offer(mode)
+  {
+    if (jQuery("#campaign_title").val( ) == "")
+    {
+      alert ('Please Specify Campaign Title.');
+      return ;
+    }
+    var _name = jQuery('.tab_name').val();
+    dataString = jQuery('#web_campaign_feedback').serialize();
+    var _custom_filters = save_filters_data();
+    dataString += "&filters="+JSON.stringify(_custom_filters);
+    jQuery.ajax({
+      url: "/member/setup/web/feedback/create_or_update",
+      data: dataString,
+      type: "POST",
+      dataType: 'jsonp',
+      cache: false,
+      beforeSend: function(){
+        console.log("Before SEND Block")
+        jQuery('#response_messg').show();
+        jQuery('#response_messg').html('<img src=\"/images/loading.gif\"/>');
+      },
+      success: function (response_data) {
+        if (response_data.status == 'Error') {
+          alert(response_data.message);
+        } else {
+          console.log("In Success Block");
+          jQuery('#response_messg').css({'font-size':'14px'});
+          jQuery('#response_messg').html("Changes in Campaign saved successfully. Please check campaign on your website '" +'<%= domain %>'+"'" );
+        };
+      },
+      error: function(response_data) {
+        jQuery('#response_messg').html(response_data.message);
+      }
+    });
+  }
+
+  //Tab Text Color
+  $('#text_color').blur(function(){
+    var val = $('#text_color').val();
+    $('._tab_text').css({'color':'#'+val});
+    $('#colorSelector1 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector1').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#text_color').val(hex);
+      $('._tab_text').css({'color':'#'+hex});
+      $('#colorSelector1 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Tab Background Color
+  $('#background_color').blur(function(){
+    var val = $('#background_color').val();
+    $('._tab').css({'background':'#'+val});
+    $('#colorSelector2 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector2').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#background_color').val(hex);
+      $('._tab').css({'background':'#'+hex});
+      $('#colorSelector2 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Tab Border Color
+  $('#border_color').blur(function(){
+    var val = $('#border_color').val();
+    console.log("border value is: "+ val);
+    $('._tab').css({'border-color':'#'+val});
+    $('#colorSelector3 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector3').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#border_color').val(hex);
+      $('._tab').css({'border-color':'#'+hex});
+      $('#colorSelector3 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Title Backgorund Color
+  $('#title_background_color').blur(function(){
+    var val = $('#title_background_color').val();
+    $('.f_title,.f_post_title').css({'background':'#'+val});
+    $('#colorSelector4 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector4').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#title_background_color').val(hex);
+      $('.f_title,.f_post_title').css({'background':'#'+hex});
+      $('#colorSelector4 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Title Text Color
+  $('#title_text_color').blur(function(){
+    var val = $('#title_text_color').val();
+    $('.f_title,.f_post_title').css({'color':'#'+val});
+    $('#colorSelector5 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector5').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#title_text_color').val(hex);
+      $('.f_title,.f_post_title').css({'color':'#'+hex});
+      $('#colorSelector5 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Coupon Border Color
+  $('#form_border_color').blur(function(){
+    var val = $('#form_border_color').val();
+    $('.f_form').css({'border-color':'#'+val});
+    $('#colorSelector6 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector6').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#form_border_color').val(hex);
+      $('.f_form').css({'border-color':'#'+hex});
+      $('#colorSelector6 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Coupon Background Color
+  $('#form_background_color').blur(function(){
+    var val = $('#form_background_color').val();
+    $('.f_form').css({'background':'#'+val});
+    $('#colorSelector7 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector7').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#form_background_color').val(hex);
+      $('.f_form').css({'background':'#'+hex});
+      $('#colorSelector7 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Coupon Text Color
+  $('#form_text_color').blur(function(){
+    var val = $('#form_text_color').val();
+    $('.field_label,.rad_btn_lbl,.thanks_mssg').css({'color':'#'+val});
+    $('#colorSelector8 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector8').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#form_text_color').val(hex);
+      $('.field_label,.rad_btn_lbl,.thanks_mssg').css({'color':'#'+hex});
+      $('#colorSelector8 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Action Button Background Color
+  $('#action_background_color').blur(function(){
+    var val = $('#action_background_color').val();
+    $('.action_btns').css({'background':'#'+val});
+    $('#colorSelector9 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector9').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#action_background_color').val(hex);
+      $('.action_btns').css({'background':'#'+hex});
+      $('#colorSelector9 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  //Action Button Text Color
+  $('#action_text_color').blur(function(){
+    var val = $('#action_text_color').val();
+    $('.action_btns').css({'color':'#'+val});
+    $('#colorSelector10 div').css({'background-color':'#'+val});
+  });
+  $('#colorSelector10').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      jQuery('#action_text_color').val(hex);
+      $('.action_btns').css({'color':'#'+hex});
+      $('#colorSelector10 div').css({'background-color':'#'+hex});
+    }
+  });
+
+  $('#drop_shadow').change(function () {
+    if ($(this).is(":checked")) {
+      $('._tab_text').css({'text-shadow':'1px 2px'});// checked
+      return;
+    }
+    $('._tab_text').css({'text-shadow':'none'}); // not checked
+  });
+
+  $("#tab_text, #form_title").maxlength();
+
+  //Allow only AplhaNumeric Values
+  $('#text_color,#background_color,#border_color,#form_text_color,#form_background_color,#form_border_color,#title_text_color,#title_background_color,#action_background_color,#action_text_color').keydown(function (e) {
+    if (e.shiftKey || e.ctrlKey || e.altKey) {
+      e.preventDefault();
+    } else {
+      var key = e.keyCode;
+      if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90) || (key >= 48 && key <= 57) || (key >= 96 && key <= 105))) {
+        e.preventDefault();
+      }
+    }
+  });
+</script>

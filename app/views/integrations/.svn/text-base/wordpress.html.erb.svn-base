@@ -1,0 +1,25 @@
+<div id="content">
+  <h1>Integrate UsersDelight with your WordPress website or blog</h1>
+  <div>
+    UsersDelight has a simple WordPress plugin that allows you to customize the widget on your site.
+  </div>
+  <div class="content-section-data">
+    <p>Follow these steps to add UsersDelight integration code to your blog:</p>
+    <h2>1. Download and install the plugin.</h2>
+    <div class="we-thumbnail-container" align="center">
+      <img src="/images/integrations/wordpress_screen.jpeg" height="344" width="600"/>
+    </div>
+
+    <h2>2. Now Activate the plugin in plug-in manager section.</h2>
+    <div class="we-thumbnail-container" align="center">
+       <img src="/images/integrations/wordpress_screen1.jpeg" height="344" width="600"/>
+    </div>
+
+    <h2>3. Then go to Notification and fill your credentials and submit the form.</h2>
+    <div class="we-thumbnail-container" align="center">
+      <img src="/images/integrations/wordpress_screen2.jpeg" height="344" width="600"/>
+    </div>
+    <a class="action-button blue" href="http://wordpress.org/plugins/wp-notification-bar/">Download our Notification Plugin →</a>
+    </p>    
+  </div>
+</div>
