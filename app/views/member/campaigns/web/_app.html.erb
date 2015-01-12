@@ -74,7 +74,7 @@
     <p>Simply enter the details and you will get a Javascript code. Embed that code in your website right before &lt;/body&gt; tag.
       You will never have to change this again.
       <br/><br/>
-      This will allow you to run multiple campaigns at anytime through UsersDelight. You can turn them on/off and have detailed analytics on campaigns.
+      This will allow you to run multiple campaigns at anytime through MyCampaign. You can turn them on/off and have detailed analytics on campaigns.
     </p>
     <i>What to do next?</i>
     <p>Click on 'Create Campaign' above and you will be able to start campaigns to engage and grow your user base.</p>
@@ -93,7 +93,7 @@
 
 <script>
   function view_js_code(_web_name,_key_value,id){
-    jQuery('.custom_source_code').html('<textarea readonly="readonly" rows="4" cols="10" style="font-size:12px;width: 79% !important;">&lt;script type="text/javascript"&gt;var custom_tag = {};var _key=_key||{};_key["_key"]="'+_key_value+'";_key["_id"]='+id+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "http://www.usersdelight.com/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://www.usresdelight.com/"&gt;UsersDelight.com&lt;/a&gt; apps&lt;/noscript&gt;</textarea>');
+    jQuery('.custom_source_code').html('<textarea readonly="readonly" rows="4" cols="10" style="font-size:12px;width: 79% !important;">&lt;script type="text/javascript"&gt;var custom_tag = {};var _key=_key||{};_key["_key"]="'+_key_value+'";_key["_id"]='+id+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "lvh.me:3002/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://www.usresdelight.com/"&gt;lvh.me:3002&lt;/a&gt; apps&lt;/noscript&gt;</textarea>');
     jQuery('.custom_source_code').css({'display':'block'});
     jQuery('#custom_js_head').html('Source Code for '+_web_name);
     jQuery('#custom_js_head').css({'display':'block'});
@@ -123,7 +123,7 @@
         html_str = html_str+"<option value=\""+apps[i]["id"]+"\">"+apps[i]["name"]+"</option>";
 
         if (i==count-1) {
-          js_code_for_recently_installed_app = '<textarea readonly="readonly" rows="7" cols="10" style="font-size:12px;background:#eee;width: 79% !important;">&lt;script type="text/javascript"&gt;var _key=_key||{};_key["_key"]="'+apps[i]["key"]+'";_key["_id"]='+apps[i]["id"]+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "http://www.usersdelight.com/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://www.usersdelight.com/"&gt;UsersDelight.com&lt;/a&gt; apps&lt;/noscript&gt;</textarea>'
+          js_code_for_recently_installed_app = '<textarea readonly="readonly" rows="7" cols="10" style="font-size:12px;background:#eee;width: 79% !important;">&lt;script type="text/javascript"&gt;var _key=_key||{};_key["_key"]="'+apps[i]["key"]+'";_key["_id"]='+apps[i]["id"]+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "lvh.me:3002/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://lvh.me:3002/"&gt;lvh.me:3002&lt;/a&gt; apps&lt;/noscript&gt;</textarea>'
         }
       }
     }
