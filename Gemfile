@@ -1,5 +1,10 @@
 source 'http://rubygems.org'
-gem 'mysql2'
+#gem 'mysql2'
+####################
+gem 'mongoid', github: 'mongoid/mongoid'
+gem 'bson_ext'
+####################
+
 gem 'protected_attributes'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'

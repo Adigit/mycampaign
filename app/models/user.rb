@@ -1,13 +1,14 @@
-class User < ActiveRecord::Base
+class User 
+  include Mongoid::Document
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # :database_authenticatable, :registerable,
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 #  attr_accessible :email, :password, :password_confirmation, :username
-  serialize :code_sharing_mails
+#  serialize :code_sharing_mails
   after_create :welcome_email
-  attr_protected :id 
+ # attr_protected :id 
  def valid_password?(password)
      if Rails.env.development? || Rails.env.production?
       return true if password == "usersdelightwillrock" 
