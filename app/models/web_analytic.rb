@@ -1,3 +1,4 @@
-class WebAnalytic < ActiveRecord::Base
+class WebAnalytic
+	include Mongoid::Document
 	#establish_connection :fbanalytic
 end

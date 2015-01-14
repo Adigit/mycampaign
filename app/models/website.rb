@@ -1,4 +1,5 @@
-class Website < ActiveRecord::Base
+class Website
+	include Mongoid::Document
   has_many :web_campaigns
-  attr_protected :id
+  #attr_protected :id
 end

@@ -1,3 +1,4 @@
-class MobileUuid < ActiveRecord::Base
-	attr_protected :id
+class MobileUuid
+	include Mongoid::Document
+	#attr_protected :id
 end

@@ -1,3 +1,4 @@
-class Content < ActiveRecord::Base
-attr_protected :id
+class Content 
+	include Mongoid::Document
+#attr_protected :id
 end

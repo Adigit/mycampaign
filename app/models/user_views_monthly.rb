@@ -1,2 +1,3 @@
-class UserViewsMonthly < ActiveRecord::Base
+class UserViewsMonthly 
+	include Mongoid::Document
 end

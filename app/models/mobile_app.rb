@@ -1,3 +1,4 @@
-class MobileApp< ActiveRecord::Base
-attr_protected :id
+class MobileApp
+	include Mongoid::Document
+#attr_protected :id
 end

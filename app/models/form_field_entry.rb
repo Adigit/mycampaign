@@ -1,6 +1,7 @@
-class FormFieldEntry < ActiveRecord::Base
+class FormFieldEntry 
+  include Mongoid::Document
   belongs_to :form_field
-  serialize :entry_data
+  #serialize :entry_data
   #acts_as_polymorphic_paperclip
   after_create :send_web_coupon_email
   after_create :send_mobile_coupon_email

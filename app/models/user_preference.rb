@@ -1,2 +1,3 @@
-class UserPreference < ActiveRecord::Base
+class UserPreference 
+	include Mongoid::Document
 end

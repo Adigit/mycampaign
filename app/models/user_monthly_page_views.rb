@@ -1,3 +1,4 @@
-class UserMonthlyPageView < ActiveRecord::Base
+class UserMonthlyPageView 
+	include Mongoid::Document
 
 end

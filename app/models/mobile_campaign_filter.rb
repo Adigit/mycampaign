@@ -1,2 +1,3 @@
-class MobileCampaignFilter < ActiveRecord::Base
+class MobileCampaignFilter
+	include Mongoid::Document
 end
