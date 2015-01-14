@@ -3,7 +3,7 @@ class MobilePushNotification
   belongs_to :mobile_campaign
 #  attr_protected :id
   validates_uniqueness_of :mobile_campaign_id
-  serialize :scheduling
+#  serialize :scheduling
 
   def self.check_for_messages
     all_push_campaigns = MobilePushNotification.where("is_active=1")
