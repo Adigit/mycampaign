@@ -87,7 +87,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
  # config.active_record.dump_schema_after_migration = false
 
-  SITE_URL = "http://www.usersdelight.com"
+  SITE_URL = "http://mycampaigns.herokuapp.com"
 
   # AWS S3 
   config.action_mailer.delivery_method = :smtp
