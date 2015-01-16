@@ -148,6 +148,7 @@
     }
     jQuery('.pro_app_box').hide();
     var domain_name = jQuery('#campaign_web_domain').val();
+    console.log("domain_name > " + domain_name);
     if (domain_name.indexOf('/') != -1 || domain_name.indexOf('http:') != -1 || domain_name.indexOf('https:') != -1){
       jQuery('.pro_app_box').show();
       jQuery('.pro_app_box').css({'color':'#FF0606'});
@@ -156,9 +157,11 @@
     }
     var regex = /[-\w]+\.(?:[-\w]+\.xn--[-\w]+|[-\w]{3,}|[-\w]+\.[-\w]{2})$/i;
     var domain_without_subdomain = String(domain_name.match(regex));
+    console.log("domain_without_subdomain > "+ domain_without_subdomain);
     if ((domain_without_subdomain !== "null" && domain_name.length <= domain_without_subdomain.length) || domain_without_subdomain === "null") {
       var domain_split = String(domain_name.split('.'));
       var arr = domain_split.split(",");
+      console.log("domain_name >> "+ domain_name);
       if (domain_name.length == domain_without_subdomain.length && (arr[arr.length - 2].length != arr[arr.length - 1].length)) {
         domain_name = domain_name + 'x';
         domain_without_subdomain = String(domain_name.match(regex));

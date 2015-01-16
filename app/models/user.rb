@@ -8,6 +8,7 @@ class User
     :recoverable, :rememberable, :trackable, :validatable
 #  attr_accessible :email, :password, :password_confirmation, :username
 #  serialize :code_sharing_mails
+
     ## Database authenticatable
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
@@ -28,6 +29,8 @@ class User
   field :username, type: String
 
   after_create :welcome_email
+  has_many :websites
+  has_many :web_campaigns
  # attr_protected :id 
  def valid_password?(password)
      if Rails.env.development? || Rails.env.production?

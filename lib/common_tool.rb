@@ -368,19 +368,19 @@ module CommonTool
 
 
   def save_feedback_campaign_web(campaign)
-    type = campaign.model_name.constantize.new(:web_campaign_id => campaign.id,:is_active=>0)
-    return type
+    campaign.model_name.constantize.new(:web_campaign_id => campaign.id)
   end
 
 
   def save_notification_campaign_web(campaign)
-    type = campaign.model_name.constantize.new(:web_campaign_id => campaign.id,:is_active=>0)
-    return type
+    campaign.model_name.constantize.new(:web_campaign_id => campaign.id)
   end
 
 
   def save_coupon_campaign_web(campaign)
-    type = campaign.model_name.constantize.new(:web_campaign_id => campaign.id, :good_until_hour => "11:00 PM", :good_until_timezone => "PST", :good_until_date => 30.days.from_now,:is_active=>0)
+    type = campaign.model_name.constantize.new(:web_campaign_id => campaign.id, 
+      :good_until_hour => "11:00 PM", :good_until_timezone => "PST", 
+      :good_until_date => 30.days.from_now)
     return type
   end
 end
