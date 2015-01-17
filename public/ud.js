@@ -2950,7 +2950,7 @@ jQuery(document).ready(function () {
     var referrer = document.referrer;
 
     jQuery.ajax({
-        url: "http://www.usersdelight.com/web/load/index?id="+ _key['_id']+"&key="+_key['_key'] +"&domain="+_request_host+"&user_time="+user_time+"&browser="+_browser+"&current_path="+encodeURIComponent(current_path)+"&referring_url="+encodeURIComponent(referrer)+"&custom_data="+custom_data,
+        url: "//mycampaigns.herokuapp.com/web/load/index?id="+ _key['_id']+"&key="+_key['_key'] +"&domain="+_request_host+"&user_time="+user_time+"&browser="+_browser+"&current_path="+encodeURIComponent(current_path)+"&referring_url="+encodeURIComponent(referrer)+"&custom_data="+custom_data,
         type: 'POST',
         dataType: 'jsonp',
         cache: false,
@@ -3799,7 +3799,7 @@ function load_coupon_html(){
         var frame_emt = document.createElement('iframe');
         frame_emt.id ="inner_content";
         var _request_host = location.host;
-        var _url = "http://www.usersdelight.com/web/load/index?id="+ _key['_id']+"&key="+_key['_key'] +"&domain="+_request_host+"&call_from=coupon_iframe";
+        var _url = "//mycampaigns.herokuapp.com/web/load/index?id="+ _key['_id']+"&key="+_key['_key'] +"&domain="+_request_host+"&call_from=coupon_iframe";
         frame_emt.setAttribute('src',_url);
         frame_emt.setAttribute("scrolling","no");
         jQuery(".shqpopup").append(frame_emt);
@@ -4287,14 +4287,14 @@ function load_feedback_html(){
     var lg = document.createElement('a');
     lg.id = "logo_tag";
     jQuery(lg).insertAfter("#cb");
-    jQuery("#logo_tag").attr("href","http://www.usersdelight.com");
+    jQuery("#logo_tag").attr("href","//mycampaigns.herokuapp.com");
     jQuery("#logo_tag").attr("target","_blank");
    
     var sp_img = document.createElement('img');
     sp_img.className = "pwd-logo";
     sp_img.id = "before_logo";
     jQuery("#logo_tag").append(sp_img);
-    jQuery(".pwd-logo").attr("src","http://www.usersdelight.com/images/usersdelight.png")
+    jQuery(".pwd-logo").attr("src","//mycampaigns.herokuapp.com/images/usersdelight.png")
 
     var ff = document.createElement('div');
     ff.className = "f_form";
@@ -4314,14 +4314,14 @@ function load_feedback_html(){
     var tag = document.createElement('a');
     tag.id = "after_tag";
     jQuery(tag).insertAfter("#after_message");
-    jQuery("#after_tag").attr("href","http://www.usersdelight.com");
+    jQuery("#after_tag").attr("href","//mycampaigns.herokuapp.com");
     jQuery("#after_tag").attr("target","_blank");
 
     var tms_img = document.createElement('img');
     tms_img.className = "pwd-logo";
     tms_img.id = "after_pwd_logo";
     jQuery("#after_tag").append(tms_img);
-    jQuery(".pwd-logo").attr("src","http://www.usersdelight.com/images/usersdelight.png")
+    jQuery(".pwd-logo").attr("src","//mycampaigns.herokuapp.com/images/usersdelight.png")
 
 }
 
@@ -4431,7 +4431,7 @@ function data_submitted(){
         }
 
     };
-    xhr.open( "POST", "http://www.usersdelight.com/web/load/save_feedback_in_db", true);
+    xhr.open( "POST", "//mycampaigns.herokuapp.com/web/load/save_feedback_in_db", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     //console.log("List formed is : "+ list);
     if(_check_val == true)
@@ -4594,7 +4594,7 @@ function record_analytics(views,tab_clicks,leads,clicks,cont,model_name,record_t
     //console.log("dataString formed is :" + dataString);
     }
     jQuery.ajax({
-        url:"http://www.usersdelight.com/web/load/record_analytics",
+        url:"//mycampaigns.herokuapp.com/web/load/record_analytics",
         type:'POST',
         dataType:'jsonp',
         data:dataString,
