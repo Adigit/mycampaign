@@ -37,39 +37,44 @@ class Web::LoadController < ApplicationController
       raise "No live campaigns found" if campaigns.blank?
       validate_filters_flag = 1
       campaigns.each {|c|
-        if !response_hash.key?("#{c.campaign_model_name}")
-          obj = c.campaign_model_name.constantize.find(c.model_id)
+        campaign_model_name = c.campaign_model_name
+        if !response_hash.key?("#{campaign_model_name}")
+          obj = campaign_model_name.constantize.find(c.model_id)
           if !obj.blank?
-            #logger.error "campaign running with configuration as : #{obj.inspect}"
+            logger.error "campaign running with configuration as : #{obj.inspect}"
             if !obj.filters.blank?
               _filters = JSON.parse(obj.filters)
-              #logger.error "If filters string is not blank"
+              logger.error "If filters string is not blank"
               if !_filters.blank?
-                #logger.error "If filters array is not blank"
+                logger.error "If filters array is not blank"
                 validate_filters_flag = validate_filters(_filters)
               end
             end
             if validate_filters_flag == 1
-              response_hash["#{c.model_name}"] = obj
-              if c.campaign_model_name == 'WebCoupon' && !response_hash["#{c.campaign_model_name}"].blank?
-                response_hash["coupon_model_id"] = c.model_id
-                #Added by Shubham - To manipulate date&time with timezone
-                campaign_time, is_valid, offset_from_table = timezone_calculation(c.model_id)
-                time_hash = Hash.new
-                time_hash = {"campaign_time"=>campaign_time,"is_valid"=>is_valid,"offset_from_table"=>offset_from_table}
-                response_hash["timeline"] = time_hash
-              end
-              if c.campaign_model_name == 'WebNotification' && !response_hash["#{c.campaign_model_name}"].blank?
-                response_hash["notification_model_id"] = c.model_id
-              end
-              if c.campaign_model_name == 'WebFeedback' && !response_hash["#{c.campaign_model_name}"].blank?
-                response_hash["feedback_model_id"] = c.model_id
+              logger.error "validate_filters_flag >> #{validate_filters_flag}"
+              response_hash["#{campaign_model_name}"] = obj
+              if !response_hash["#{campaign_model_name}"].blank?
+                if campaign_model_name == 'WebCoupon'
+                  response_hash["coupon_model_id"] = c.model_id
+                  #Added by Shubham - To manipulate date&time with timezone
+                  campaign_time, is_valid, offset_from_table = timezone_calculation(c.model_id)
+                  time_hash = Hash.new
+                  time_hash = {"campaign_time"=>campaign_time,"is_valid"=>is_valid,"offset_from_table"=>offset_from_table}
+                  response_hash["timeline"] = time_hash
+                end
+                if campaign_model_name == 'WebNotification' 
+                  response_hash["notification_model_id"] = c.model_id
+                end
+                if campaign_model_name == 'WebFeedback' 
+                  response_hash["feedback_model_id"] = c.model_id
+                end
               end
             end
           end
         end
       }
       response_hash["status"] = "Success"
+      logger.error ">> response_hash >> #{response_hash}"
     rescue Exception => e
       response_hash["status"] = "Error"
       response_hash["message"] = e.to_s
