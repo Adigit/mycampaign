@@ -2964,6 +2964,7 @@ jQuery(document).ready(function () {
             if((typeof console != "undefined") && (typeof console != undefined)) {
                 console.log("HiFive!! Verification Passed ...");
             }
+            console.log(data);
             if (data["status"] === 'Success')
             {
                 if (data["WebCoupon"] !== undefined && data["WebCoupon"] != null && data["timeline"]["is_valid"] == 1)
