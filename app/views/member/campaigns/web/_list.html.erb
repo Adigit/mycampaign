@@ -121,7 +121,7 @@
                 <p>Leads: <a href ="#" onclick="show_tab('tab_5');"><%=c.leads%></a></p>
               </div> <!-- <div class="campaign-stats-report"> -->
 
-              <div class="campaign-configure"><a href="#tab0" onclick="configure_campaign(<%=c.id%>, <%=c.model_id%>,'<%=c.model_name%>');">Start/Edit Campaign</a>
+              <div class="campaign-configure"><a href="#tab0" onclick="configure_campaign('<%=c.id%>', '<%=c.model_id%>','<%=c.campaign_model_name%>');">Start/Edit Campaign</a>
                 <div id ="config_<%=c.id%>" class="camp"></div>
 
                 <% if c.campaign_status == "Active" %>

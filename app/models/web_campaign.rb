@@ -24,7 +24,7 @@ class WebCampaign
   field :title, type: String
   #attr_accessible :created_at, :updated_at, :user_id, :model_id, :model_name, :website_id, :is_active, :views, :leads, :clicks, :campaign_data_updated_at, :impressions, :last_updated_at, :title
   def campaign_status
-    if is_active == 1
+    if is_active
       return "Active"
     else
       return "Expired"
