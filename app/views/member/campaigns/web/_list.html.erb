@@ -125,7 +125,7 @@
                 <div id ="config_<%=c.id%>" class="camp"></div>
 
                 <% if c.campaign_status == "Active" %>
-                  <a href="#tab0" onclick ="delete_campaign(<%=c.id%>, <%=c.model_id%>,'<%=c.model_name%>');return false;">Stop Campaign</a>
+                  <a href="#tab0" onclick ="delete_campaign('<%=c.id%>', '<%=c.model_id%>','<%=c.campaign_model_name%>');return false;">Stop Campaign</a>
                 <% end %>
 
               </div> <!--  <div class="campaign-configure">-->

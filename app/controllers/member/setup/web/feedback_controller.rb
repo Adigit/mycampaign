@@ -56,7 +56,7 @@ class Member::Setup::Web::FeedbackController < ApplicationController
     begin
       raise "Campaign details not sent" if params[:id].blank?
 
-      campaign = WebFeedback.find_by_id(params[:id])
+      campaign = WebFeedback.find(params[:id])
       if !campaign.blank?
         campaign.update_attribute("is_active", 0)
         campaign.web_campaign.update_attribute("is_active", 0)
