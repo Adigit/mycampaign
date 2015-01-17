@@ -2884,7 +2884,7 @@ if (typeof jQuery=='undefined'){
 
 //Main Script Starts -...................
 var domain=location.hostname;
-var my_host = "localhost:3002"
+var my_host = "http://mycampaigns.herokuapp.com"
 arr=domain.split('.');
 var host=arr[1]+"."+arr[2];
 if((typeof console != "undefined") && (typeof console != undefined)) {

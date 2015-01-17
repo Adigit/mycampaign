@@ -123,7 +123,7 @@
         html_str = html_str+"<option value=\""+apps[i]["id"]+"\">"+apps[i]["name"]+"</option>";
 
         if (i==count-1) {
-          js_code_for_recently_installed_app = '<textarea readonly="readonly" rows="7" cols="10" style="font-size:12px;background:#eee;width: 79% !important;">&lt;script type="text/javascript"&gt;var _key=_key||{};_key["_key"]="'+apps[i]["key"]+'";_key["_id"]='+apps[i]["id"]+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "lvh.me:3002/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://lvh.me:3002/"&gt;lvh.me:3002&lt;/a&gt; apps&lt;/noscript&gt;</textarea>'
+          js_code_for_recently_installed_app = '<textarea readonly="readonly" rows="7" cols="10" style="font-size:12px;background:#eee;width: 79% !important;">&lt;script type="text/javascript"&gt;var _key=_key||{};_key["_key"]="'+apps[i]["key"]+'";_key["_id"]='+apps[i]["id"]+';(function() {var _st= document.createElement("script");_st.setAttribute("type", "text/javascript");_st.setAttribute("src", "http://mycampaigns.herokuapp.com/ud.js");document.getElementsByTagName("body")[0].appendChild(_st);})();&lt;/script&gt;&lt;noscript&gt;Engage using &lt;a href="http://mycampaigns.herokuapp.com/"&gt;http://mycampaigns.herokuapp.com&lt;/a&gt; apps&lt;/noscript&gt;</textarea>'
         }
       }
     }
