@@ -16,7 +16,9 @@ class Web::LoadController < ApplicationController
       end
 	
       website = Website.find(params[:id])
+      logger.error ">> website >> #{website.inspect}"
       create_or_update_custom_filter(website, params[:custom_data])   if !params[:custom_data].blank?
+      logger.error ">> after >> create_or_update_custom_filter "
       if website.blank?
         raise "Invalid JS code as we could not identify the id flag passed to system"
       end
@@ -26,11 +28,12 @@ class Web::LoadController < ApplicationController
       end
 
       response_hash["website"] = website
-      #logger.error "pre pageviewedcounter"
+      logger.error "pre pageviewedcounter"
       pageviewedcounter(website) if !params[:user_time].blank?
-      #logger.error "post pageviewedcounter"
+      logger.error "post pageviewedcounter"
       # get live campaigns
       campaigns = WebCampaign.where("website_id = #{website.id} and is_active = 1")
+      logger.error ">> campaigns >> #{campaigns.inspect}"
       raise "No live campaigns found" if campaigns.blank?
       validate_filters_flag = 1
       campaigns.each {|c|
