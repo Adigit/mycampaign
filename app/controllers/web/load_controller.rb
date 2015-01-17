@@ -59,10 +59,10 @@ class Web::LoadController < ApplicationController
                 time_hash = {"campaign_time"=>campaign_time,"is_valid"=>is_valid,"offset_from_table"=>offset_from_table}
                 response_hash["timeline"] = time_hash
               end
-              if c.model_name == 'WebNotification' && !response_hash["#{c.campaign_model_name}"].blank?
+              if c.campaign_model_name == 'WebNotification' && !response_hash["#{c.campaign_model_name}"].blank?
                 response_hash["notification_model_id"] = c.model_id
               end
-              if c.model_name == 'WebFeedback' && !response_hash["#{c.campaign_model_name}"].blank?
+              if c.campaign_model_name == 'WebFeedback' && !response_hash["#{c.campaign_model_name}"].blank?
                 response_hash["feedback_model_id"] = c.model_id
               end
             end
