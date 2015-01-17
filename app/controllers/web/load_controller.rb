@@ -29,7 +29,7 @@ class Web::LoadController < ApplicationController
 
       response_hash["website"] = website
       logger.error "pre pageviewedcounter"
-      pageviewedcounter(website) if !params[:user_time].blank?
+      #pageviewedcounter(website) if !params[:user_time].blank?
       logger.error "post pageviewedcounter"
       # get live campaigns
       campaigns = WebCampaign.where("website_id = #{website.id} and is_active = 1")
