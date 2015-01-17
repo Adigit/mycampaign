@@ -38,6 +38,7 @@ class WebFeedback
 	field :screenshot, type: String
 	field :filters, type: String
 
+	default_scope -> {where(is_active: true)}
 	#  has_many :fb_analytics
     belongs_to :web_campaign
   	#serialize :international_params

@@ -37,8 +37,8 @@ class Web::LoadController < ApplicationController
       raise "No live campaigns found" if campaigns.blank?
       validate_filters_flag = 1
       campaigns.each {|c|
-        if !response_hash.key?("#{c.model_name}")
-          obj = c.model_name.constantize.where("id=#{c.model_id} and is_active = 1").last
+        if !response_hash.key?("#{c.campaign_model_name}")
+          obj = c.campaign_model_name.constantize.find(c.model_id)
           if !obj.blank?
             #logger.error "campaign running with configuration as : #{obj.inspect}"
             if !obj.filters.blank?
@@ -51,8 +51,7 @@ class Web::LoadController < ApplicationController
             end
             if validate_filters_flag == 1
               response_hash["#{c.model_name}"] = obj
-              response_hash["#{c.model_name}"] = c.model_name.constantize.where("id=#{c.model_id} and is_active = 1").last
-              if c.model_name == 'WebCoupon' && !response_hash["#{c.model_name}"].blank?
+              if c.campaign_model_name == 'WebCoupon' && !response_hash["#{c.campaign_model_name}"].blank?
                 response_hash["coupon_model_id"] = c.model_id
                 #Added by Shubham - To manipulate date&time with timezone
                 campaign_time, is_valid, offset_from_table = timezone_calculation(c.model_id)
@@ -60,10 +59,10 @@ class Web::LoadController < ApplicationController
                 time_hash = {"campaign_time"=>campaign_time,"is_valid"=>is_valid,"offset_from_table"=>offset_from_table}
                 response_hash["timeline"] = time_hash
               end
-              if c.model_name == 'WebNotification' && !response_hash["#{c.model_name}"].blank?
+              if c.model_name == 'WebNotification' && !response_hash["#{c.campaign_model_name}"].blank?
                 response_hash["notification_model_id"] = c.model_id
               end
-              if c.model_name == 'WebFeedback' && !response_hash["#{c.model_name}"].blank?
+              if c.model_name == 'WebFeedback' && !response_hash["#{c.campaign_model_name}"].blank?
                 response_hash["feedback_model_id"] = c.model_id
               end
             end
