@@ -23,6 +23,7 @@ class WebCampaign
   field :last_updated_at, type: DateTime
   field :title, type: String
   #attr_accessible :created_at, :updated_at, :user_id, :model_id, :model_name, :website_id, :is_active, :views, :leads, :clicks, :campaign_data_updated_at, :impressions, :last_updated_at, :title
+  default_scope -> {where(is_active: true)}
   def campaign_status
     if is_active
       return "Active"

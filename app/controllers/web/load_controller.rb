@@ -32,7 +32,7 @@ class Web::LoadController < ApplicationController
       #pageviewedcounter(website) if !params[:user_time].blank?
       logger.error "post pageviewedcounter"
       # get live campaigns
-      campaigns = WebCampaign.where("website_id = #{website.id} and is_active = 1")
+      campaigns = website.web_campaigns
       logger.error ">> campaigns >> #{campaigns.inspect}"
       raise "No live campaigns found" if campaigns.blank?
       validate_filters_flag = 1
