@@ -4437,11 +4437,11 @@ function data_submitted(){
     //console.log("List formed is : "+ list);
     if(_check_val == true)
     {
-        xhr.send(list + '&model_id='+ data["feedback_model_id"] +'&model_name=WebFeedback&campaign_id='+ data["WebFeedback"]["web_campaign_id"] +'&image_content='+ encodeURIComponent(data_uri) +'&call_from_path='+ location.href + _data_string);
+        xhr.send(list + '&model_id='+ data["feedback_model_id"] +'&model_name=WebFeedback&campaign_id='+ data["WebFeedback"]["_web_campaign_id"] +'&image_content='+ encodeURIComponent(data_uri) +'&call_from_path='+ location.href + _data_string);
     }
     else
     {
-        xhr.send(list + '&model_id='+ data["feedback_model_id"] +'&model_name=WebFeedback&campaign_id='+ data["WebFeedback"]["web_campaign_id"] +'&call_from_path='+ location.href + _data_string);
+        xhr.send(list + '&model_id='+ data["feedback_model_id"] +'&model_name=WebFeedback&campaign_id='+ data["WebFeedback"]["_web_campaign_id"] +'&call_from_path='+ location.href + _data_string);
     }
 }
 

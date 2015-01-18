@@ -53,12 +53,7 @@ class Web::LoadController < ApplicationController
             if validate_filters_flag == 1
               logger.error "validate_filters_flag >> #{validate_filters_flag}"
               response_hash["#{campaign_model_name}"] = obj
-              logger.error ">>> obj >>> web_campaign_id >> #{obj.web_campaign_id} "
-              logger.error ">>> hash >> #{response_hash}"
               response_hash["#{campaign_model_name}"]["_web_campaign_id"] = obj.web_campaign_id.to_s
-              response_hash["test"] = obj.web_campaign_id.to_s
-              logger.error ">>> obj >>> web_campaign_id >> #{obj.web_campaign_id.to_s}"
-              logger.error ">>> hash >> #{response_hash}"
               if !response_hash["#{campaign_model_name}"].blank?
                 if campaign_model_name == 'WebCoupon'
                   response_hash["coupon_model_id"] = c.model_id
