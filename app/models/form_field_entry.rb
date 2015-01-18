@@ -1,11 +1,25 @@
 class FormFieldEntry 
   include Mongoid::Document
+  include Mongoid::Timestamps
   belongs_to :form_field
+  field :form_field_id, type: BigDecimal
+  field :campaign_model_name, type: String
+  field :model_id, type: BigDecimal
+  field :campaign_id, type: BigDecimal
+  field :email, type: String
+  field :entry_data, type: Hash 
+  field :from_id, type: BigDecimal
+  field :votes, type: Integer
+  field :is_active, type: Boolean
+  field :leads, type: Integer
+  field :img_data, type: String
+
   #serialize :entry_data
   #acts_as_polymorphic_paperclip
   after_create :send_web_coupon_email
   after_create :send_mobile_coupon_email
   after_create :send_web_feedback_info
+
 
   def send_web_coupon_email
     logger.debug "in send_web_coupon_email start"

@@ -324,14 +324,12 @@ class Web::LoadController < ApplicationController
       _browser_data["user_agent"] = params[:user_agent]
       _browser_data["call_from_path"] = params[:call_from_path]
       _data["browser_data"] = _browser_data.to_json
-      _form_field_entry.model_name = params[:model_name]
+      _form_field_entry.campaign_model_name = params[:model_name]
       _form_field_entry.model_id = params[:model_id]
       _form_field_entry.email = params[:email]
       _form_field_entry.campaign_id = params[:campaign_id]
       _form_field_entry.entry_data = _data.to_json
       _form_field_entry.img_data = params[:image_content] if !params[:image_content].blank?
-      _form_field_entry.created_at = Time.now
-      _form_field_entry.updated_at = Time.now
       _form_field_entry.save
       response["status"] = "saved"
     rescue Exception => e

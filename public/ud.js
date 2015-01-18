@@ -4006,7 +4006,7 @@ function load_feedback_css() {
 function load_feedback_html(){
     var _h2c_st= document.createElement("script");
     _h2c_st.setAttribute("type", "text/javascript");
-    _h2c_st.setAttribute("src", "https://www.socialappshq.com/javascripts/custom/html2canvas.js");
+    _h2c_st.setAttribute("src", "//mycampaigns.herokuapp.com/javascripts/custom/html2canvas.js");
     document.getElementsByTagName('body')[0].appendChild(_h2c_st);
 
 
@@ -4382,7 +4382,7 @@ function append_image_after_screenshot(){
 }
 
 function data_submitted(){
-    jQuery(".response_img").html('<img src="https://www.socialappshq.com/images/edelman/ajax-loader.gif"/>');
+    jQuery(".response_img").html('<img src="https://mycampaigns.herokuapp.com/images/ajax-loader.gif"/>');
     if((typeof console != "undefined") && (typeof console != undefined)) {
     //console.log("data submitted");
     }
@@ -4432,7 +4432,7 @@ function data_submitted(){
         }
 
     };
-    xhr.open( "POST", "//mycampaigns.herokuapp.com/web/load/save_feedback_in_db", true);
+    xhr.open( "POST", "https://mycampaigns.herokuapp.com/web/load/save_feedback_in_db", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     //console.log("List formed is : "+ list);
     if(_check_val == true)
