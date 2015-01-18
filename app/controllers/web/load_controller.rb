@@ -327,7 +327,7 @@ class Web::LoadController < ApplicationController
       _form_field_entry.campaign_model_name = params[:model_name]
       _form_field_entry.model_id = params[:model_id]
       _form_field_entry.email = params[:email]
-      _form_field_entry.campaign_id = params[:campaign_id]
+      _form_field_entry.campaign_id = params[:campaign_id].to_s
       _form_field_entry.entry_data = _data
       _form_field_entry.img_data = params[:image_content] if !params[:image_content].blank?
       _form_field_entry.save
