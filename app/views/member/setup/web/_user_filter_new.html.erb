@@ -1,0 +1,66 @@
+<ul class="custom-filters">
+</ul>
+<style>
+  .remove_btn:hover {color:white;text-decoration: none;}
+  .add_btn:hover {color:white;text-decoration: none;}
+  .filters {width: 25%;float: left;}
+  .input_method {width:94% !important;}
+  .select-filter, .select-qual,.input-method-scheme {width:100% !important;}
+  .qualifiers {width: 24%;float: left;margin-left: 8px;}
+  .input_method_schemes {float: left;width: 40%;margin: 6px 0 0  3px;}
+  .buttons {margin: 14px 5px 0 0;float:right;}
+  .add_btn {border: 0px solid;background: #3f6eba;color: white;padding: 4px 9px;border-radius: 18px;text-decoration: none;}
+  .remove_btn {border: 0px solid;background: #3f6eba;color: white;padding: %>
+0px 7px;border-radius: 18px;text-decoration: none;}
+  .custom-filters-li {float:left;}
+  .add-more {float: left;margin: 9px 0 10px 7px;}
+</style>
+
+<ul class="custom-filters">
+  <li class="custom-filters-li" id="filter-row-0">
+    <ul class="filter-list" id="filter-list-0">
+      <li id="filter-0" class="filters">
+        <select title="Please select the filter type" id="select-filter-0" style="width:100% !important;" class="select-filter" onchange="put_relative_values_in_other_fields(0)">
+          <option value="">(Select)</option>
+          <% @filters_hash.each do |category,values|%>
+            <optgroup label="<%=category%>">
+              <% values.each do |k,v|%>
+                <% if k != "filters"%>
+                  <option value="<%=k%>" class="opt"><%=k%></option>
+                <%end%>
+              <% end %>
+            </optgroup>
+          <% end %>
+        </select>
+      </li>
+      <li class="qualifiers" id="qual-0">
+        
+      </li>
+    </ul>
+  </li>
+</ul>
+<script type="text/javascript">
+  function put_relative_values_in_other_fields(filter_num){
+    var filter_value_selected = jQuery('#select-filter-0').val();
+    var data = "<%= @subcategory_hash.to_json%>";
+    data = JSON.parse(data.replace(/&quot;/g,'"'));
+    console.log(data);
+    data = data[filter_value_selected];
+    console.log(data);
+    data = data["filters"];
+    console.log(data.length);
+    var str = "<select style='width:100% !important;' class='select-qual-0' id='select-qual-0'>";
+    var i = 0;
+    for (i = 0; i < data.length; i++) {
+      console.log(" i = "+ i);
+      str += " <option value='"+ data[i] +"'>" + data[i]+"</option> ";
+      console.log(">> i = "+ i);
+      console.log(str);
+    }
+    str += "</select>" ;
+    jQuery("#qual-0").html(str); 
+  }
+</script>
+
+      
+      

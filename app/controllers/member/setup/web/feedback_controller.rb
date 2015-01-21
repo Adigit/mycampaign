@@ -9,13 +9,50 @@ class Member::Setup::Web::FeedbackController < ApplicationController
     #if @campaign.is_active != 1
      # @campaign.update_attribute("is_active", 1)
     #end
+    h = {}
+    h["Location"] = {"Country" =>{ "filters" => ["Is","Is Not"], "values" => []},"filters" => ["Is","Is Not"]}
+h["Technology"] = {"Browser" => { "values" => ["Firefox", "Chrome", "Opera", "Safari", "Microsoft Internet Explorer", "Netscape", "WOS Browser", "ChromeiOS", "Opera Mobile" ]},
+                  "IP" => {"values" => []},
+                  "Operating System" => {"values" => ["Windows", "Macintosh", "Linux", "ChromeOS", "Blackberry", "Android"]},
+                      "Device" => {"values" => ["Desktop", "Mobile Phone"]},
+           "filters" => ["Is","Is Not"] }
+h["Browsering History"] = {"Current URL" => {"values" => []}, 
+                    "Referring URL" => {"values" => []},
+               "filters" => ["Is", "Is Not", "Starts With", "Contains", "Not Contains"]}
+h["Visitor Current Date"] = {"Day of the month" => {"values" => []},
+                    "Month of the year" => {"values" => []},
+                    "Hour of the day" => {"values" => []},
+                    "Minute of the hour" => {"values" => []},
+               "filters" => ["Is","Is Not"] }           
+h["Visit Frequency"] = {"Number of visits to my site" => {"values" => []},
+                   "Number of days since last visit" => {"values" => []},
+                   "Number of pages viewed this visit" => {"values" => []},
+            "filters" => ["Is", "More than", "Less than"]}  
+h["Time"] = {"Seconds spend on this page" => {"values" => []},
+            "Seconds spend on this visit" => {"values" => []},
+       "filters" => ["More than"]}
+@subcategory_hash = {"Country" =>{ "filters" => ["Is","Is Not"]}, "Browser" => {"filters" => ["Is","Is Not"]}, 
+                   "IP" => {"filters" => ["Is","Is Not"]}, "Operating System" => {"filters" => ["Is","Is Not"]},
+                   "Device" => {"filters" => ["Is","Is Not"]}, "Current URL" => {"filters" => ["Is", "Is Not", "Starts With", "Contains", "Not Contains"]},
+                   "Referring URL" => {"filters" => ["Is", "Is Not", "Starts With", "Contains", "Not Contains"]},
+                   "Day of the month" => {"filters" => ["Is","Is Not"]},
+                   "Month of the year" => {"filters" => ["Is","Is Not"]},
+                   "Hour of the day" => {"filters" => ["Is","Is Not"]},
+                   "Minute of the hour" => {"filters" => ["Is","Is Not"]},
+                   "Number of visits to my site" => {"filters" => ["Is", "More than", "Less than"]},
+                   "Number of days since last visit" => {"filters" => ["Is", "More than", "Less than"]},
+                   "Number of pages viewed this visit" => {"filters" => ["Is", "More than", "Less than"]},
+                   "Seconds spend on this page" => {"filters" => ["More than"]},
+                   "Seconds spend on this visit" => {"filters" => ["More than"]}
+}
 
+       @filters_hash = h
     if @web_campaign.is_active != 1
       @web_campaign.update_attribute("is_active", 1)
     end
     _website = Website.find(@web_campaign.website_id)
-    @web_campaign_filters = WebCampaignFilter.where("website_id in (0,#{_website.id}) and is_active=1")
-    @web_campaign_categories = WebCampaignFilter.only(:category).where("website_id in (0,#{_website.id}) and is_active=1")
+    @web_campaign_filters = []#WebCampaignFilter.where("website_id in (0,#{_website.id}) and is_active=1")
+    @web_campaign_categories = []#WebCampaignFilter.only(:category).where("website_id in (0,#{_website.id}) and is_active=1")
     @countries = [] #Country.all.order('name')
 
     render :partial => "edit",:locals=>{:domain=>_website.domain}

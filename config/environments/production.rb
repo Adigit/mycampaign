@@ -93,10 +93,10 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => "email-smtp.us-east-1.amazonaws.com",
-    :user_name => "AKIAJRMQMGH4DKOIUKYA", # Your SMTP user here.
-    :password => "AhbZnSn7BSItWASw++TfRfAQ4Erb5PPDP4EwicdGER5o", # Your SMTP password here.
+    #:user_name => "AKIAJRMQMGH4DKOIUKYA", # Your SMTP user here.
+    #:password => "AhbZnSn7BSItWASw++TfRfAQ4Erb5PPDP4EwicdGER5o", # Your SMTP password here.
     :authentication => :login,
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { :host => 'usersdelight.com' }
+  config.action_mailer.default_url_options = { :host => 'mycampaigns.herokuapp.com' }
 end
