@@ -1,4 +1,12 @@
+function SetJSONCookie(key, value){
+    document.cookie = key+"="+JSON.stringify(value);
+}
+function GetJSONCookie(key){
+    var result = document.cookie.match(new RegExp(key + '=([^;]+)'));
+    return result[1];
+}
 var browering_urls = {};
+var fingerprint = new Fingerprint().get();
 function should_be_inserted(val){
 	for (var i = 0; i < browering_urls.length; i++) {
 		if (browering_urls[i] == val) {
@@ -15,6 +23,7 @@ function get_browsering_data(){
 	else{
 		browering_urls[url] += 100;	
 	}
+	SetJSONCookie(fingerprint, browering_urls);
 }
 setInterval(get_browsering_data, 100);
 /*

@@ -14,9 +14,8 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
-  config.cache_store = :dalli_store
-
-  options = { :namespace => "facebookappshq", :compress => true }
+  config.cache_store = :dalli_store, nil,
+  #options = { :namespace => "facebookappshq", :compress => true }
   LocalCache = Dalli::Client.new('localhost:11211', options)
 
 
