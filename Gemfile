@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
 ####################
-
+gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem 'protected_attributes'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
@@ -40,8 +40,10 @@ gem 'rack-cors'
 
 gem 'whenever', :require => false
 group :development, :test do 
-	 gem 'rspec-rails'
+  gem 'rspec-rails'
 	gem 'factory_girl_rails'
+  gem 'capybara', '~> 2.2.0'
+  gem 'database_cleaner'
 end
 group :test do
 	gem 'shoulda-matchers'

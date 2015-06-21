@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CouponController do
+describe Web::CouponController do
 	describe "POST #edit" do 
 		subject {post :edit} 	
 		it "renders the edit template" do
